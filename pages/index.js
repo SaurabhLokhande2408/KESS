@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
 import TrainingManifesto from "../components/TrainingManifesto";
 import siteData from "../data/siteData.json";
 import { WhyTrustKESS } from "@/components/WhyTrustKESS";
@@ -39,19 +40,30 @@ export default function Home() {
     });
 
     // Initial hidden/scaled states
-    gsap.set(shieldRef.current, { scale: 0.6, opacity: 0 });
-    gsap.set(shieldTextRef.current, { y: 20, opacity: 0 });
-    gsap.set(heroImgRef.current, { scale: 1.15, opacity: 0 });
-    gsap.set(heroTextRef.current.children, { y: 30, opacity: 0 });
+    if (shieldRef.current) {
+      gsap.set(shieldRef.current, { scale: 0.6, opacity: 0 });
+    }
+
+    if (shieldTextRef.current) {
+      gsap.set(shieldTextRef.current, { y: 20, opacity: 0 });
+    }
+
+    if (heroTextRef.current && heroTextRef.current.children) {
+      gsap.set(heroTextRef.current.children, { y: 30, opacity: 0 });
+    }
 
     // Intro Animation Sequence
-    tl.to(shieldRef.current, {
-      scale: 1,
-      opacity: 1,
-      duration: 1,
-      ease: "back.out(1.4)",
-    })
-      .to(
+    if (shieldRef.current) {
+      tl.to(shieldRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "back.out(1.4)",
+      });
+    }
+
+    if (shieldTextRef.current) {
+      tl.to(
         shieldTextRef.current,
         {
           y: 0,
@@ -59,29 +71,22 @@ export default function Home() {
           duration: 0.6,
         },
         "-=0.4"
-      )
-      // Fade out intro shield overlay
-      .to(overlayRef.current, {
+      );
+    }
+
+    if (overlayRef.current) {
+      tl.to(overlayRef.current, {
         opacity: 0,
         duration: 0.8,
         delay: 0.4,
         onComplete: () => {
           if (overlayRef.current) overlayRef.current.style.display = "none";
         },
-      })
-      // Reveal Guard Image Background
-      .to(
-        heroImgRef.current,
-        {
-          opacity: 0.35,
-          scale: 1,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        "-=0.6"
-      )
-      // Stagger existing Hero Text elements
-      .to(
+      });
+    }
+
+    if (heroTextRef.current && heroTextRef.current.children) {
+      tl.to(
         heroTextRef.current.children,
         {
           y: 0,
@@ -91,6 +96,7 @@ export default function Home() {
         },
         "-=0.8"
       );
+    }
 
     return () => {
       document.body.style.overflow = "auto";
@@ -121,50 +127,7 @@ export default function Home() {
       <Navbar />
 
       {/* 2. HERO SECTION WITH IMAGE REVEAL */}
-      <section className="relative overflow-hidden border-b border-gold/20 min-h-[80vh] flex items-center justify-center">
-        {/* Background Image Container */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <img
-            ref={heroImgRef}
-            src="/images/guards-hero.jpg.jpeg"
-            alt="KESS Guard Team"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/70 to-charcoal" />
-        </div>
-
-        {/* Hero Content */}
-        <div
-          ref={heroTextRef}
-          className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 text-center"
-        >
-          <p className="text-gold uppercase tracking-[0.3em] text-xs sm:text-sm mb-3 font-medium">
-            {company.yearsInBusiness}+ Years of Trusted Protection
-          </p>
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl text-charcoal leading-tight max-w-3xl mx-auto">
-            {company.tagline}
-          </h1>
-          <p className="text-charcoal-light mt-4 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Security guarding, housekeeping, manpower outsourcing, and
-            rigorous on-the-job training — led by ex-servicemen who take
-            vigilance seriously.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-            <Link
-              href="/contact"
-              className="bg-gold text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-semibold hover:bg-charcoal-light hover:text-ivory transition-all shadow-lg shadow-gold/10 hover:shadow-gold/20 text-center"
-            >
-              Request a Quote
-            </Link>
-            <Link
-              href="/services"
-              className="border border-charcoal-light/30 backdrop-blur-sm text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-medium hover:border-gold hover:text-gold transition-colors text-center"
-            >
-              View Services
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Hero heroTextRef={heroTextRef} heroImgRef={heroImgRef} />
 
       {/* 3. TRUST STATS */}
       <section className="border-b border-border relative z-10 bg-ivory">
