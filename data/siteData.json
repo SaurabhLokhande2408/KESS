@@ -10,60 +10,82 @@
   "leadership": [
     {
       "name": "Namdev Bhanudas Doke",
-      "role": "Managing Director",
-      "bio": "Retired from the Indian Army. Brings decades of military discipline and leadership to KESS's operations and training standards.",
-      "image": "/images/KESS-differentiator-homepage.png"
+      "role": "Managing Director (Retired Major, Indian Army)",
+      "bio": "Retired Major from the Indian Army. Brings decades of military discipline and leadership to KESS's operations and training standards.",
+      "image": "/images/leadership/namdev-doke.jpg"
     },
     {
       "name": "Mahesh Doke",
       "role": "Chairman & Sales Director",
       "bio": "A well-established entrepreneur in security and housekeeping services, recognized as a significant player in the landscaping domain in Maharashtra over the past five years.",
-      "image": "/images/guards-hero.jpg.jpeg"
+      "image": "/images/leadership/mahesh-doke.jpg"
     }
   ],
 
   "about": {
-    "mission": "To build a strong bond with organisations wanting to build a support system and improve their present structure by providing perpetual consultancy and recruitment of staff or labour, be it permanent, contractual, skilled, or unskilled.",
+    "mission": "To build a strong bond with organisations wanting to build a support system and improve their present structure by providing them with perpetual consultancy and recruitment of staff or labour, be it permanent, contractual, skilled or unskilled.",
     "vision": "To be the best security consultant and employee management partner as a way of life in business organisations and industries.",
-    "description": "Knight Eyes Security Services was founded 10 years ago to provide the best corporate service in its field, specializing in manpower services (both skilled and unskilled), security services, and housekeeping services to public and professional sectors."
+    "description": "Knight Eyes Security Services was founded 10 years ago to provide the best corporate service in its field, specializing in manpower services (both skilled and unskilled), security services, PSO housekeeping services to public and professional sectors. Your premises are now safe and secured with up-to-date security personnel.\n\nKnight Eyes Security Services is a distinguished provider of security solutions and housekeeping services, catering to prominent Blue Chip and Public Sector companies, including Hindustan Petroleum Corporation Ltd in the government sector, Central Railway Hospital in Pune, and Amanora Park Town — known for its world-class facilities and falling under the Government of Maharashtra's Special Township Policy.\n\nThe helm of Knight Eyes Security Services is expertly guided by our dynamic Chairman, Mr. Mahesh Doke, a well-established entrepreneur in the field of security and housekeeping services, recognized as a significant player in the landscaping domain in Maharashtra over the past five years. The Board of Directors boasts the esteemed presence of Retired Major Namdev Bhanudas Doke, whose distinguished service to the nation in various capacities and command of diverse formations has resulted in a commendable track record.",
+    "objectivesHeading": "OBJECTIVES",
+    "motto": "Without threat there is no need of security, but remember — with security there is no threat."
   },
 
   "services": [
     {
       "id": "guarding",
-      "title": "Security Guarding",
-      "description": "Trained, disciplined security personnel for commercial, residential, and industrial premises.",
+      "title": "Guarding",
+      "description": "We have a deep understanding of an organization's core functions and provide trained guards to fulfil their duties with the utmost professionalism.",
+      "image": "/images/services/guarding.jpg",
       "icon": "shield"
+    },
+    {
+      "id": "vigilance",
+      "title": "24 x 7 Vigilance",
+      "description": "Our guards work in shifts to give our clients round-the-clock security services in Pune.",
+      "image": "/images/services/vigilance.jpg",
+      "icon": "clock"
     },
     {
       "id": "housekeeping",
       "title": "Housekeeping Services",
       "description": "Professional housekeeping and facility upkeep for offices, townships, and commercial spaces.",
+      "image": "/images/services/housekeeping.jpg",
       "icon": "sparkles"
     },
     {
       "id": "manpower",
       "title": "Manpower Outsourcing",
-      "description": "Data entry operators, office assistants, receptionists, peons, courier boys, and casual labour — fully compliant staffing.",
+      "description": "We provide dynamic and hardworking staff — data entry operators, office assistants, receptionists, peons, courier boys, and casual labour — fully compliant with statutory requirements.",
+      "image": "/images/services/manpower.jpg",
       "icon": "users"
     },
     {
       "id": "training",
       "title": "On-the-Job Training Programme",
       "description": "Physical training, firefighting basics, mount-dismount control & command, and martial arts training led by a black belt Wu-Shu Kung Fu instructor.",
+      "image": "/images/services/training.jpg",
       "icon": "target"
     },
     {
       "id": "vip-protection",
       "title": "VIP Protection & Bodyguards",
       "description": "Dedicated close-protection personnel trained in mount-dismount control and command procedures.",
+      "image": "/images/services/vip-protection.jpg",
       "icon": "user-check"
     },
     {
       "id": "crowd-control",
       "title": "Crowd Control & Event Security",
       "description": "Trained personnel for events, ceremonies, and crowd management scenarios.",
+      "image": "/images/services/crowd-control.jpg",
       "icon": "users-round"
+    },
+    {
+      "id": "fitter-electrician",
+      "title": "Skilled Trade Supply",
+      "description": "Supervisors, fitters, and electricians supplied for facility and industrial maintenance needs.",
+      "image": "/images/services/skilled-trade.jpg",
+      "icon": "wrench"
     }
   ],
 
@@ -84,6 +106,7 @@
       "name": "Som Borude",
       "credential": "Black Belt in Wu-Shu Kung Fu"
     },
+    "intro": "Through our various training programs, we prepare our personnel to be more capable and updated security personnel to establish and maintain a disciplined and committed organization. Ex-servicemen (retired from the Indian Army, Navy, and Air Force) are associated with us for better training-related guidance.",
     "programme": [
       "Basic training for security personnel (punctuality, alertness, behavior, discipline)",
       "Physical training",
@@ -93,14 +116,35 @@
       "Bodyguard and VIP protection",
       "Crowd control"
     ],
-    "aims": [
-      "Teach basic etiquette and manners for the workplace",
-      "Prepare guards to be mentally robust and physically tough for strenuous duty up to 12 hours",
-      "Prepare trainee guards to handle emergencies without panic",
-      "Train guards in fire response and first aid",
-      "Inculcate a sense of discipline and team spirit"
+    "onTheJobIncludes": [
+      "Physical Training",
+      "Mount-Dismount Control & Command",
+      "Fire Fighting Basics",
+      "Martial Arts Training"
+    ],
+    "broadAims": [
+      "Teach basic etiquette and manners to be followed in the workplace.",
+      "Prepare the guards to be mentally robust and physically tough so as to enable them to perform strenuous security duty for up to 12 hours.",
+      "Prepare the trainee guards to handle emergencies without panic.",
+      "Train the guards in Fire Response and First Aid.",
+      "Inculcate a sense of discipline and team spirit."
+    ],
+    "motto": "Without threat there is no need of security, but remember — with security there is no threat.",
+    "closing": "With a vast experience of 10 years and a dynamic young team, we are committed to continuous improvement of all our systems through measuring, maintaining, and setting objectives across every area of operation.",
+    "images": [
+      "/images/training/parade-inspection.jpg",
+      "/images/training/martial-arts-drill.jpg",
+      "/images/training/radio-communication.jpg",
+      "/images/training/formation-standing.jpg",
+      "/images/training/pushups-fitness.jpg",
+      "/images/training/team-lineup.jpg",
+      "/images/training/housekeeping-cleaning.jpg",
+      "/images/training/metal-detector-check.jpg",
+      "/images/training/firefighting-drill.jpg"
     ]
   },
+
+  "servedTo": ["Commercial", "Hotels and Restaurants", "Retailers", "Residential", "Banking Firms", "IT Firms", "Hospitals"],
 
   "clients": [
     { "name": "Hindustan Petroleum (HP)", "logo": "/images/clients/hp.jpg" },
@@ -159,6 +203,7 @@
       }
     ],
     "phone": ["7972474409", "9890864678"],
+    "emails": [],
     "officeHours": "10 AM to 5 PM",
     "whatsapp": "917972474409"
   }

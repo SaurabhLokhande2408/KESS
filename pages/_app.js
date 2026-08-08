@@ -1,5 +1,6 @@
 import { Fraunces, Inter } from "next/font/google";
 import "../styles/globals.css";
+import Footer from "../components/Footer";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -17,8 +18,11 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={`${fraunces.variable} ${inter.variable}`}>
-      <Component {...pageProps} />
-    </main>
+    <>
+      <main className={`${fraunces.variable} ${inter.variable}`}>
+        <Component {...pageProps} />
+      </main>
+      <Footer />
+    </>
   );
 }
