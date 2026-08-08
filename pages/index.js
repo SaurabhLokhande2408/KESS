@@ -98,7 +98,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-charcoal min-h-screen text-ivory selection:bg-gold selection:text-charcoal relative">
+    <div className="bg-ivory min-h-screen text-charcoal selection:bg-gold selection:text-charcoal relative">
       {/* 1. ON-LOAD ANIMATION OVERLAY */}
       <div
         ref={overlayRef}
@@ -141,10 +141,10 @@ export default function Home() {
           <p className="text-gold uppercase tracking-[0.3em] text-xs sm:text-sm mb-3 font-medium">
             {company.yearsInBusiness}+ Years of Trusted Protection
           </p>
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl text-ivory leading-tight max-w-3xl mx-auto">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl text-charcoal leading-tight max-w-3xl mx-auto">
             {company.tagline}
           </h1>
-          <p className="text-ivory/80 mt-4 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+          <p className="text-charcoal-light mt-4 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
             Security guarding, housekeeping, manpower outsourcing, and
             rigorous on-the-job training — led by ex-servicemen who take
             vigilance seriously.
@@ -152,13 +152,13 @@ export default function Home() {
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
             <Link
               href="/contact"
-              className="bg-gold text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-semibold hover:bg-gold-light transition-all shadow-lg shadow-gold/10 hover:shadow-gold/20 text-center"
+              className="bg-gold text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-semibold hover:bg-charcoal-light hover:text-ivory transition-all shadow-lg shadow-gold/10 hover:shadow-gold/20 text-center"
             >
               Request a Quote
             </Link>
             <Link
               href="/services"
-              className="border border-ivory/30 backdrop-blur-sm text-ivory px-7 py-3 uppercase tracking-wider text-xs font-medium hover:border-gold hover:text-gold transition-colors text-center"
+              className="border border-charcoal-light/30 backdrop-blur-sm text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-medium hover:border-gold hover:text-gold transition-colors text-center"
             >
               View Services
             </Link>
@@ -167,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* 3. TRUST STATS */}
-      <section className="border-b border-gold/20 relative z-10 bg-charcoal">
+      <section className="border-b border-border relative z-10 bg-ivory">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-8 sm:py-10 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[
             { label: "Years in Business", value: `${company.yearsInBusiness}+` },
@@ -179,7 +179,7 @@ export default function Home() {
               <p className="font-display text-2xl sm:text-3xl text-gold">
                 {stat.value}
               </p>
-              <p className="text-ivory/60 text-[11px] sm:text-xs uppercase tracking-wide mt-1">
+              <p className="text-charcoal-light text-[11px] sm:text-xs uppercase tracking-wide mt-1">
                 {stat.label}
               </p>
             </div>
@@ -188,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* 4. CORE SERVICES SECTION (COMPACT 2x2 GRID) */}
-      <section className="relative bg-charcoal py-12 sm:py-16 px-5 sm:px-8 lg:px-12 overflow-hidden border-b border-gold/20">
+      <section className="relative bg-ivory py-12 sm:py-16 px-5 sm:px-8 lg:px-12 overflow-hidden border-b border-border">
         <div 
           className="absolute inset-0 pointer-events-none opacity-20 z-0"
           style={{
@@ -197,18 +197,18 @@ export default function Home() {
         />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between gap-3 mb-8 pb-4 border-b border-gold/20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between gap-3 mb-8 pb-4 border-b border-border">
             <div className="flex items-center gap-3">
-              <span className="font-display text-[10px] tracking-[0.25em] uppercase text-gold border border-gold/30 px-2.5 py-0.5 bg-charcoal-light/50">
+              <span className="font-display text-[10px] tracking-[0.25em] uppercase text-gold border border-gold/30 px-2.5 py-0.5 bg-ivory">
                 At KESS we offer:
               </span>
-              <h2 className="font-display text-2xl sm:text-4xl text-ivory uppercase tracking-wider">
+              <h2 className="font-display text-2xl sm:text-4xl text-charcoal uppercase tracking-wider">
                 Core Services
               </h2>
             </div>
             <Link
               href="/services"
-              className="font-display text-xs tracking-widest text-gold hover:underline uppercase"
+              className="font-display text-xs tracking-widest text-charcoal-light hover:underline uppercase"
             >
               View All Services &rarr;
             </Link>
@@ -223,32 +223,32 @@ export default function Home() {
                 <Link
                   href="/services"
                   key={service.id || idx}
-                  className="group relative bg-charcoal-light h-[260px] sm:h-[280px] overflow-hidden flex flex-col justify-between p-6 sm:p-7 border border-gold/15 hover:border-gold/60 transition-all duration-300 cursor-pointer"
+                  className="group relative bg-white h-[260px] sm:h-[280px] overflow-hidden flex flex-col justify-between p-6 sm:p-7 border border-border hover:border-gold transition-all duration-300 cursor-pointer"
                 >
                   <div
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500 ease-out z-0"
                     style={{ backgroundImage: `url(${bgImage})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent z-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent z-0" />
 
                   <div className="absolute bottom-0 left-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-300 ease-out z-20" />
 
                   <div className="relative z-10 flex items-start justify-end">
-                    <span className="font-display text-3xl sm:text-4xl text-ivory/80 drop-shadow-md group-hover:text-gold transition-colors duration-300">
+                    <span className="font-display text-3xl sm:text-4xl text-ivory drop-shadow-md group-hover:text-gold transition-colors duration-300">
                       {formattedNum}
                     </span>
                   </div>
 
                   <div className="relative z-10 pr-6">
-                    <h3 className="font-display text-xl sm:text-2xl text-ivory uppercase tracking-wider mb-1.5 drop-shadow-md group-hover:text-gold transition-colors duration-300">
+                    <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-wider mb-1.5 drop-shadow-md group-hover:text-gold transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-ivory/90 text-xs sm:text-sm font-light leading-relaxed line-clamp-2 drop-shadow-sm">
+                    <p className="text-white text-xs sm:text-sm font-light leading-relaxed line-clamp-2 drop-shadow-sm">
                       {service.description}
                     </p>
                   </div>
 
-                  <div className="absolute bottom-6 right-6 text-2xl text-ivory/80 group-hover:text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 z-10 hidden sm:block">
+                  <div className="absolute bottom-6 right-6 text-2xl text-white group-hover:text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 z-10 hidden sm:block">
                     ↗
                   </div>
                 </Link>
@@ -267,7 +267,7 @@ export default function Home() {
           <p className="text-gold uppercase tracking-[0.3em] text-[11px] mb-1.5">
             Leadership & Foundation
           </p>
-          <h2 className="font-display text-2xl sm:text-3xl text-ivory">
+          <h2 className="font-display text-2xl sm:text-3xl text-charcoal">
             Led By Discipline. Backed By Experience.
           </h2>
         </div>
@@ -275,15 +275,15 @@ export default function Home() {
           {leadership.map((person) => (
             <div
               key={person.name}
-              className="border border-gold/15 p-6 bg-charcoal-light/40"
+              className="border border-border p-6 bg-white"
             >
-              <h3 className="font-display text-lg text-gold">
+              <h3 className="font-display text-lg text-charcoal">
                 {person.name}
               </h3>
-              <p className="text-ivory/50 text-[10px] uppercase tracking-wide mb-2">
+              <p className="text-charcoal-light text-[10px] uppercase tracking-wide mb-2">
                 {person.role}
               </p>
-              <p className="text-ivory/70 text-xs sm:text-sm leading-relaxed">
+              <p className="text-charcoal-light text-xs sm:text-sm leading-relaxed">
                 {person.bio}
               </p>
             </div>
@@ -292,8 +292,8 @@ export default function Home() {
       </section>
 
       {/* 7. CLIENTS MARQUEE / STRIP */}
-      <section className="border-t border-gold/20 py-10 bg-charcoal overflow-hidden">
-        <p className="text-center text-gold uppercase tracking-[0.3em] text-[10px] mb-6">
+      <section className="border-t border-border py-10 bg-ivory overflow-hidden">
+        <p className="text-center text-charcoal-light uppercase tracking-[0.3em] text-[10px] mb-6">
           Trusted By Industry Leaders
         </p>
         
@@ -302,7 +302,7 @@ export default function Home() {
             {clients.concat(clients).map((client, idx) => (
               <span
                 key={`${client.name}-${idx}`}
-                className="text-ivory/40 text-xs sm:text-sm font-medium uppercase tracking-wider hover:text-gold transition-colors cursor-default"
+                className="text-charcoal-light/60 text-xs sm:text-sm font-medium uppercase tracking-wider hover:text-gold transition-colors cursor-default"
               >
                 {client.name}
               </span>

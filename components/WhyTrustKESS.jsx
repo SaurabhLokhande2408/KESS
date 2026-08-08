@@ -15,10 +15,10 @@ const PAGE_SECTIONS_CSS = `
   .kess-trust-section {
     position: relative;
     padding: 6rem 1.5rem;
-    background-color: #0b0b0b;
+    background-color: #FAF8F5;
     overflow: hidden;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    border-top: 1px solid #E6DFD5;
+    border-bottom: 1px solid #E6DFD5;
   }
 
   .kess-trust-bg-grid {
@@ -79,9 +79,9 @@ const PAGE_SECTIONS_CSS = `
     font-size: clamp(2.8rem, 5.5vw, 4.8rem);
     line-height: 0.95;
     letter-spacing: 2px;
-    color: #D4AF37;
+    color: #1C2018;
     text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.20);
     margin-bottom: 1.25rem;
     opacity: 0;
     transform: translateY(30px);
@@ -92,14 +92,14 @@ const PAGE_SECTIONS_CSS = `
     font-size: clamp(1.05rem, 1.8vw, 1.25rem);
     font-weight: 400;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: #4A5240;
     opacity: 0;
     transform: translateY(20px);
   }
 
   /* Ex-Servicemen Strategic Banner */
   .kess-veteran-banner {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(17, 17, 17, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.16) 0%, #FFFFFF 100%);
     border: 1.5px solid #D4AF37;
     border-radius: 8px;
     padding: 1.5rem 2rem;
@@ -109,7 +109,7 @@ const PAGE_SECTIONS_CSS = `
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 15px rgba(212,175,55,0.08);
+    box-shadow: 0 10px 30px rgba(28,32,24,0.08), inset 0 0 15px rgba(212,175,55,0.12);
     opacity: 0;
     transform: translateY(25px);
   }
@@ -119,7 +119,7 @@ const PAGE_SECTIONS_CSS = `
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 3px;
-    color: #0b0b0b;
+    color: #1C2018;
     background: #D4AF37;
     padding: 4px 12px;
     border-radius: 3px;
@@ -131,7 +131,7 @@ const PAGE_SECTIONS_CSS = `
   .kess-veteran-banner-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.5rem);
-    color: #FFFFFF;
+    color: #1C2018;
     letter-spacing: 1px;
     line-height: 1;
   }
@@ -139,7 +139,7 @@ const PAGE_SECTIONS_CSS = `
   .kess-veteran-banner-desc {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: #4A5240;
     max-width: 750px;
   }
 
@@ -163,8 +163,8 @@ const PAGE_SECTIONS_CSS = `
     align-items: flex-start;
     gap: 1.5rem;
     padding: 1.5rem;
-    background: rgba(17, 17, 17, 0.6);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: #FFFFFF;
+    border: 1px solid #E6DFD5;
     border-radius: 8px;
     backdrop-filter: blur(8px);
     transition: all 0.3s ease;
@@ -175,15 +175,15 @@ const PAGE_SECTIONS_CSS = `
 
   /* Special Highlight for Ex-Servicemen Card */
   .kess-trust-card-featured {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(20, 20, 20, 0.9) 100%);
-    border: 1.5px solid rgba(212, 175, 55, 0.6);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.10) 0%, #FFFFFF 100%);
+    border: 1.5px solid #D4AF37;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
   }
 
   .kess-trust-card:hover {
-    border-color: rgba(212, 175, 55, 0.8);
-    background: rgba(22, 22, 22, 0.9);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+    border-color: #D4AF37;
+    background: #FFFFFF;
+    box-shadow: 0 10px 30px rgba(28, 32, 24, 0.12), 0 0 20px rgba(212, 175, 55, 0.20);
     transform: translateY(-2px);
   }
 
@@ -192,8 +192,8 @@ const PAGE_SECTIONS_CSS = `
     width: 60px;
     height: 60px;
     border-radius: 8px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: #FAF8F5;
+    border: 1px solid #E6DFD5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -203,13 +203,13 @@ const PAGE_SECTIONS_CSS = `
 
   .kess-trust-card-featured .kess-trust-icon-box {
     background: #D4AF37;
-    color: #0b0b0b;
+    color: #1C2018;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
   }
 
   .kess-trust-card:hover .kess-trust-icon-box {
     background: #D4AF37;
-    color: #0b0b0b;
+    color: #1C2018;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
   }
 
@@ -221,7 +221,7 @@ const PAGE_SECTIONS_CSS = `
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
     letter-spacing: 1px;
-    color: #f5f5f0;
+    color: #1C2018;
     margin-bottom: 0.35rem;
     text-transform: uppercase;
   }
@@ -230,7 +230,7 @@ const PAGE_SECTIONS_CSS = `
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.75);
+    color: #4A5240;
   }
 
   .kess-card-corner {
@@ -256,7 +256,7 @@ const PAGE_SECTIONS_CSS = `
   .kess-leadership-section {
     position: relative;
     padding: 6rem 1.5rem;
-    background-color: #080808;
+    background-color: #FAF8F5;
     overflow: hidden;
   }
 
@@ -271,9 +271,9 @@ const PAGE_SECTIONS_CSS = `
     font-size: clamp(2.8rem, 5vw, 4.5rem);
     line-height: 0.95;
     letter-spacing: 2px;
-    color: #D4AF37;
+    color: #1C2018;
     text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.20);
     margin-bottom: 1rem;
     opacity: 0;
     transform: translateY(30px);
@@ -282,7 +282,7 @@ const PAGE_SECTIONS_CSS = `
   .kess-leadership-sub {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: #4A5240;
     text-transform: uppercase;
     letter-spacing: 2px;
     opacity: 0;
@@ -304,8 +304,8 @@ const PAGE_SECTIONS_CSS = `
   }
 
   .kess-leader-card {
-    background: #111111;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: #FFFFFF;
+    border: 1px solid #E6DFD5;
     border-radius: 8px;
     overflow: hidden;
     opacity: 0;
@@ -320,8 +320,8 @@ const PAGE_SECTIONS_CSS = `
   }
 
   .kess-leader-card:hover {
-    border-color: rgba(212, 175, 55, 0.8);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.25);
+    border-color: #D4AF37;
+    box-shadow: 0 15px 35px rgba(28, 32, 24, 0.10), 0 0 25px rgba(212, 175, 55, 0.25);
   }
 
   .kess-leader-image-wrapper {
@@ -329,7 +329,7 @@ const PAGE_SECTIONS_CSS = `
     width: 100%;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background: #181818;
+    background: #FAF8F5;
   }
 
   .kess-veteran-tag-overlay {
@@ -372,7 +372,7 @@ const PAGE_SECTIONS_CSS = `
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
     letter-spacing: 1px;
-    color: #f5f5f0;
+    color: #1C2018;
     margin-bottom: 0.25rem;
   }
 
@@ -380,7 +380,7 @@ const PAGE_SECTIONS_CSS = `
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    color: #D4AF37;
+    color: #4A5240;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 1rem;
@@ -390,7 +390,7 @@ const PAGE_SECTIONS_CSS = `
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.05rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.75);
+    color: #4A5240;
   }
 `;
 

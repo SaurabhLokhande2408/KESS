@@ -8,26 +8,27 @@ gsap.registerPlugin(ScrollTrigger);
 const MANIFESTO_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700&display=swap');
 
+  /* Warm Military Heritage light-mode visual tokens */
   .kess-manifesto {
     position: relative;
     padding: 6rem 1.5rem;
-    background-color: #0b0b0b;
+    background-color: #FAF8F5;
     overflow: hidden;
-    border-top: 1px solid rgba(212,175,55,0.25);
-    border-bottom: 1px solid rgba(212,175,55,0.25);
+    border-top: 1px solid #E6DFD5;
+    border-bottom: 1px solid #E6DFD5;
   }
   .kess-manifesto-bg {
     position: absolute;
     inset: 0;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.02) 80px, rgba(212,175,55,0.02) 81px),
-      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(212,175,55,0.02) 80px, rgba(212,175,55,0.02) 81px);
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.035) 80px, rgba(212,175,55,0.035) 81px),
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(212,175,55,0.035) 80px, rgba(212,175,55,0.035) 81px);
     pointer-events: none;
   }
   .kess-manifesto-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.08) 0%, transparent 65%);
+    background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.10) 0%, transparent 65%);
     pointer-events: none;
   }
   
@@ -74,9 +75,9 @@ const MANIFESTO_CSS = `
     font-size: clamp(2.8rem, 6vw, 5.5rem);
     line-height: 0.95;
     letter-spacing: 2px;
-    color: #D4AF37;
+    color: #1C2018;
     text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.20);
     margin-bottom: 1.5rem;
     opacity: 0;
     transform: translateY(30px);
@@ -88,7 +89,7 @@ const MANIFESTO_CSS = `
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #f5f5f0;
+    color: #1C2018;
   }
   .kess-manifesto-line {
     display: flex;
@@ -114,7 +115,7 @@ const MANIFESTO_CSS = `
     font-size: 1.1rem;
     font-weight: 400;
     line-height: 1.6;
-    color: rgba(255,255,255,0.8);
+    color: #4A5240;
     opacity: 0;
   }
   .kess-manifesto-bullets {
@@ -131,7 +132,7 @@ const MANIFESTO_CSS = `
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.9);
+    color: #1C2018;
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -171,17 +172,17 @@ const MANIFESTO_CSS = `
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
-    background: #111;
+    background: #FFFFFF;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.08);
+    border: 1px solid #E6DFD5;
+    box-shadow: 0 20px 40px rgba(28, 32, 24, 0.10), 0 0 25px rgba(212, 175, 55, 0.08);
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
   }
 
   .kess-frame-wrapper:hover .kess-rect-frame {
-    border-color: rgba(212, 175, 55, 0.8);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.2);
+    border-color: #D4AF37;
+    box-shadow: 0 25px 50px rgba(28, 32, 24, 0.14), 0 0 35px rgba(212, 175, 55, 0.2);
   }
 
   .kess-frame-img {
@@ -234,9 +235,9 @@ const MANIFESTO_CSS = `
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #D4AF37;
-    background: rgba(11, 11, 11, 0.85);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #1C2018;
+    background: #FAF8F5;
+    border: 1px solid #D4AF37;
     padding: 4px 10px;
     border-radius: 4px;
     backdrop-filter: blur(4px);
@@ -416,7 +417,7 @@ export default function TrainingManifesto() {
             <div className="kess-manifesto-cta" ref={manifestoCtaRef}>
               <Link
                 href="/training"
-                className="inline-block border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0b0b0b] px-8 py-3.5 uppercase tracking-widest text-xs font-bold transition-all duration-300 shadow-lg hover:shadow-[#D4AF37]/20"
+                className="inline-block border border-gold text-gold hover:bg-gold hover:text-charcoal px-8 py-3.5 uppercase tracking-widest text-xs font-bold transition-all duration-300 shadow-lg hover:shadow-gold/20"
               >
                 Explore Training Program &rarr;
               </Link>

@@ -1,25 +1,39 @@
 @import "tailwindcss";
 
+/* Warm Military Heritage design system tokens.
+   These utility names remain compatible with the current JSX class usage,
+   but now resolve to the requested light-mode design system palette. */
 @theme {
-  --color-charcoal: #1a1a1a;
-  --color-charcoal-light: #000000;
-  --color-gold: #d4af37;
-  --color-gold-light: #c5a059;
-  --color-ivory: #f5efeb;
-  --color-cream: #f5efeb;
-  --color-silver: #c0c0c0;
-  --color-crimson: #8b0000;
-  --color-navy: #0d1b2a;
+  --color-charcoal: #1C2018;
+  --color-charcoal-light: #4A5240;
+  --color-gold: #D4AF37;
+  --color-gold-light: #D4AF37;
+  --color-ivory: #FAF8F5;
+  --color-cream: #FAF8F5;
+  --color-white: #FFFFFF;
+  --color-slate: #4A5240;
+  --color-border: #E6DFD5;
+  --color-surface: #FFFFFF;
 
   --font-display: "Fraunces", serif;
   --font-sans: "Inter", sans-serif;
 }
 
+:root {
+  --warm-heritage-bg: #FAF8F5;
+  --warm-heritage-surface: #FFFFFF;
+  --warm-heritage-text: #1C2018;
+  --warm-heritage-text-soft: #4A5240;
+  --warm-heritage-gold: #D4AF37;
+  --warm-heritage-border: #E6DFD5;
+}
+
 body {
   font-family: var(--font-sans);
-  background: var(--color-cream);
-  color: var(--color-charcoal);
+  background: var(--warm-heritage-bg);
+  color: var(--warm-heritage-text);
 }
+
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
