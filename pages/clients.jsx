@@ -1,13 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../components/Navbar";
+import BackToTop from "../components/BackToTop";
 import siteData from "../data/siteData.json";
 
 export default function ClientsPage() {
   return (
     <div id="top" className="min-h-screen bg-stone-100 text-stone-900">
-      <Navbar />
-
       <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <div className="mx-auto max-w-6xl text-center">
           <h1 className="text-4xl font-black uppercase leading-none tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
@@ -37,15 +34,7 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      <div className="fixed bottom-5 right-5 z-50">
-        <Link
-          href="#top"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-amber-500 bg-amber-500 text-base font-bold text-stone-900 shadow-[0_10px_25px_rgba(212,175,55,0.35)] transition-transform duration-200 hover:scale-105"
-          aria-label="Back to top"
-        >
-          ↑
-        </Link>
-      </div>
+      <BackToTop />
     </div>
   );
 }

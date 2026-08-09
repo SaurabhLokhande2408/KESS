@@ -112,30 +112,32 @@ const MANIFESTO_CSS = `
   .kess-manifesto-body {
     margin: 1.5rem 0 0 0;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
     color: #4A5240;
     opacity: 0;
   }
   .kess-manifesto-bullets {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: 1rem;
     opacity: 0;
   }
   .kess-bullet-item {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     color: #1C2018;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.8rem;
+    line-height: 1.5;
   }
   .kess-bullet-dot {
     width: 6px;
@@ -396,21 +398,21 @@ export default function TrainingManifesto() {
           {/* LEFT: DETAIL CONTENT */}
           <div className="lg:col-span-7">
             <p className="kess-manifesto-body" ref={manifestoBodyRef}>
-              Most security firms outsource basic guarding without continuous instruction. At KESS, our personnel undergo ongoing physical conditioning, emergency firefighting drills, and martial arts training under <strong>Mr. Som Borude</strong> (Black Belt Wu-Shu Kung Fu)[cite: 1].
+              Most security firms outsource basic guarding without continuous instruction. At KESS, our personnel undergo ongoing physical conditioning, emergency firefighting drills, and martial arts training under <strong>Mr. Som Borude</strong> (Black Belt Wu-Shu Kung Fu).
             </p>
 
             <div className="kess-manifesto-bullets" ref={manifestoBulletsRef}>
               <div className="kess-bullet-item">
                 <span className="kess-bullet-dot" />
-                Physical fitness & martial arts self-defense training[cite: 1]
+                Physical fitness & martial arts self-defense training
               </div>
               <div className="kess-bullet-item">
                 <span className="kess-bullet-dot" />
-                Live firefighting and disaster response protocols[cite: 1]
+                Live firefighting and disaster response protocols
               </div>
               <div className="kess-bullet-item">
                 <span className="kess-bullet-dot" />
-                Strict reporting hierarchies & zero-tolerance conduct policies[cite: 1]
+                Strict reporting hierarchies & zero-tolerance conduct policies
               </div>
             </div>
 

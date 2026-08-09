@@ -1,5 +1,6 @@
 import { Fraunces, Inter } from "next/font/google";
 import "../styles/globals.css";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const fraunces = Fraunces({
@@ -19,6 +20,7 @@ const inter = Inter({
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Navbar />
       <main className={`${fraunces.variable} ${inter.variable}`}>
         <Component {...pageProps} />
       </main>

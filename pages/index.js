@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import TrainingManifesto from "../components/TrainingManifesto";
 import siteData from "../data/siteData.json";
@@ -124,8 +123,6 @@ export default function Home() {
         </h2>
       </div>
 
-      <Navbar />
-
       {/* 2. HERO SECTION WITH IMAGE REVEAL */}
       <Hero heroTextRef={heroTextRef} heroImgRef={heroImgRef} />
 
@@ -206,7 +203,7 @@ export default function Home() {
                     <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-wider mb-1.5 drop-shadow-md group-hover:text-gold transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-white text-xs sm:text-sm font-light leading-relaxed line-clamp-2 drop-shadow-sm">
+                    <p className="text-white text-sm sm:text-base font-light leading-relaxed line-clamp-2 drop-shadow-sm">
                       {service.description}
                     </p>
                   </div>
@@ -243,10 +240,10 @@ export default function Home() {
               <h3 className="font-display text-lg text-charcoal">
                 {person.name}
               </h3>
-              <p className="text-charcoal-light text-[10px] uppercase tracking-wide mb-2">
+              <p className="text-charcoal-light text-[11px] uppercase tracking-wider mb-3 font-semibold">
                 {person.role}
               </p>
-              <p className="text-charcoal-light text-xs sm:text-sm leading-relaxed">
+              <p className="text-charcoal text-sm sm:text-base leading-relaxed">
                 {person.bio}
               </p>
             </div>

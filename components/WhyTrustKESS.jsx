@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
@@ -6,673 +8,313 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /* ==========================================================================
-   SHARED STYLES
+   STYLES
    ========================================================================== */
-const PAGE_SECTIONS_CSS = `
+const KESS_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700&display=swap');
 
-  /* ---------- SECTION 1: WHY TRUST KESS ---------- */
-  .kess-trust-section {
-    position: relative;
-    padding: 6rem 1.5rem;
-    background-color: #FAF8F5;
-    overflow: hidden;
-    border-top: 1px solid #E6DFD5;
-    border-bottom: 1px solid #E6DFD5;
-  }
+  .kess-wrap { --ink:#12160F; --ink-soft:#4A5240; --paper:#FAF8F5; --line:#E6DFD5; --gold:#C79A2E; --gold-soft:rgba(199,154,46,.10); }
 
-  .kess-trust-bg-grid {
-    position: absolute;
-    inset: 0;
+  /* ---------- shell ---------- */
+  .kess-sec { position:relative; background:var(--paper); padding:6.5rem 1.5rem; overflow:hidden; }
+  .kess-sec + .kess-sec { border-top:1px solid var(--line); }
+  .kess-inner { position:relative; z-index:2; max-width:1240px; margin:0 auto; }
+  .kess-rule-bg { position:absolute; inset:0; pointer-events:none;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,175,55,0.015) 80px, rgba(212,175,55,0.015) 81px),
-      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(212,175,55,0.015) 80px, rgba(212,175,55,0.015) 81px);
-    pointer-events: none;
+      repeating-linear-gradient(90deg, transparent 0 119px, rgba(18,22,15,.035) 119px 120px);
   }
 
-  .kess-trust-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  /* ---------- headings ---------- */
+  .kess-eyebrow { display:inline-flex; align-items:center; gap:.75rem; font-family:'Barlow Condensed',sans-serif;
+    font-size:.82rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold);
+    margin-bottom:1rem; opacity:0; transform:translateY(16px); }
+  .kess-eyebrow::before { content:''; width:34px; height:1px; background:var(--gold); }
 
-  .kess-trust-inner {
-    position: relative;
-    z-index: 2;
-    max-width: 1280px;
-    margin: 0 auto;
-  }
+  .kess-h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.4rem,4.6vw,4rem); line-height:.98;
+    letter-spacing:1.5px; color:var(--ink); text-transform:uppercase; margin:0 0 1rem;
+    opacity:0; transform:translateY(24px); }
+  .kess-h2 em { font-style:normal; color:var(--gold); }
 
-  .kess-trust-header {
-    text-align: center;
-    max-width: 850px;
-    margin: 0 auto 3rem auto;
-  }
+  .kess-lede { font-family:'Barlow Condensed',sans-serif; font-size:clamp(1.02rem,1.5vw,1.18rem);
+    line-height:1.65; color:var(--ink-soft); max-width:62ch; opacity:0; transform:translateY(18px); }
 
-  .kess-trust-tagline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #D4AF37;
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-  }
+  .kess-head { max-width:820px; margin:0 0 3.25rem; }
+  .kess-head--center { margin:0 auto 3.5rem; text-align:center; }
+  .kess-head--center .kess-lede { margin-inline:auto; }
 
-  .kess-trust-tagline::before,
-  .kess-trust-tagline::after {
-    content: '';
-    display: block;
-    width: 35px;
-    height: 1px;
-    background: #D4AF37;
-  }
+  /* ---------- veteran banner ---------- */
+  .kess-vet-banner { display:grid; grid-template-columns:1fr; gap:1.5rem; align-items:center;
+    background:linear-gradient(120deg,var(--gold-soft) 0%,#fff 55%); border:1px solid var(--line);
+    border-left:3px solid var(--gold); border-radius:4px; padding:1.75rem 2rem; margin-bottom:3.25rem;
+    box-shadow:0 14px 40px rgba(18,22,15,.06); opacity:0; transform:translateY(20px); }
+  @media (min-width:900px){ .kess-vet-banner { grid-template-columns:1.1fr 1fr; gap:2.5rem; } }
+  .kess-tag { font-family:'Barlow Condensed',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:3px;
+    text-transform:uppercase; color:#fff; background:var(--ink); padding:4px 10px; border-radius:2px; display:inline-block; }
+  .kess-vet-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.6rem,2.6vw,2.2rem); letter-spacing:1px;
+    line-height:1.05; color:var(--ink); margin:.7rem 0 0; }
+  .kess-vet-desc { font-family:'Barlow Condensed',sans-serif; font-size:1.03rem; line-height:1.6; color:var(--ink-soft); margin:0; }
 
-  .kess-trust-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
-    line-height: 0.95;
-    letter-spacing: 2px;
-    color: #1C2018;
-    text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.20);
-    margin-bottom: 1.25rem;
-    opacity: 0;
-    transform: translateY(30px);
-  }
+  /* ---------- stats strip ---------- */
+  .kess-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line);
+    border:1px solid var(--line); border-radius:4px; overflow:hidden; margin-bottom:3.25rem; }
+  @media (min-width:768px){ .kess-stats { grid-template-columns:repeat(4,1fr); } }
+  .kess-stat { background:#fff; padding:1.5rem 1.25rem; text-align:center; opacity:0; transform:translateY(18px); }
+  .kess-stat b { display:block; font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--ink); letter-spacing:1px; }
+  .kess-stat span { font-family:'Barlow Condensed',sans-serif; font-size:.8rem; letter-spacing:2.5px;
+    text-transform:uppercase; color:var(--ink-soft); }
 
-  .kess-trust-description {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-    font-weight: 400;
-    line-height: 1.6;
-    color: #4A5240;
-    opacity: 0;
-    transform: translateY(20px);
-  }
+  /* ---------- pillars ---------- */
+  .kess-grid { display:grid; grid-template-columns:1fr; gap:1px; background:var(--line);
+    border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  @media (min-width:700px){ .kess-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1080px){ .kess-grid { grid-template-columns:repeat(4,1fr); } }
 
-  /* Ex-Servicemen Strategic Banner */
-  .kess-veteran-banner {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.16) 0%, #FFFFFF 100%);
-    border: 1.5px solid #D4AF37;
-    border-radius: 8px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    box-shadow: 0 10px 30px rgba(28,32,24,0.08), inset 0 0 15px rgba(212,175,55,0.12);
-    opacity: 0;
-    transform: translateY(25px);
-  }
+  .kess-card { background:#fff; padding:2rem 1.6rem; position:relative; transition:background .3s ease, transform .3s ease;
+    opacity:0; transform:translateY(24px); }
+  .kess-card::after { content:''; position:absolute; left:0; top:0; width:2px; height:0; background:var(--gold); transition:height .35s ease; }
+  .kess-card:hover { background:#FFFDF8; }
+  .kess-card:hover::after { height:100%; }
+  .kess-card--featured { background:linear-gradient(160deg,var(--gold-soft),#fff 60%); }
+  .kess-card--featured::after { height:100%; }
 
-  .kess-veteran-badge-tag {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #1C2018;
-    background: #D4AF37;
-    padding: 4px 12px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
+  .kess-ico { width:42px; height:42px; display:flex; align-items:center; justify-content:center;
+    color:var(--gold); margin-bottom:1.1rem; }
+  .kess-card-title { font-family:'Bebas Neue',sans-serif; font-size:1.28rem; letter-spacing:1px;
+    text-transform:uppercase; color:var(--ink); margin:0 0 .45rem; }
+  .kess-card-text { font-family:'Barlow Condensed',sans-serif; font-size:.99rem; line-height:1.55; color:var(--ink-soft); margin:0; }
 
-  .kess-veteran-banner-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    color: #1C2018;
-    letter-spacing: 1px;
-    line-height: 1;
-  }
+  /* ---------- veterans photo wall ---------- */
+  .kess-vets { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; }
+  @media (min-width:720px){ .kess-vets { grid-template-columns:repeat(3,1fr); } }
+  @media (min-width:1080px){ .kess-vets { grid-template-columns:repeat(4,1fr); gap:1.5rem; } }
 
-  .kess-veteran-banner-desc {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.05rem;
-    color: #4A5240;
-    max-width: 750px;
-  }
+  .kess-vet { position:relative; border:1px solid var(--line); border-radius:4px; overflow:hidden;
+    background:#fff; opacity:0; transform:translateY(26px); transition:box-shadow .4s ease, border-color .4s ease; }
+  .kess-vet:hover { border-color:var(--gold); box-shadow:0 18px 40px rgba(18,22,15,.12); }
 
-  /* 2-Column Grid Layout */
-  .kess-trust-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-  }
+  .kess-vet-img { position:relative; width:100%; aspect-ratio:3/4; overflow:hidden; background:#EFEBE4; }
+  .kess-vet-img img { object-fit:cover; filter:grayscale(100%) contrast(105%); transition:transform .7s ease, filter .5s ease; }
+  .kess-vet:hover .kess-vet-img img { transform:scale(1.05); filter:grayscale(0%); }
+  .kess-vet-img::after { content:''; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(10,12,8,.72) 0%, rgba(10,12,8,0) 55%); }
 
-  @media (min-width: 768px) {
-    .kess-trust-grid {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 3.5rem;
-      row-gap: 2.5rem;
-    }
-  }
+  .kess-vet-ribbon { position:absolute; z-index:3; top:12px; left:12px; font-family:'Barlow Condensed',sans-serif;
+    font-size:.68rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--ink);
+    background:var(--gold); padding:3px 9px; border-radius:2px; }
+  .kess-vet-meta { position:absolute; z-index:3; bottom:0; left:0; right:0; padding:1rem 1.1rem; }
+  .kess-vet-name { font-family:'Bebas Neue',sans-serif; font-size:1.22rem; letter-spacing:.6px; color:#fff; margin:0; }
+  .kess-vet-rank { font-family:'Barlow Condensed',sans-serif; font-size:.78rem; letter-spacing:2px;
+    text-transform:uppercase; color:#E4D9BC; margin:.15rem 0 0; }
+  .kess-vet-foot { padding:.9rem 1.1rem; border-top:1px solid var(--line); font-family:'Barlow Condensed',sans-serif;
+    font-size:.86rem; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft);
+    display:flex; justify-content:space-between; gap:.5rem; }
+  .kess-vet-foot b { color:var(--ink); font-weight:700; }
 
-  .kess-trust-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: #FFFFFF;
-    border: 1px solid #E6DFD5;
-    border-radius: 8px;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateY(30px);
-    position: relative;
-  }
+  /* ---------- leadership ---------- */
+  .kess-lead-grid { display:grid; grid-template-columns:1fr; gap:2rem; max-width:1060px; margin:0 auto; }
+  @media (min-width:860px){ .kess-lead-grid { grid-template-columns:repeat(2,1fr); gap:2.5rem; } }
 
-  /* Special Highlight for Ex-Servicemen Card */
-  .kess-trust-card-featured {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.10) 0%, #FFFFFF 100%);
-    border: 1.5px solid #D4AF37;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-  }
-
-  .kess-trust-card:hover {
-    border-color: #D4AF37;
-    background: #FFFFFF;
-    box-shadow: 0 10px 30px rgba(28, 32, 24, 0.12), 0 0 20px rgba(212, 175, 55, 0.20);
-    transform: translateY(-2px);
-  }
-
-  .kess-trust-icon-box {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    background: #FAF8F5;
-    border: 1px solid #E6DFD5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #D4AF37;
-    transition: all 0.3s ease;
-  }
-
-  .kess-trust-card-featured .kess-trust-icon-box {
-    background: #D4AF37;
-    color: #1C2018;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-  }
-
-  .kess-trust-card:hover .kess-trust-icon-box {
-    background: #D4AF37;
-    color: #1C2018;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-  }
-
-  .kess-trust-card-content {
-    flex: 1;
-  }
-
-  .kess-trust-card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    color: #1C2018;
-    margin-bottom: 0.35rem;
-    text-transform: uppercase;
-  }
-
-  .kess-trust-card-text {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #4A5240;
-  }
-
-  .kess-card-corner {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-color: #D4AF37;
-    border-style: solid;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .kess-corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-  .kess-corner-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
-  .kess-corner-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
-  .kess-corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-
-  .kess-trust-card:hover .kess-card-corner,
-  .kess-trust-card-featured .kess-card-corner {
-    opacity: 1;
-  }
-
-  /* ---------- SECTION 2: LEADERSHIP SECTION ---------- */
-  .kess-leadership-section {
-    position: relative;
-    padding: 6rem 1.5rem;
-    background-color: #FAF8F5;
-    overflow: hidden;
-  }
-
-  .kess-leadership-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 4rem auto;
-  }
-
-  .kess-leadership-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    letter-spacing: 2px;
-    color: #1C2018;
-    text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.20);
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .kess-leadership-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.15rem;
-    color: #4A5240;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .kess-leadership-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 3rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 768px) {
-    .kess-leadership-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .kess-leader-card {
-    background: #FFFFFF;
-    border: 1px solid #E6DFD5;
-    border-radius: 8px;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.4s ease;
-    position: relative;
-  }
-
-  .kess-leader-card-veteran {
-    border: 1.5px solid #D4AF37;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-  }
-
-  .kess-leader-card:hover {
-    border-color: #D4AF37;
-    box-shadow: 0 15px 35px rgba(28, 32, 24, 0.10), 0 0 25px rgba(212, 175, 55, 0.25);
-  }
-
-  .kess-leader-image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: #FAF8F5;
-  }
-
-  .kess-veteran-tag-overlay {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 3;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #0b0b0b;
-    background: #D4AF37;
-    padding: 4px 10px;
-    border-radius: 3px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .kess-leader-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(20%) contrast(105%);
-    transition: transform 0.6s ease, filter 0.6s ease;
-  }
-
-  .kess-leader-card:hover .kess-leader-img {
-    transform: scale(1.04);
-    filter: grayscale(0%) contrast(110%);
-  }
-
-  .kess-leader-info {
-    padding: 2rem;
-  }
-
-  .kess-leader-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    color: #1C2018;
-    margin-bottom: 0.25rem;
-  }
-
-  .kess-leader-role {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #4A5240;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-  }
-
-  .kess-leader-bio {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #4A5240;
-  }
+  .kess-lead { background:#fff; border:1px solid var(--line); border-radius:4px; overflow:hidden;
+    display:grid; grid-template-columns:1fr; opacity:0; transform:translateY(26px);
+    transition:box-shadow .4s ease, border-color .4s ease; }
+  .kess-lead:hover { border-color:var(--gold); box-shadow:0 20px 44px rgba(18,22,15,.10); }
+  .kess-lead--vet { border-left:3px solid var(--gold); }
+  .kess-lead-img { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#EFEBE4; }
+  .kess-lead-img img { object-fit:cover; filter:grayscale(35%); transition:transform .7s ease, filter .5s ease; }
+  .kess-lead:hover .kess-lead-img img { transform:scale(1.04); filter:grayscale(0%); }
+  .kess-lead-body { padding:1.9rem; }
+  .kess-lead-name { font-family:'Bebas Neue',sans-serif; font-size:1.85rem; letter-spacing:.8px; color:var(--ink); margin:0; }
+  .kess-lead-role { font-family:'Barlow Condensed',sans-serif; font-size:.85rem; font-weight:700; letter-spacing:2.5px;
+    text-transform:uppercase; color:var(--gold); margin:.3rem 0 1rem; }
+  .kess-lead-bio { font-family:'Barlow Condensed',sans-serif; font-size:1.03rem; line-height:1.6; color:var(--ink-soft); margin:0; }
 `;
 
 /* ==========================================================================
-   DATA STRUCTURES
+   ICONS
+   ========================================================================== */
+const Ico = ({ d, size = 26 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {d}
+  </svg>
+);
+
+const ICONS = {
+  shield: <path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z" />,
+  star: <><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z" /><path d="M12 8l1.4 2.9 3.1.4-2.3 2.2.6 3.1L12 15.2l-2.8 1.4.6-3.1L7.5 11.3l3.1-.4L12 8z" /></>,
+  users: <><circle cx="9" cy="8" r="3.2" /><path d="M2.5 20a6.5 6.5 0 0113 0" /><path d="M16 5.5a3.2 3.2 0 010 6.4M17.5 20a6.4 6.4 0 00-2-4.6" /></>,
+  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></>,
+  doc: <><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></>,
+  award: <><circle cx="12" cy="9" r="5.2" /><path d="M8.5 13.6L7 22l5-2.6L17 22l-1.5-8.4" /></>,
+  bolt: <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" />,
+  chart: <><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" /></>,
+};
+
+/* ==========================================================================
+   DATA — replace names/photos/paths with your real assets
    ========================================================================== */
 const TRUST_PILLARS = [
+  { id: "army", title: "Ex-Servicemen Leadership", description: "Governed and guided by retired Indian Army personnel — tactical experience, military precision and uncompromised honour on every posting.", featured: true, icon: ICONS.star },
+  { id: "psara", title: "PSARA Licensed", description: "Licensed under the Private Security Agencies (Regulation) Act — PSA/L/74/H/2020/MAY/3/92, Maharashtra.", icon: ICONS.doc },
+  { id: "zero", title: "Zero Tolerance Policy", description: "Absolute integrity, strict confidentiality of client information, zero duty negligence and total sobriety on site.", icon: ICONS.shield },
+  { id: "rapid", title: "Rapid Response", description: "24/7 centralised command protocols with real-time incident escalation for immediate tactical support.", icon: ICONS.bolt },
+  { id: "clients", title: "Trusted At Scale", description: "Serving public sector companies, central railway hospitals and premium township infrastructure across Maharashtra.", icon: ICONS.users },
+  { id: "compliance", title: "100% Compliance", description: "Full statutory compliance — PF, ESI, labour acts and rigorous onboarding documentation for every guard.", icon: ICONS.award },
+  { id: "ops", title: "Committed Operations", description: "A responsive security operations desk supervised directly by leadership with hands-on defence-line background.", icon: ICONS.clock },
+  { id: "decade", title: "A Decade of Excellence", description: "10+ years of operational stability, zero labour disputes and proven dependability on high-stakes accounts.", icon: ICONS.chart },
+];
+
+const STATS = [
+  { value: "10+", label: "Years Operational" },
+  { value: "60%", label: "Ex-Servicemen Force" },
+  { value: "24/7", label: "Command Desk" },
+  { value: "100%", label: "Statutory Compliance" },
+];
+
+const VETERANS = [
   {
-    id: "army-discipline",
-    title: "Ex-Servicemen Leadership & Honor",
-    description: "Governed and directly guided by retired Indian Army personnel, bringing battlefield tactical experience, military precision, and uncompromised honor to every posting[cite: 1].",
-    featured: true,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </svg>
-    ),
-  },
-  {
-    id: "satisfaction",
-    title: "Client Satisfaction & Reach",
-    description: "Trusted security partner serving major public sector companies, central railway hospitals, and prestigious township infrastructures across Maharashtra[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-    ),
-  },
-  {
-    id: "committed",
-    title: "Committed to Protect You",
-    description: "Supported by a highly responsive security operations team guided directly by leadership with hands-on defense line background[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-  },
-  {
-    id: "zero-tolerance",
-    title: "Zero Tolerance Policy",
-    description: "Strict non-negotiable standards enforcing absolute integrity, non-disclosure of client info, zero duty negligence, and total sobriety[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m4.93 4.93 14.14 14.14" />
-      </svg>
-    ),
-  },
-  {
-    id: "quick-support",
-    title: "Rapid Emergency Response",
-    description: "24/7 centralized command protocols and real-time incident escalation systems ensuring immediate tactical support in times of crisis[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-      </svg>
-    ),
-  },
-  {
-    id: "compliance",
-    title: "100% Statutory Compliance",
-    description: "Full compliance with state labor statutory acts, PF, ESI, and rigorous administrative onboarding documentation for complete peace of mind[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z" />
-        <path d="m9 12 2 2 4-4" />
-      </svg>
-    ),
-  },
-  {
-    id: "psara",
-    title: "PSARA Licensed & Certified",
-    description: "Fully licensed authority under the Private Security Agencies (Regulation) Act (PSARA, Maharashtra: PSA/L/74/H/2020/MAY/3/92)[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="18" height="14" x="3" y="5" rx="2" />
-        <path d="M7 15h4" />
-        <path d="M15 15h2" />
-        <path d="M7 11h2" />
-      </svg>
-    ),
-  },
-  {
-    id: "decade-track-record",
-    title: "A Decade of Excellence",
-    description: "Over 10 years of consistent operational stability, zero labor union disputes, and proven dependability across high-stakes sector accounts[cite: 1].",
-    featured: false,
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
+    name: "Col. Rajiv Menon (Retd.)",
+    rank: "Colonel, Indian Army",
+    years: "28 Years of Service",
+    role: "Head — Security Operations",
+    img: "/images/guards-hero.jpg.jpeg",
   },
 ];
 
-const LEADERSHIP_MEMBERS = [
-  {
-    name: "Mr. Namdev Bhanudas Doke",
-    role: "Managing Director (Retd. Indian Army)",
-    bio: "Brings decades of military command discipline, strategic field experience, and operational rigor from service in the Indian Army to direct all KESS security deployments[cite: 1].",
-    image: "/images/KESS-differentiator-homepage.png",
-    isVeteran: true,
-  },
-  {
-    name: "Mr. Mahesh Doke",
-    role: "Chairman & Sales Director",
-    bio: "A vision-driven entrepreneur leading enterprise growth, corporate client relations, and multi-sector facility management across key infrastructure zones in Maharashtra[cite: 1].",
-    image: "/images/guards-hero.jpg.jpeg",
-    isVeteran: false,
-  },
+
+const LEADERSHIP = [
+  { name: "Mr. Namdev Bhanudas Doke", role: "Managing Director · Retd. Indian Army", bio: "Brings decades of military command discipline, strategic field experience and operational rigour from Indian Army service to every KESS deployment.", image: "/images/KESS-differentiator-homepage.png", isVeteran: true },
+  { name: "Mr. Mahesh Doke", role: "Chairman & Sales Director", bio: "A vision-driven entrepreneur leading enterprise growth, corporate client relations and multi-sector facility management across Maharashtra.", image: "/images/guards-hero.jpg.jpeg", isVeteran: false },
 ];
 
 /* ==========================================================================
-   COMPONENT 1: WHY TRUST KESS
+   SECTION 1 — WHY TRUST KESS
    ========================================================================== */
 export function WhyTrustKESS() {
-  const trustSectionRef = useRef(null);
-  const tagRef = useRef(null);
-  const titleRef = useRef(null);
-  const descRef = useRef(null);
-  const bannerRef = useRef(null);
+  const root = useRef(null);
+
+  useEffect(() => {
+    // Inject CSS if not already present
+    const id = "kess-trust-leadership-styles";
+    if (!document.getElementById(id)) {
+      const tag = document.createElement("style");
+      tag.id = id;
+      tag.textContent = KESS_CSS;
+      document.head.appendChild(tag);
+    }
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: trustSectionRef.current,
-          start: "top 75%",
-          end: "bottom bottom",
-          toggleActions: "play none none reverse",
-        },
+        scrollTrigger: { trigger: root.current, start: "top 78%", toggleActions: "play none none reverse" },
       });
-
-      tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
-      tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.1);
-      tl.to(descRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.2);
-      tl.to(bannerRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.25);
-      tl.to(".kess-trust-card", { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }, 0.3);
-    }, trustSectionRef);
-
+      tl.to(".kess-eyebrow", { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, 0)
+        .to(".kess-h2", { opacity: 1, y: 0, duration: .6, ease: "power2.out" }, .08)
+        .to(".kess-lede", { opacity: 1, y: 0, duration: .6, ease: "power2.out" }, .16)
+        .to(".kess-vet-banner", { opacity: 1, y: 0, duration: .6, ease: "power2.out" }, .22)
+        .to(".kess-stat", { opacity: 1, y: 0, duration: .45, stagger: .07, ease: "power2.out" }, .3)
+        .to(".kess-card", { opacity: 1, y: 0, duration: .5, stagger: .06, ease: "power2.out" }, .38);
+    }, root);
     return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      <style>{PAGE_SECTIONS_CSS}</style>
-      <section className="kess-trust-section" ref={trustSectionRef}>
-        <div className="kess-trust-bg-grid" />
-        <div className="kess-trust-glow" />
+    <div className="kess-wrap">
+      <section className="kess-sec" ref={root}>
+        <div className="kess-rule-bg" />
+        <div className="kess-inner">
+          <header className="kess-head">
+            <p className="kess-eyebrow">Uncompromising Standards</p>
+            <h2 className="kess-h2">Why Organizations <em>Trust KESS</em></h2>
+            <p className="kess-lede">
+              For over a decade KESS has safeguarded businesses, institutions and communities with
+              integrity and precision. Led by retired military officers and built on rigorous training
+              standards, we deliver security that stands the test of time.
+            </p>
+          </header>
 
-        <div className="kess-trust-inner">
-          <div className="kess-trust-header">
-            <div className="kess-trust-tagline" ref={tagRef}>
-              Uncompromising Standards
+          <div className="kess-vet-banner">
+            <div>
+              <span className="kess-tag">Military Foundation</span>
+              <h3 className="kess-vet-title">Built on Ex-Servicemen Discipline &amp; Honour</h3>
             </div>
-
-            <h2 className="kess-trust-title" ref={titleRef}>
-              WHY ORGANIZATIONS TRUST KESS
-            </h2>
-
-            <p className="kess-trust-description" ref={descRef}>
-              For over a decade, KESS has safeguarded businesses, communities, and institutions with integrity and precision[cite: 1]. Guided by retired military leadership and driven by rigorous training standards, we provide security solutions that inspire confidence and stand the test of time[cite: 1].
+            <p className="kess-vet-desc">
+              Our operational protocols are designed and audited by Indian Army veterans — instilling
+              battlefield alertness, hierarchy-driven command and crisis preparedness into every guard on duty.
             </p>
           </div>
 
-          {/* VETERAN DISCIPLINE HIGHLIGHT BANNER */}
-          <div className="kess-veteran-banner" ref={bannerRef}>
-            <div>
-              <span className="kess-veteran-badge-tag">Military Foundation</span>
-              <h3 className="kess-veteran-banner-title">BUILT ON EX-SERVICEMEN DISCIPLINE & HONOR</h3>
-              <p className="kess-veteran-banner-desc">
-                Our operational protocols are designed and monitored by Indian Army veterans, instilling battlefield alertness, hierarchy-driven command, and crisis preparedness into every security guard on duty[cite: 1].
-              </p>
-            </div>
+          <div className="kess-stats">
+            {STATS.map((s) => (
+              <div className="kess-stat" key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </div>
+            ))}
           </div>
 
-          <div className="kess-trust-grid">
-            {TRUST_PILLARS.map((pillar) => (
-              <div 
-                className={`kess-trust-card${pillar.featured ? " kess-trust-card-featured" : ""}`} 
-                key={pillar.id}
-              >
-                <div className="kess-card-corner kess-corner-tl" />
-                <div className="kess-card-corner kess-corner-tr" />
-                <div className="kess-card-corner kess-corner-bl" />
-                <div className="kess-card-corner kess-corner-br" />
-
-                <div className="kess-trust-icon-box">{pillar.icon}</div>
-
-                <div className="kess-trust-card-content">
-                  <h3 className="kess-trust-card-title">{pillar.title}</h3>
-                  <p className="kess-trust-card-text">{pillar.description}</p>
-                </div>
-              </div>
+          <div className="kess-grid">
+            {TRUST_PILLARS.map((p) => (
+              <article key={p.id} className={`kess-card${p.featured ? " kess-card--featured" : ""}`}>
+                <div className="kess-ico"><Ico d={p.icon} /></div>
+                <h3 className="kess-card-title">{p.title}</h3>
+                <p className="kess-card-text">{p.description}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
 /* ==========================================================================
-   COMPONENT 2: LEADERSHIP SECTION
+   SECTION 2 — EX-SERVICEMEN PHOTO WALL
    ========================================================================== */
-export function LeadershipSection() {
-  const leadershipRef = useRef(null);
-  const titleRef = useRef(null);
-  const subRef = useRef(null);
+export function VeteransWall() {
+  const root = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: leadershipRef.current,
-          start: "top 75%",
-          end: "bottom bottom",
-          toggleActions: "play none none reverse",
-        },
+        scrollTrigger: { trigger: root.current, start: "top 80%", toggleActions: "play none none reverse" },
       });
-
-      tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
-      tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
-      tl.to(".kess-leader-card", { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: "power2.out" }, 0.2);
-    }, leadershipRef);
-
+      tl.to(root.current.querySelectorAll(".kess-eyebrow, .kess-h2, .kess-lede"),
+          { opacity: 1, y: 0, duration: .55, stagger: .08, ease: "power2.out" }, 0)
+        .to(".kess-vet", { opacity: 1, y: 0, duration: .6, stagger: .1, ease: "power2.out" }, .2);
+    }, root);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="kess-leadership-section" ref={leadershipRef}>
-      <div className="kess-trust-inner">
-        <div className="kess-leadership-header">
-          <h2 className="kess-leadership-title" ref={titleRef}>
-            LEADERSHIP & MANAGEMENT
-          </h2>
-          <div className="kess-leadership-sub" ref={subRef}>
-            Guided by Indian Army Veterans. Driven by Entrepreneurial Vision[cite: 1].
-          </div>
-        </div>
+    <section className="kess-sec" ref={root}>
+      <div className="kess-inner">
+        <header className="kess-head kess-head--center">
+          <p className="kess-eyebrow">Those Who Served</p>
+          <h2 className="kess-h2">The Men Behind <em>The Uniform</em></h2>
+          <p className="kess-lede">
+            Veterans who served the nation, now serving your premises. Every deployment carries the
+            discipline, alertness and accountability of a career in the Indian Armed Forces.
+          </p>
+        </header>
 
-        <div className="kess-leadership-grid">
-          {LEADERSHIP_MEMBERS.map((leader, i) => (
-            <div 
-              className={`kess-leader-card${leader.isVeteran ? " kess-leader-card-veteran" : ""}`} 
-              key={i}
-            >
-              <div className="kess-card-corner kess-corner-tl" />
-              <div className="kess-card-corner kess-corner-tr" />
-              <div className="kess-card-corner kess-corner-bl" />
-              <div className="kess-card-corner kess-corner-br" />
-
-              <div className="kess-leader-image-wrapper">
-                {leader.isVeteran && (
-                  <div className="kess-veteran-tag-overlay">
-                    ★ RETD. INDIAN ARMY
-                  </div>
-                )}
-                <Image
-                  src={leader.image}
-                  alt={leader.name}
-                  fill
-                  className="kess-leader-img"
-                  unoptimized
-                />
+        <div className="kess-vets">
+          {VETERANS.map((v) => (
+            <figure className="kess-vet" key={v.name}>
+              <span className="kess-vet-ribbon">★ Ex-Serviceman</span>
+              <div className="kess-vet-img">
+                <Image src={v.img} alt={`${v.name}, ${v.rank}`} fill sizes="(max-width:720px) 50vw, 25vw" />
+                <figcaption className="kess-vet-meta">
+                  <p className="kess-vet-name">{v.name}</p>
+                  <p className="kess-vet-rank">{v.role}</p>
+                </figcaption>
               </div>
-
-              <div className="kess-leader-info">
-                <h3 className="kess-leader-name">{leader.name}</h3>
-                <div className="kess-leader-role">{leader.role}</div>
-                <p className="kess-leader-bio">{leader.bio}</p>
+              <div className="kess-vet-foot">
+                <span>{v.rank}</span>
+                <b>{v.years}</b>
               </div>
-            </div>
+            </figure>
           ))}
         </div>
       </div>
@@ -681,27 +323,73 @@ export function LeadershipSection() {
 }
 
 /* ==========================================================================
-   PARENT CONTAINER COMPONENT
+   SECTION 3 — LEADERSHIP
    ========================================================================== */
-export default function KessTrustAndLeadershipWrapper() {
+export function LeadershipSection() {
+  const root = useRef(null);
+
   useEffect(() => {
-    const id = "kess-combined-page-styles";
-    if (!document.getElementById(id)) {
-      const tag = document.createElement("style");
-      tag.id = id;
-      tag.textContent = PAGE_SECTIONS_CSS;
-      document.head.appendChild(tag);
-    }
-    return () => document.getElementById(id)?.remove();
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: root.current, start: "top 80%", toggleActions: "play none none reverse" },
+      });
+      tl.to(root.current.querySelectorAll(".kess-eyebrow, .kess-h2, .kess-lede"),
+          { opacity: 1, y: 0, duration: .55, stagger: .08, ease: "power2.out" }, 0)
+        .to(".kess-lead", { opacity: 1, y: 0, duration: .6, stagger: .14, ease: "power2.out" }, .2);
+    }, root);
+    return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      {/* 1. WHY ORGANIZATIONS TRUST KESS */}
-      <WhyTrustKESS />
+    <section className="kess-sec" ref={root}>
+      <div className="kess-inner">
+        <header className="kess-head kess-head--center">
+          <p className="kess-eyebrow">Leadership &amp; Management</p>
+          <h2 className="kess-h2">Command From <em>The Front</em></h2>
+          <p className="kess-lede">
+            Guided by Indian Army veterans. Driven by entrepreneurial vision.
+          </p>
+        </header>
 
-      {/* 2. LEADERSHIP & MANAGEMENT SECTION */}
+        <div className="kess-lead-grid">
+          {LEADERSHIP.map((l) => (
+            <article key={l.name} className={`kess-lead${l.isVeteran ? " kess-lead--vet" : ""}`}>
+              <div className="kess-lead-img">
+                <Image src={l.image} alt={`${l.name}, ${l.role}`} fill sizes="(max-width:860px) 100vw, 50vw" />
+                {l.isVeteran && <span className="kess-vet-ribbon">★ Retd. Indian Army</span>}
+              </div>
+              <div className="kess-lead-body">
+                <h3 className="kess-lead-name">{l.name}</h3>
+                <p className="kess-lead-role">{l.role}</p>
+                <p className="kess-lead-bio">{l.bio}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================================================
+   WRAPPER
+   ========================================================================== */
+export default function KessTrustAndLeadership() {
+  useEffect(() => {
+    const id = "kess-trust-leadership-styles";
+    if (!document.getElementById(id)) {
+      const tag = document.createElement("style");
+      tag.id = id;
+      tag.textContent = KESS_CSS;
+      document.head.appendChild(tag);
+    }
+  }, []);
+
+  return (
+    <div className="kess-wrap">
+      <WhyTrustKESS />
+      <VeteransWall />
       <LeadershipSection />
-    </>
+    </div>
   );
 }

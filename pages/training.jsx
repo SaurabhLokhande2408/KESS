@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../components/Navbar";
+import BackToTop from "../components/BackToTop";
 import siteData from "../data/siteData.json";
 
 const trainingPillars = siteData.training?.onTheJobIncludes || [];
@@ -16,8 +15,6 @@ export default function TrainingPage() {
 
   return (
     <div id="top" className="min-h-screen bg-[#f6f1e8] text-stone-900">
-      <Navbar />
-
       <section className="relative overflow-hidden border-b border-amber-500/20 bg-[#111111] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
@@ -179,15 +176,7 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      <div className="fixed bottom-5 right-5 z-50">
-        <Link
-          href="#top"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-amber-500 bg-amber-500 text-base font-bold text-stone-900 shadow-[0_10px_25px_rgba(212,175,55,0.35)] transition-transform duration-200 hover:scale-105"
-          aria-label="Back to top"
-        >
-          ↑
-        </Link>
-      </div>
+      <BackToTop />
     </div>
   );
 }

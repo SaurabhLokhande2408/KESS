@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "../components/Navbar";
 import HeroSection from "../components/about/HeroSection";
 import CompanySection from "../components/about/CompanySection";
 import ClientsSection from "../components/about/ClientsSection";
@@ -22,8 +21,6 @@ export default function AboutPage() {
 
   return (
     <div id="top" className="min-h-screen bg-stone-50 text-stone-900 relative">
-      <Navbar />
-
       <HeroSection company={company} founder={founder} founderCredential={founderCredential} />
       <CompanySection company={company} descriptionParagraphs={descriptionParagraphs} />
       <ClientsSection clients={clients} accentWord="TRUST" />
