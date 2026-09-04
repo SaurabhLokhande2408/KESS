@@ -49,27 +49,42 @@ FRONTEND_URL = os.getenv(
     ""
 ).strip().rstrip("/")
 
+
 ALLOWED_ORIGINS = [
+    # Local development
     "http://localhost:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:3001",
 ]
 
-# Add production Vercel frontend URL
-# from Render Environment Variables.
+
+# ============================================================
+# PRODUCTION FRONTEND
+# ============================================================
+
+# Render Environment Variable:
+#
+# FRONTEND_URL=https://kess-brown.vercel.app
+#
+# This allows the production Vercel frontend.
+
 if FRONTEND_URL:
     ALLOWED_ORIGINS.append(FRONTEND_URL)
 
+
 app.add_middleware(
     CORSMiddleware,
+
     allow_origins=ALLOWED_ORIGINS,
 
-    # Allows Vercel preview deployments too.
+    # Allow Vercel preview deployments.
     allow_origin_regex=r"https://.*\.vercel\.app$",
 
     allow_credentials=True,
+
     allow_methods=["*"],
+
     allow_headers=["*"],
 )
 
@@ -157,7 +172,6 @@ async def api_rate_limit(
     # --------------------------------------------------------
 
     if len(requests) >= GLOBAL_REQUESTS_PER_SECOND:
-
         raise HTTPException(
             status_code=429,
             detail=(
@@ -227,7 +241,6 @@ def check_career_rate_limit(
         len(career_attempts[email])
         >= MAX_CAREER_APPLICATIONS
     ):
-
         raise HTTPException(
             status_code=429,
             detail=(
@@ -304,7 +317,6 @@ def check_contact_rate_limit(
         len(contact_attempts[email])
         >= MAX_CONTACT_ENQUIRIES
     ):
-
         raise HTTPException(
             status_code=429,
             detail=(
@@ -336,7 +348,6 @@ def record_contact_submission(
 
 @app.get("/")
 def root():
-
     return {
         "message": "KESS Website API is running",
         "status": "online",
@@ -349,7 +360,6 @@ def root():
 
 @app.get("/health")
 def health_check():
-
     return {
         "status": "healthy",
     }
@@ -361,13 +371,9 @@ def health_check():
 
 @app.post("/api/contact")
 async def submit_contact_enquiry(
-
     name: str = Form(...),
-
     email: str = Form(...),
-
     phone: str = Form(...),
-
     service_required: str = Form(...),
 ):
     """
@@ -403,7 +409,6 @@ async def submit_contact_enquiry(
     # ========================================================
 
     if not name:
-
         raise HTTPException(
             status_code=400,
             detail="Name is required.",
@@ -411,7 +416,6 @@ async def submit_contact_enquiry(
 
 
     if not email:
-
         raise HTTPException(
             status_code=400,
             detail="Email is required.",
@@ -419,7 +423,6 @@ async def submit_contact_enquiry(
 
 
     if not phone:
-
         raise HTTPException(
             status_code=400,
             detail="Phone number is required.",
@@ -427,7 +430,6 @@ async def submit_contact_enquiry(
 
 
     if not service_required:
-
         raise HTTPException(
             status_code=400,
             detail="Service required is required.",
@@ -446,7 +448,6 @@ async def submit_contact_enquiry(
         email_pattern,
         email,
     ):
-
         raise HTTPException(
             status_code=400,
             detail=(
@@ -461,7 +462,6 @@ async def submit_contact_enquiry(
     # ========================================================
 
     try:
-
         enquiry = ContactEnquiry(
             name=name,
             email=email,
@@ -470,7 +470,6 @@ async def submit_contact_enquiry(
         )
 
     except ValidationError:
-
         raise HTTPException(
             status_code=400,
             detail=(
@@ -496,13 +495,9 @@ async def submit_contact_enquiry(
     # ========================================================
 
     enquiry_data = {
-
         "name": enquiry.name,
-
         "email": str(enquiry.email),
-
         "phone": enquiry.phone,
-
         "service_required":
             enquiry.service_required,
     }
@@ -513,7 +508,6 @@ async def submit_contact_enquiry(
     # ========================================================
 
     try:
-
         await send_contact_enquiry(
             enquiry_data=enquiry_data,
         )
@@ -548,15 +542,12 @@ async def submit_contact_enquiry(
     # ========================================================
 
     return {
-
         "success": True,
-
         "message": (
             "Your enquiry has been submitted "
             "successfully. Our team will contact "
             "you shortly."
         ),
-
     }
 
 
@@ -566,29 +557,17 @@ async def submit_contact_enquiry(
 
 @app.post("/api/careers/apply")
 async def submit_career_application(
-
     name: str = Form(...),
-
     email: str = Form(...),
-
     phone: str = Form(...),
-
     position: str = Form(...),
-
     age: Optional[str] = Form(None),
-
     education: Optional[str] = Form(None),
-
     experience: Optional[str] = Form(None),
-
     city: Optional[str] = Form(None),
-
     address: Optional[str] = Form(None),
-
     message: Optional[str] = Form(None),
-
     recaptcha_token: Optional[str] = Form(None),
-
     resume: Optional[UploadFile] = File(None),
 ):
     """
@@ -615,7 +594,6 @@ async def submit_career_application(
     # ========================================================
 
     if not name:
-
         raise HTTPException(
             status_code=400,
             detail="Name is required.",
@@ -623,7 +601,6 @@ async def submit_career_application(
 
 
     if not email:
-
         raise HTTPException(
             status_code=400,
             detail="Email is required.",
@@ -631,7 +608,6 @@ async def submit_career_application(
 
 
     if not phone:
-
         raise HTTPException(
             status_code=400,
             detail="Phone number is required.",
@@ -639,7 +615,6 @@ async def submit_career_application(
 
 
     if not position:
-
         raise HTTPException(
             status_code=400,
             detail="Position is required.",
@@ -658,7 +633,6 @@ async def submit_career_application(
         email_pattern,
         email,
     ):
-
         raise HTTPException(
             status_code=400,
             detail=(
@@ -725,13 +699,9 @@ async def submit_career_application(
         # ----------------------------------------------------
 
         allowed_extensions = {
-
             ".pdf",
-
             ".doc",
-
             ".docx",
-
         }
 
 
@@ -781,7 +751,6 @@ async def submit_career_application(
         "address": address,
 
         "message": message,
-
     }
 
 
