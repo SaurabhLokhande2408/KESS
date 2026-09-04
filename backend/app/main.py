@@ -16,6 +16,7 @@ from pydantic import ValidationError
 
 import re
 import time
+import os
 
 from app.email_service import (
     send_career_application,
@@ -43,14 +44,23 @@ app = FastAPI(
 # CORS
 # ============================================================
 
+FRONTEND_URL = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
+
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+]
+
+# Add production frontend URL from Render Environment Variables
+if FRONTEND_URL:
+    ALLOWED_ORIGINS.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-    ],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -66,17 +76,6 @@ app.add_middleware(
 #
 #   /api/contact
 #   /api/careers/apply
-#
-# Example:
-#
-# Request 1  -> allowed
-# Request 2  -> allowed
-# Request 3  -> allowed
-# Request 4  -> allowed
-# Request 5  -> allowed
-# Request 6  -> 429
-#
-# The limit is shared across both APIs.
 # ============================================================
 
 GLOBAL_REQUESTS_PER_SECOND = 5
