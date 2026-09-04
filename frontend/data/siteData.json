@@ -1,0 +1,225 @@
+{
+  "company": {
+    "name": "Knight Eyes Security Services",
+    "shortName": "KESS",
+    "tagline": "Absolute Security. Infinite Vigilance.",
+    "subTagline": "Security guarding, housekeeping, manpower outsourcing and rigorous on-the-job training — led by ex-servicemen who take vigilance seriously.",
+    "yearsInBusiness": 10,
+    "website": "www.knighteye.in",
+    "citiesServed": 3
+  },
+
+  "leadership": [
+    {
+      "name": "Namdev Bhanudas Doke",
+      "role": "Managing Director",
+      "bio": "Retired from the Indian Army. Brings decades of military discipline and leadership to KESS's operations and training standards.",
+      "isVeteran": true,
+      "image": "/images/leadership-namdev.jpg"
+    },
+    {
+      "name": "Mahesh Doke",
+      "role": "Chairman & Sales Director",
+      "bio": "A well-established entrepreneur in security and housekeeping services, and a recognised name in the landscaping domain across Maharashtra over the past five years.",
+      "isVeteran": false,
+      "image": "/images/leadership-mahesh.jpg"
+    }
+  ],
+
+  "about": {
+    "mission": "To build a strong bond with organisations wanting to build a support system and improve their present structure, by providing perpetual consultancy and recruitment of staff or labour — permanent, contractual, skilled, or unskilled.",
+    "vision": "To be the best security consultant and employee management partner as a way of life in business organisations and industries.",
+    "description": "Knight Eyes Security Services was founded 10 years ago to provide the best corporate service in its field, specialising in manpower services (both skilled and unskilled), security services, and housekeeping services to public and professional sectors."
+  },
+
+  "whyKess": [
+    {
+      "title": "Ex-Servicemen Leadership",
+      "description": "Governed and directly guided by retired Indian Army personnel, bringing military precision and uncompromised discipline to every posting."
+    },
+    {
+      "title": "PSARA Licensed",
+      "description": "Fully licensed under the Private Security Agencies (Regulation) Act, Maharashtra."
+    },
+    {
+      "title": "Structured Training",
+      "description": "Every guard goes through physical training, firefighting basics and martial arts — not just a uniform and a chair."
+    },
+    {
+      "title": "Zero Tolerance Policy",
+      "description": "Strict standards on integrity, confidentiality, punctuality and sobriety, enforced without exception."
+    },
+    {
+      "title": "A Decade of Track Record",
+      "description": "Ten years of consistent service across corporate, residential and institutional sites."
+    },
+    {
+      "title": "Statutory Compliance",
+      "description": "Full PF and ESI compliance for every deployed employee, with clean documentation for audits."
+    }
+  ],
+
+  "services": [
+    {
+      "id": "guarding",
+      "title": "Security Guarding",
+      "description": "Trained, disciplined security personnel for commercial, residential and industrial premises, on rotating or fixed shifts.",
+      "icon": "shield"
+    },
+    {
+      "id": "housekeeping",
+      "title": "Housekeeping Services",
+      "description": "Professional housekeeping and facility upkeep for offices, townships and commercial spaces.",
+      "icon": "sparkles"
+    },
+    {
+      "id": "manpower",
+      "title": "Manpower Outsourcing",
+      "description": "Data entry operators, office assistants, receptionists, peons, courier boys and casual labour — fully compliant staffing.",
+      "icon": "users"
+    },
+    {
+      "id": "training",
+      "title": "On-the-Job Training Programme",
+      "description": "Physical training, firefighting basics, mount-dismount control & command, and martial arts training led by a black belt Wu-Shu Kung Fu instructor.",
+      "icon": "target"
+    },
+    {
+      "id": "vip-protection",
+      "title": "VIP Protection & Bodyguards",
+      "description": "Dedicated close-protection personnel trained in mount-dismount control and command procedures.",
+      "icon": "user-check"
+    },
+    {
+      "id": "crowd-control",
+      "title": "Crowd Control & Event Security",
+      "description": "Trained personnel for events, ceremonies and crowd management scenarios.",
+      "icon": "users-round"
+    }
+  ],
+
+  "manpowerCategories": [
+    "Data Entry Operators",
+    "Office Assistant",
+    "Lobby Assistant",
+    "Receptionist",
+    "Office Boys or Peons",
+    "Courier Boys / Runner",
+    "Mall Room Boys",
+    "Casual Labour",
+    "Any Other, As Per Client Requirement"
+  ],
+
+  "training": {
+    "trainer": {
+      "name": "Som Borude",
+      "credential": "Black Belt in Wu-Shu Kung Fu"
+    },
+    "programme": [
+      "Basic training for security personnel (punctuality, alertness, behavior, discipline)",
+      "Physical training",
+      "First-aid / firefighting training",
+      "Reporting systems",
+      "On-the-job training programme",
+      "Bodyguard and VIP protection",
+      "Crowd control"
+    ],
+    "aims": [
+      "Teach basic etiquette and manners for the workplace",
+      "Prepare guards to be mentally robust and physically tough for strenuous duty up to 12 hours",
+      "Prepare trainee guards to handle emergencies without panic",
+      "Train guards in fire response and first aid",
+      "Inculcate a sense of discipline and team spirit"
+    ]
+  },
+
+  "clients": [
+    { "name": "Unnamed (1)", "logo": "unnamed (1).jpg", "width": 200, "height": 200 },
+    { "name": "Unnamed (1)", "logo": "unnamed (1).png", "width": 730, "height": 583 },
+    { "name": "Unnamed (10)", "logo": "unnamed (10).jpg", "width": 960, "height": 540 },
+    { "name": "Unnamed (11)", "logo": "unnamed (11).jpg", "width": 335, "height": 597 },
+    { "name": "Unnamed (12)", "logo": "unnamed (12).jpg", "width": 512, "height": 512 },
+    { "name": "Unnamed (13)", "logo": "unnamed (13).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (14)", "logo": "unnamed (14).jpg", "width": 640, "height": 480 },
+    { "name": "Unnamed (15)", "logo": "unnamed (15).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (16)", "logo": "unnamed (16).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (17)", "logo": "unnamed (17).jpg", "width": 1336, "height": 749 },
+    { "name": "Unnamed (18)", "logo": "unnamed (18).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (19)", "logo": "unnamed (19).jpg", "width": 481, "height": 302 },
+    { "name": "Unnamed (2)", "logo": "unnamed (2).jpg", "width": 480, "height": 360 },
+    { "name": "Unnamed (2)", "logo": "unnamed (2).png", "width": 501, "height": 436 },
+    { "name": "Unnamed (20)", "logo": "unnamed (20).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (21)", "logo": "unnamed (21).jpg", "width": 200, "height": 200 },
+    { "name": "Unnamed (22)", "logo": "unnamed (22).jpg", "width": 1000, "height": 786 },
+    { "name": "Unnamed (3)", "logo": "unnamed (3).jpg", "width": 480, "height": 360 },
+    { "name": "Unnamed (4)", "logo": "unnamed (4).jpg", "width": 452, "height": 442 },
+    { "name": "Unnamed (5)", "logo": "unnamed (5).jpg", "width": 1134, "height": 1138 },
+    { "name": "Unnamed (6)", "logo": "unnamed (6).jpg", "width": 850, "height": 436 },
+    { "name": "Unnamed (7)", "logo": "unnamed (7).jpg", "width": 447, "height": 447 },
+    { "name": "Unnamed (8)", "logo": "unnamed (8).jpg", "width": 286, "height": 337 },
+    { "name": "Unnamed (9)", "logo": "unnamed (9).jpg", "width": 765, "height": 1020 },
+    { "name": "Unnamed", "logo": "unnamed.jpg", "width": 1000, "height": 786 },
+    { "name": "Unnamed", "logo": "unnamed.png", "width": 487, "height": 446 }
+  ],
+
+  "testimonials": [],
+
+  "careers": {
+    "whyWorkHere": "Join a team backed by ex-servicemen mentorship, structured training and real growth opportunities in the security and facilities industry.",
+    "benefits": [
+      "Structured, ongoing training rather than a one-day induction",
+      "PF and ESI coverage",
+      "Clear reporting hierarchy and advancement path",
+      "Deployment across reputed corporate and residential sites"
+    ],
+    "openings": [
+      {
+        "id": "security-guard-pune",
+        "title": "Security Guard",
+        "location": "Pune",
+        "type": "Full-time"
+      },
+      {
+        "id": "housekeeping-staff-pune",
+        "title": "Housekeeping Staff",
+        "location": "Pune",
+        "type": "Full-time"
+      },
+      {
+        "id": "office-assistant-pune",
+        "title": "Office Assistant",
+        "location": "Pune",
+        "type": "Full-time"
+      }
+    ]
+  },
+
+  "registration": {
+    "psara": {
+      "state": "Maharashtra",
+      "number": "PSA/L/74/H/2020/MAY/3/92"
+    },
+    "pfNumber": "PUPUN2249014000",
+    "esiNumber": "33000787770001099"
+  },
+
+  "contact": {
+    "headOffice": {
+      "label": "Head Office",
+      "address": "Ground Floor, Omkar Palace, Office No. 1, Fursungi, Hadapsar, Pune - 15, Maharashtra"
+    },
+    "branches": [
+      {
+        "label": "Ahmednagar Branch",
+        "address": "Ketki Complex, Office No. 1, Ground Floor, Ahmednagar, 414001"
+      },
+      {
+        "label": "Pune Branch",
+        "address": "Goodwill Square, Pune - 15"
+      }
+    ],
+    "phone": ["7972474409", "9890864678"],
+    "officeHours": "10 AM – 5 PM, Monday to Saturday",
+    "whatsapp": "917972474409"
+  }
+}
