@@ -20,7 +20,7 @@ export default function ServiceCard({ service, index }) {
       <h3 className="font-display text-lg text-charcoal mb-1.5">
         {service.title}
       </h3>
-      <p className="text-charcoal-light text-sm leading-relaxed">
+      <p className="text-charcoal-light text-base leading-7">
         {service.description}
       </p>
     </div>

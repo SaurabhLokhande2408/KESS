@@ -28,6 +28,8 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
   background: var(--color-ivory);
   color: var(--color-charcoal);
 }
@@ -53,6 +55,18 @@ body {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.reveal-element {
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-element {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Client logo marquee */

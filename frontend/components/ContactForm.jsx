@@ -1,120 +1,354 @@
 import { useState } from "react";
-import siteData from "@/data/siteData.json";
-
-const SERVICE_OPTIONS = siteData.services.map((s) => s.title);
+import { AsYouType, isValidPhoneNumber } from "libphonenumber-js";
+import Icon from "@/components/Icon";
+import { submitContactEnquiry } from "@/src/api/contact";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
-    city: "",
-    service: SERVICE_OPTIONS[0],
+    service_required: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [status, setStatus] = useState({
+    type: "",
     message: "",
   });
 
-  const update = (field) => (e) =>
-    setForm((f) => ({ ...f, [field]: e.target.value }));
+  // ============================================================
+  // HANDLE INPUT
+  // ============================================================
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const text = [
-      `New enquiry from the website:`,
-      `Name: ${form.name}`,
-      `Phone: ${form.phone}`,
-      `City: ${form.city}`,
-      `Service: ${form.service}`,
-      form.message ? `Message: ${form.message}` : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    const url = `https://wa.me/${siteData.contact.whatsapp}?text=${encodeURIComponent(
-      text
-    )}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Phone formatting using libphonenumber-js
+    if (name === "phone") {
+      const formattedPhone = new AsYouType("IN").input(value);
+
+      setFormData((previous) => ({
+        ...previous,
+        phone: formattedPhone,
+      }));
+    } else {
+      setFormData((previous) => ({
+        ...previous,
+        [name]: value,
+      }));
+    }
+
+    if (status.type === "error") {
+      setStatus({
+        type: "",
+        message: "",
+      });
+    }
   };
 
-  const inputClass =
-    "w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-charcoal-light/50 focus:border-gold outline-none transition-colors";
+  // ============================================================
+  // SUBMIT FORM
+  // ============================================================
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setStatus({
+      type: "",
+      message: "",
+    });
+
+    // ----------------------------------------------------------
+    // NAME
+    // ----------------------------------------------------------
+
+    if (!formData.name.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your name.",
+      });
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // EMAIL
+    // ----------------------------------------------------------
+
+    if (!formData.email.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your email address.",
+      });
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // PHONE
+    // ----------------------------------------------------------
+
+    if (!formData.phone.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your phone number.",
+      });
+      return;
+    }
+
+    // Validate Indian phone number
+    if (!isValidPhoneNumber(formData.phone, "IN")) {
+      setStatus({
+        type: "error",
+        message: "Please enter a valid 10-digit phone number.",
+      });
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // SERVICE
+    // ----------------------------------------------------------
+
+    if (!formData.service_required.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter the service you require.",
+      });
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // SEND
+    // ----------------------------------------------------------
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await submitContactEnquiry(formData);
+
+      setStatus({
+        type: "success",
+        message:
+          result.message ||
+          "Your enquiry has been submitted successfully.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service_required: "",
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error.message ||
+          "Unable to send your enquiry. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="text-xs uppercase tracking-wide text-charcoal-light mb-1 block">
-            Full Name
-          </label>
-          <input
-            required
-            className={inputClass}
-            value={form.name}
-            onChange={update("name")}
-            placeholder="Your name"
-          />
-        </div>
-        <div>
-          <label className="text-xs uppercase tracking-wide text-charcoal-light mb-1 block">
-            Phone Number
-          </label>
-          <input
-            required
-            className={inputClass}
-            value={form.phone}
-            onChange={update("phone")}
-            placeholder="10-digit mobile number"
-          />
-        </div>
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-5">
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="text-xs uppercase tracking-wide text-charcoal-light mb-1 block">
-            City
-          </label>
-          <input
-            required
-            className={inputClass}
-            value={form.city}
-            onChange={update("city")}
-            placeholder="e.g. Pune"
-          />
-        </div>
-        <div>
-          <label className="text-xs uppercase tracking-wide text-charcoal-light mb-1 block">
-            Service Required
-          </label>
-          <select className={inputClass} value={form.service} onChange={update("service")}>
-            {SERVICE_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      {/* ========================================================
+          NAME
+      ======================================================== */}
 
       <div>
-        <label className="text-xs uppercase tracking-wide text-charcoal-light mb-1 block">
-          Message (optional)
+        <label
+          htmlFor="contact-name"
+          className="block text-sm font-medium text-charcoal mb-2"
+        >
+          Name
         </label>
-        <textarea
-          className={inputClass}
-          rows={4}
-          value={form.message}
-          onChange={update("message")}
-          placeholder="Tell us a bit about your requirement"
-        />
+
+        <div className="relative">
+          <Icon
+            name="user"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
+          />
+
+          <input
+            id="contact-name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your Name"
+            autoComplete="name"
+            disabled={isSubmitting}
+            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
+          />
+        </div>
       </div>
+
+
+      {/* ========================================================
+          EMAIL
+      ======================================================== */}
+
+      <div>
+        <label
+          htmlFor="contact-email"
+          className="block text-sm font-medium text-charcoal mb-2"
+        >
+          Email
+        </label>
+
+        <div className="relative">
+          <Icon
+            name="mail"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
+          />
+
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="company@gmail.com"
+            autoComplete="email"
+            disabled={isSubmitting}
+            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
+          />
+        </div>
+      </div>
+
+
+      {/* ========================================================
+          PHONE
+      ======================================================== */}
+
+      <div>
+        <label
+          htmlFor="contact-phone"
+          className="block text-sm font-medium text-charcoal mb-2"
+        >
+          Phone Number
+        </label>
+
+        <div className="relative">
+          <Icon
+            name="phone"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
+          />
+
+          <input
+            id="contact-phone"
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="xxxxxxxxxx"
+            autoComplete="tel"
+            inputMode="numeric"
+            maxLength={14}
+            disabled={isSubmitting}
+            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
+          />
+        </div>
+
+        <p className="mt-1.5 text-xs text-charcoal-light">
+          Enter a valid 10-digit Indian phone number.
+        </p>
+      </div>
+
+
+      {/* ========================================================
+          SERVICE REQUIRED
+      ======================================================== */}
+
+      <div>
+        <label
+          htmlFor="contact-service"
+          className="block text-sm font-medium text-charcoal mb-2"
+        >
+          Service Required
+        </label>
+
+        <div className="relative">
+          <Icon
+            name="briefcase"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
+          />
+
+          <input
+            id="contact-service"
+            type="text"
+            name="service_required"
+            value={formData.service_required}
+            onChange={handleChange}
+            placeholder="Security Services"
+            disabled={isSubmitting}
+            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
+          />
+        </div>
+      </div>
+
+
+      {/* ========================================================
+          STATUS
+      ======================================================== */}
+
+      {status.message && (
+        <div
+          className={
+            status.type === "success"
+              ? "flex items-start gap-3 border border-green-200 bg-green-50 text-green-800 px-4 py-3 text-sm"
+              : "flex items-start gap-3 border border-red-200 bg-red-50 text-red-700 px-4 py-3 text-sm"
+          }
+        >
+          <Icon
+            name={
+              status.type === "success"
+                ? "check-circle"
+                : "alert-circle"
+            }
+            className="w-5 h-5 flex-shrink-0 mt-0.5"
+          />
+
+          <p>{status.message}</p>
+        </div>
+      )}
+
+
+      {/* ========================================================
+          SUBMIT
+      ======================================================== */}
 
       <button
         type="submit"
-        className="bg-gold text-charcoal px-7 py-3 uppercase tracking-wider text-xs font-semibold hover:bg-charcoal hover:text-ivory transition-colors"
+        disabled={isSubmitting}
+        className="group w-full flex items-center justify-center gap-3 bg-charcoal text-white px-6 py-3.5 font-medium transition-all duration-300 hover:bg-gold hover:text-charcoal disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Send Enquiry via WhatsApp
+        {isSubmitting ? (
+          <>
+            <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+
+            Sending Enquiry...
+          </>
+        ) : (
+          <>
+            Send Enquiry
+
+            <Icon
+              name="arrow-right"
+              className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </>
+        )}
       </button>
-      <p className="text-xs text-charcoal-light/70">
-        This opens WhatsApp with your details pre-filled — no account or backend needed yet.
+
+
+      <p className="text-xs text-charcoal-light text-center">
+        Our team will get back to you regarding your requirement.
       </p>
+
     </form>
   );
 }

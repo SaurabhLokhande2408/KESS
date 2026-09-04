@@ -153,7 +153,7 @@ const Differentiator = () => {
             <h2 className="font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               Discipline built into the foundation.
             </h2>
-            <p className="mt-6 max-w-2xl font-sans text-sm leading-7 text-white/60">
+            <p className="mt-6 max-w-2xl font-sans text-base leading-8 text-white/60 sm:text-[17px]">
               Knight Eyes Security Services is built on the values of military
               service: discipline, preparedness, leadership and
               responsibility. Those principles shape the people KESS trains
@@ -190,13 +190,13 @@ const Differentiator = () => {
               Mr. Namdev Bhanudas Doke
             </h3>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <p className="font-sans text-sm leading-7 text-white/60">
+              <p className="font-sans text-base leading-8 text-white/60 sm:text-[17px]">
                 The leadership behind KESS brings distinguished military
                 experience and a record of command across diverse formations.
                 That background is the foundation for an organisation built
                 on discipline and dependable execution.
               </p>
-              <p className="font-sans text-sm leading-7 text-white/60">
+              <p className="font-sans text-base leading-8 text-white/60 sm:text-[17px]">
                 Today, that philosophy extends beyond security. KESS supports
                 organisations with trained manpower, housekeeping and other
                 operational services, while holding the same standard of
@@ -217,7 +217,7 @@ const Differentiator = () => {
                 Prepared before deployment.
               </h3>
             </div>
-            <p className="max-w-sm font-sans text-sm leading-6 text-white/50">
+            <p className="max-w-sm font-sans text-base leading-7 text-white/50 sm:text-[17px]">
               A structured programme built to instil discipline, physical
               readiness and controlled response.
             </p>
@@ -240,7 +240,7 @@ const Differentiator = () => {
                 <h4 className="mt-4 font-serif text-xl leading-snug tracking-tight text-ivory">
                   {item.title}
                 </h4>
-                <p className="mt-3 font-sans text-[13px] leading-6 text-white/50">
+                <p className="mt-3 font-sans text-base leading-7 text-white/50">
                   {item.text}
                 </p>
               </Reveal>
@@ -259,7 +259,7 @@ const Differentiator = () => {
                 People for every operational need.
               </h3>
             </div>
-            <p className="max-w-sm font-sans text-sm leading-6 text-white/50">
+            <p className="max-w-sm font-sans text-base leading-7 text-white/50 sm:text-[17px]">
               Security personnel, skilled and unskilled manpower, and
               housekeeping support for a wide range of requirements.
             </p>

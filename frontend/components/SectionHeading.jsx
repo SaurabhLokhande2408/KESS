@@ -12,7 +12,7 @@ export default function SectionHeading({ eyebrow, title, description, align = "l
         {title}
       </h2>
       {description && (
-        <p className="text-charcoal-light text-sm sm:text-base mt-3 leading-relaxed">
+        <p className="text-charcoal-light text-base sm:text-[17px] mt-4 leading-8">
           {description}
         </p>
       )}

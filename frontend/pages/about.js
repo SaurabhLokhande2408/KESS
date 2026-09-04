@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import CurveLines from "@/components/CurveLines";
 import siteData from "@/data/siteData.json";
 
 export default function About() {
@@ -25,15 +26,22 @@ export default function About() {
         image="/images/team.jpg"
       />
 
-      <section className="py-14 sm:py-20 px-5 sm:px-8">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 gap-8">
+      <section className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8">
+        <CurveLines
+          position="right"
+          size="compact"
+          density="fine"
+          opacity={0.75}
+          className="right-[-160px] bottom-[-80px] hidden sm:block"
+        />
+        <div className="relative z-10 max-w-5xl mx-auto grid sm:grid-cols-2 gap-8">
           <div className="border border-border bg-white p-7">
             <h3 className="font-display text-xl text-gold mb-2">Our Mission</h3>
-            <p className="text-charcoal-light text-sm leading-relaxed">{about.mission}</p>
+            <p className="text-charcoal-light text-base leading-8">{about.mission}</p>
           </div>
           <div className="border border-border bg-white p-7">
             <h3 className="font-display text-xl text-gold mb-2">Our Vision</h3>
-            <p className="text-charcoal-light text-sm leading-relaxed">{about.vision}</p>
+            <p className="text-charcoal-light text-base leading-8">{about.vision}</p>
           </div>
         </div>
       </section>
@@ -54,7 +62,7 @@ export default function About() {
                 <p className="text-ivory/50 text-[10px] uppercase tracking-wide mb-2">
                   {person.role}
                 </p>
-                <p className="text-ivory/70 text-sm leading-relaxed">
+                <p className="text-ivory/70 text-base leading-8">
                   {person.bio}
                 </p>
               </div>
@@ -84,7 +92,7 @@ export default function About() {
               <p className="font-display text-charcoal">{registration.esiNumber}</p>
             </div>
           </div>
-          <p className="text-charcoal-light text-xs mt-4">
+          <p className="text-charcoal-light text-sm mt-4">
             {company.yearsInBusiness}+ years in business, serving {company.citiesServed}+ cities across Maharashtra.
           </p>
         </div>

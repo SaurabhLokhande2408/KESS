@@ -132,67 +132,159 @@
       "Inculcate a sense of discipline and team spirit"
     ]
   },
-
-  "clients": [
-    { "name": "Unnamed (1)", "logo": "unnamed (1).jpg", "width": 200, "height": 200 },
-    { "name": "Unnamed (1)", "logo": "unnamed (1).png", "width": 730, "height": 583 },
-    { "name": "Unnamed (10)", "logo": "unnamed (10).jpg", "width": 960, "height": 540 },
-    { "name": "Unnamed (11)", "logo": "unnamed (11).jpg", "width": 335, "height": 597 },
-    { "name": "Unnamed (12)", "logo": "unnamed (12).jpg", "width": 512, "height": 512 },
-    { "name": "Unnamed (13)", "logo": "unnamed (13).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (14)", "logo": "unnamed (14).jpg", "width": 640, "height": 480 },
-    { "name": "Unnamed (15)", "logo": "unnamed (15).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (16)", "logo": "unnamed (16).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (17)", "logo": "unnamed (17).jpg", "width": 1336, "height": 749 },
-    { "name": "Unnamed (18)", "logo": "unnamed (18).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (19)", "logo": "unnamed (19).jpg", "width": 481, "height": 302 },
-    { "name": "Unnamed (2)", "logo": "unnamed (2).jpg", "width": 480, "height": 360 },
-    { "name": "Unnamed (2)", "logo": "unnamed (2).png", "width": 501, "height": 436 },
-    { "name": "Unnamed (20)", "logo": "unnamed (20).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (21)", "logo": "unnamed (21).jpg", "width": 200, "height": 200 },
-    { "name": "Unnamed (22)", "logo": "unnamed (22).jpg", "width": 1000, "height": 786 },
-    { "name": "Unnamed (3)", "logo": "unnamed (3).jpg", "width": 480, "height": 360 },
-    { "name": "Unnamed (4)", "logo": "unnamed (4).jpg", "width": 452, "height": 442 },
-    { "name": "Unnamed (5)", "logo": "unnamed (5).jpg", "width": 1134, "height": 1138 },
-    { "name": "Unnamed (6)", "logo": "unnamed (6).jpg", "width": 850, "height": 436 },
-    { "name": "Unnamed (7)", "logo": "unnamed (7).jpg", "width": 447, "height": 447 },
-    { "name": "Unnamed (8)", "logo": "unnamed (8).jpg", "width": 286, "height": 337 },
-    { "name": "Unnamed (9)", "logo": "unnamed (9).jpg", "width": 765, "height": 1020 },
-    { "name": "Unnamed", "logo": "unnamed.jpg", "width": 1000, "height": 786 },
-    { "name": "Unnamed", "logo": "unnamed.png", "width": 487, "height": 446 }
-  ],
-
+"clients": [
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (1).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (1).png"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (10).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (11).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (12).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (13).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (14).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (15).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (16).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (17).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (18).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (19).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (2).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (2).png"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (20).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (21).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (22).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (3).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (4).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (5).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (6).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (7).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (8).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed (9).jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed.jpg"
+  },
+  {
+    "name": "",
+    "logo": "/images/clients/unnamed.png"
+  }
+],
   "testimonials": [],
 
-  "careers": {
-    "whyWorkHere": "Join a team backed by ex-servicemen mentorship, structured training and real growth opportunities in the security and facilities industry.",
-    "benefits": [
-      "Structured, ongoing training rather than a one-day induction",
-      "PF and ESI coverage",
-      "Clear reporting hierarchy and advancement path",
-      "Deployment across reputed corporate and residential sites"
-    ],
-    "openings": [
-      {
-        "id": "security-guard-pune",
-        "title": "Security Guard",
-        "location": "Pune",
-        "type": "Full-time"
-      },
-      {
-        "id": "housekeeping-staff-pune",
-        "title": "Housekeeping Staff",
-        "location": "Pune",
-        "type": "Full-time"
-      },
-      {
-        "id": "office-assistant-pune",
-        "title": "Office Assistant",
-        "location": "Pune",
-        "type": "Full-time"
-      }
-    ]
+"careers": {
+  "whyWorkHere": "Join a team backed by experienced professionals, structured training and opportunities to build a stable career in security and facility services.",
+
+  "latestOpening": {
+    "badge": "Latest Opening",
+    "title": "Security & Facility Staff Required",
+    "description": "We are looking for responsible and hardworking people to join our growing team in Pune. Previous experience is helpful, but suitable candidates can also be considered based on the role.",
+    "location": "Pune, Maharashtra",
+    "type": "Full-time",
+    "posted": "September 2026"
   },
+
+  "benefits": [
+    "Regular training to help you improve your skills",
+    "PF and ESI coverage as applicable",
+    "Clear work responsibilities and reporting structure",
+    "Opportunities to work at reputed corporate and residential sites",
+    "Support and guidance from experienced supervisors",
+    "Opportunities to grow with the organisation"
+  ],
+
+  "openings": [
+    {
+      "id": "security-guard",
+      "title": "Security Guard",
+      "location": "Pune",
+      "type": "Full-time",
+      "description": "Responsible for the safety and security of the assigned premises."
+    },
+    {
+      "id": "housekeeping-staff",
+      "title": "Housekeeping Staff",
+      "location": "Pune",
+      "type": "Full-time",
+      "description": "Responsible for cleanliness, maintenance and general facility support."
+    },
+    {
+      "id": "office-assistant",
+      "title": "Office Assistant",
+      "location": "Pune",
+      "type": "Full-time",
+      "description": "Assist with basic office work, coordination and day-to-day support."
+    }
+  ]
+},
 
   "registration": {
     "psara": {

@@ -2,6 +2,8 @@ import siteData from "@/data/siteData.json";
 
 export default function ClientMarquee() {
   const { clients } = siteData;
+  const getLogoSrc = (logo) =>
+    logo.startsWith("/") ? logo : `/images/clients/${logo}`;
 
   return (
     <section className="border-t border-border py-6 bg-ivory overflow-hidden">
@@ -15,12 +17,12 @@ export default function ClientMarquee() {
             <div key={track} className="flex shrink-0 gap-12">
               {clients.map((client, idx) => (
                 <div
-                  key={`${client.name}-${idx}`}
+                  key={`${client.logo}-${idx}`}
                   className="h-[89px] sm:h-[105px] flex shrink-0 items-center"
                 >
                   <img
-                    src={`/images/clients/${client.logo}`}
-                    alt={client.name}
+                    src={getLogoSrc(client.logo)}
+                    alt={client.name || "KESS client logo"}
                     width={client.width}
                     height={client.height}
                     className="h-full w-auto object-contain"

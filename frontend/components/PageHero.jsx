@@ -1,5 +1,6 @@
 import Link from "next/link";
 import India from "@svg-maps/india";
+import CurveLines from "@/components/CurveLines";
 /**
  * Split editorial hero — ivory left column, full-bleed photo right.
  *
@@ -29,12 +30,18 @@ export default function PageHero({
 
   return (
     <section className="relative overflow-hidden bg-ivory text-charcoal border-b border-gold/30">
+      <CurveLines
+        position="right"
+        variant="rising"
+        opacity={0.7}
+        className="right-[-190px] top-[-70px] hidden h-[380px] w-[700px] lg:block"
+      />
       {/* decorative gold frame + diamonds */}
       <div className="pointer-events-none absolute inset-3 sm:inset-5 border border-gold shadow-[0_0_0_1px_rgba(0,0,0,0.35)]" />
       <div className="pointer-events-none absolute -left-6 top-1/3 h-16 w-16 rotate-45 border border-gold/50 bg-gold/10 hidden sm:block" />
       <div className="pointer-events-none absolute right-1/2 bottom-6 h-8 w-8 rotate-45 bg-gold/30 hidden lg:block" />
 
-      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 items-stretch">
+      <div className="relative z-10 mx-auto max-w-7xl grid lg:grid-cols-2 items-stretch">
         {/* LEFT: copy */}
         <div className="px-6 sm:px-12 lg:pl-16 lg:pr-10 py-10 sm:py-14 lg:py-16 flex flex-col justify-center">
           {eyebrow && (
@@ -43,7 +50,7 @@ export default function PageHero({
             </p>
           )}
 
-          <h1 className="font-display uppercase font-extrabold leading-[0.95] tracking-tight text-charcoal text-[2rem] sm:text-5xl lg:text-[3.4rem]">
+          <h1 className="font-display uppercase font-normal leading-[0.95] tracking-tight text-charcoal text-[2rem] sm:text-5xl lg:text-[3.4rem]">
             {lines.map((line, i) => (
               <span key={i} className="block">
                 {line}
@@ -55,7 +62,7 @@ export default function PageHero({
           </h1>
 
           {description && (
-            <p className="mt-6 max-w-md text-charcoal-light text-sm sm:text-lg leading-relaxed">
+            <p className="mt-6 max-w-md text-charcoal-light text-base sm:text-lg leading-8">
               {description}
             </p>
           )}
@@ -115,7 +122,7 @@ export default function PageHero({
     <img
       src={image}
       alt={imageAlt}
-      className="absolute top-[25px] left-[5px] right-[5px] bottom-[15px] h-[calc(100%-40px)] w-[calc(100%-0px)] object object-center"
+      className="absolute top-[25px] left-[5px] right-[5px] bottom-[15px] h-[calc(100%-40px)] w-[calc(100%-0px)] object-cover object-center"
     />
   ) : (
     <div className="absolute inset-0 bg-charcoal" />
