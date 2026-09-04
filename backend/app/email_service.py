@@ -25,7 +25,7 @@ SMTP_HOST = os.getenv(
 SMTP_PORT = int(
     os.getenv(
         "SMTP_PORT",
-        "587",
+        "465",
     )
 )
 
@@ -50,17 +50,9 @@ EMAIL_TO = os.getenv(
 
 # Contact receiver
 #
-# CONTACT_RECEIVER_EMAIL is the preferred variable.
+# CONTACT_RECEIVER_EMAIL is preferred.
 #
-# If it does not exist, EMAIL_TO is used.
-#
-# This allows both forms to work:
-#
-# CONTACT_RECEIVER_EMAIL=company@gmail.com
-#
-# OR
-#
-# EMAIL_TO=company@gmail.com
+# If it is not configured, EMAIL_TO will be used.
 # ============================================================
 
 CONTACT_RECEIVER_EMAIL = os.getenv(
@@ -81,12 +73,59 @@ def validate_smtp_config():
             "SMTP_USERNAME is not configured."
         )
 
-
     if not SMTP_PASSWORD:
 
         raise ValueError(
             "SMTP_PASSWORD is not configured."
         )
+
+
+# ============================================================
+# SMTP CONNECTION
+# ============================================================
+
+def create_smtp_connection():
+
+    """
+    Creates a secure Gmail SMTP connection.
+
+    Port 465:
+        SMTP over SSL
+
+    Port 587:
+        SMTP + STARTTLS
+
+    Using port 465 in production is recommended.
+    """
+
+    if SMTP_PORT == 465:
+
+        server = smtplib.SMTP_SSL(
+            SMTP_HOST,
+            SMTP_PORT,
+            timeout=30,
+        )
+
+    else:
+
+        server = smtplib.SMTP(
+            SMTP_HOST,
+            SMTP_PORT,
+            timeout=30,
+        )
+
+        server.ehlo()
+
+        server.starttls()
+
+        server.ehlo()
+
+    server.login(
+        SMTP_USERNAME,
+        SMTP_PASSWORD,
+    )
+
+    return server
 
 
 # ============================================================
@@ -182,7 +221,6 @@ async def send_career_application(
     msg["Subject"] = (
         f"New Career Application - {position}"
     )
-
 
     msg["From"] = SMTP_USERNAME
 
@@ -308,38 +346,18 @@ through the KESS website.
 
 
     # ========================================================
-    # SEND
+    # SEND EMAIL
     # ========================================================
+
+    server = None
 
     try:
 
-        with smtplib.SMTP(
+        server = create_smtp_connection()
 
-            SMTP_HOST,
-
-            SMTP_PORT,
-
-            timeout=30,
-
-        ) as server:
-
-            server.ehlo()
-
-            server.starttls()
-
-            server.ehlo()
-
-            server.login(
-
-                SMTP_USERNAME,
-
-                SMTP_PASSWORD,
-
-            )
-
-            server.send_message(
-                msg
-            )
+        server.send_message(
+            msg
+        )
 
 
         print(
@@ -371,6 +389,17 @@ through the KESS website.
         )
 
 
+    except OSError as e:
+
+        print(
+            f"SMTP NETWORK ERROR: {e}"
+        )
+
+        raise ValueError(
+            "Unable to connect to the email server."
+        )
+
+
     except Exception as e:
 
         print(
@@ -378,6 +407,19 @@ through the KESS website.
         )
 
         raise
+
+
+    finally:
+
+        if server:
+
+            try:
+
+                server.quit()
+
+            except Exception:
+
+                pass
 
 
 # ============================================================
@@ -421,11 +463,9 @@ async def send_contact_enquiry(
         "",
     )
 
-    service_required = (
-        enquiry_data.get(
-            "service_required",
-            "",
-        )
+    service_required = enquiry_data.get(
+        "service_required",
+        "",
     )
 
 
@@ -440,14 +480,11 @@ async def send_contact_enquiry(
         f"New Contact Enquiry - {name}"
     )
 
-
     msg["From"] = SMTP_USERNAME
 
     msg["To"] = CONTACT_RECEIVER_EMAIL
 
-    # When the company clicks Reply,
-    # Gmail replies directly to the customer.
-
+    # Reply directly to the customer.
     msg["Reply-To"] = email
 
 
@@ -487,38 +524,18 @@ through the KESS website.
 
 
     # ========================================================
-    # SEND
+    # SEND EMAIL
     # ========================================================
+
+    server = None
 
     try:
 
-        with smtplib.SMTP(
+        server = create_smtp_connection()
 
-            SMTP_HOST,
-
-            SMTP_PORT,
-
-            timeout=30,
-
-        ) as server:
-
-            server.ehlo()
-
-            server.starttls()
-
-            server.ehlo()
-
-            server.login(
-
-                SMTP_USERNAME,
-
-                SMTP_PASSWORD,
-
-            )
-
-            server.send_message(
-                msg
-            )
+        server.send_message(
+            msg
+        )
 
 
         print(
@@ -551,6 +568,17 @@ through the KESS website.
         )
 
 
+    except OSError as e:
+
+        print(
+            f"CONTACT EMAIL NETWORK ERROR: {e}"
+        )
+
+        raise ValueError(
+            "Unable to connect to the email server."
+        )
+
+
     except Exception as e:
 
         print(
@@ -558,3 +586,16 @@ through the KESS website.
         )
 
         raise
+
+
+    finally:
+
+        if server:
+
+            try:
+
+                server.quit()
+
+            except Exception:
+
+                pass
