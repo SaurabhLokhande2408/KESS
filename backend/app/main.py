@@ -16,6 +16,7 @@ from pydantic import ValidationError
 
 import re
 import time
+import os
 
 from app.email_service import (
     send_career_application,
@@ -43,14 +44,30 @@ app = FastAPI(
 # CORS
 # ============================================================
 
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    ""
+).strip().rstrip("/")
+
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+]
+
+# Add production Vercel frontend URL
+# from Render Environment Variables.
+if FRONTEND_URL:
+    ALLOWED_ORIGINS.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-    ],
+    allow_origins=ALLOWED_ORIGINS,
+
+    # Allows Vercel preview deployments too.
+    allow_origin_regex=r"https://.*\.vercel\.app$",
+
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
