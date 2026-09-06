@@ -352,7 +352,7 @@ export default function Careers() {
 
       <section className="relative overflow-hidden border-b border-charcoal/10">
 
-        <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-28">
 
           <div className="max-w-4xl">
 
@@ -386,7 +386,7 @@ export default function Careers() {
 
         <section className="border-b border-charcoal/10 bg-white">
 
-          <div className="mx-auto max-w-7xl px-5 py-7 sm:px-8">
+          <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12">
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
@@ -431,9 +431,9 @@ export default function Careers() {
           APPLICATION AREA
       ========================================================= */}
 
-      <main className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
+      <main className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
 
-        <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+        <div className="grid items-start gap-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
 
 
           {/* =====================================================
@@ -459,19 +459,19 @@ export default function Careers() {
 
             {careers?.benefits?.length > 0 && (
 
-              <div className="mt-10 border-t border-charcoal/10 pt-7">
+              <div className="mt-12 border-t border-charcoal/10 pt-8">
 
                 <p className="mb-5 text-sm uppercase tracking-[0.2em] text-gold">
                   Working at KESS
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
 
                   {careers.benefits.map((benefit, index) => (
 
                     <div
                       key={index}
-                      className="flex gap-4 border-b border-charcoal/10 pb-4"
+                      className="flex gap-5 border-b border-charcoal/10 pb-5"
                     >
 
                       <span className="mt-1 text-sm text-gold">
@@ -503,17 +503,17 @@ export default function Careers() {
 
             {/* FORM HEADER */}
 
-            <div className="border-b border-charcoal/10 px-4 py-4 sm:px-6">
+            <div className="border-b border-charcoal/10 px-4 py-3 sm:px-6 sm:py-4">
 
               <p className="text-xs uppercase tracking-[0.2em] text-gold">
                 Application
               </p>
 
-              <h2 className="mt-1.5 font-display text-2xl text-charcoal sm:text-3xl">
+              <h2 className="mt-1 font-display text-2xl text-charcoal sm:text-3xl">
                 Submit your details
               </h2>
 
-              <p className="mt-2 text-sm leading-6 text-charcoal-light">
+              <p className="mt-1 text-sm leading-6 text-charcoal-light">
                 Fields marked with{" "}
                 <span className="text-red-500">*</span> are required.
               </p>
@@ -524,7 +524,7 @@ export default function Careers() {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="px-4 py-5 sm:px-6 sm:py-6"
+              className="px-4 py-4 sm:px-6 sm:py-5"
             >
 
 
@@ -536,7 +536,7 @@ export default function Careers() {
 
                 <section
                   aria-live="polite"
-                  className="career-success mb-6 border border-gold/40 bg-ivory px-5 py-6 sm:px-6 sm:py-7"
+                  className="career-success mb-4 border border-gold/40 bg-ivory px-4 py-4 sm:px-5 sm:py-5"
                 >
 
                   <div className="flex h-10 w-10 items-center justify-center border border-gold bg-gold text-charcoal">
@@ -554,15 +554,15 @@ export default function Careers() {
                     </svg>
                   </div>
 
-                  <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
                     Application received
                   </p>
 
-                  <h3 className="mt-2.5 font-display text-2xl leading-tight text-charcoal sm:text-3xl">
+                  <h3 className="mt-2 font-display text-2xl leading-tight text-charcoal sm:text-3xl">
                     Application Sent Successfully
                   </h3>
 
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-charcoal-light">
+                  <p className="mt-2 max-w-xl text-sm leading-7 text-charcoal-light">
                     Thank you for applying to KESS. Your application has been
                     received successfully. Our team will review your details
                     and get back to you if there is a suitable opportunity.
@@ -571,7 +571,7 @@ export default function Careers() {
                   <button
                     type="button"
                     onClick={handleSubmitAnother}
-                    className="mt-6 border border-charcoal px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-charcoal transition-colors duration-200 hover:bg-charcoal hover:text-ivory"
+                    className="mt-4 border border-charcoal px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-charcoal transition-colors duration-200 hover:bg-charcoal hover:text-ivory"
                   >
                     Submit Another Application
                   </button>
@@ -587,7 +587,7 @@ export default function Careers() {
 
               {error && (
 
-                <div className="mb-6 border border-red-500/30 bg-red-500/5 px-4 py-3">
+                <div className="mb-4 border border-red-500/30 bg-red-500/5 px-4 py-2">
 
                   <p className="text-sm leading-6 text-red-700">
                     {error}
@@ -598,14 +598,14 @@ export default function Careers() {
               )}
 
 
-              <div className="space-y-4">
+              <div className="space-y-2">
 
 
                 {/* =================================================
                     NAME + EMAIL
                 ================================================= */}
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2 sm:grid-cols-2">
 
                   <FormField label="Full Name" required>
 
@@ -643,7 +643,7 @@ export default function Careers() {
                     PHONE + AGE
                 ================================================= */}
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2 sm:grid-cols-2">
 
 
                   {/* PHONE */}
@@ -685,7 +685,7 @@ export default function Careers() {
 
                     </div>
 
-                    <p className="mt-1.5 text-xs text-charcoal/45">
+                    <p className="mt-1 text-xs text-charcoal/45">
                       Select your country and enter your local phone number.
                     </p>
 
@@ -784,7 +784,7 @@ export default function Careers() {
                     EDUCATION + EXPERIENCE
                 ================================================= */}
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2 sm:grid-cols-2">
 
                   <FormField label="Education" required>
 
@@ -846,7 +846,7 @@ export default function Careers() {
                     value={form.address}
                     onChange={handleChange}
                     placeholder="Enter your present address"
-                    rows={3}
+                    rows={2}
                     className="form-input resize-y"
                   />
 
@@ -864,7 +864,7 @@ export default function Careers() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us briefly about yourself"
-                    rows={4}
+                    rows={3}
                     className="form-input resize-y"
                   />
 
@@ -877,24 +877,24 @@ export default function Careers() {
 
                 <FormField label="Resume (Optional)">
 
-                  <div className="border border-dashed border-charcoal/25 bg-ivory/50 p-3">
+                  <div className="border border-dashed border-charcoal/25 bg-ivory/50 p-1">
 
                     <input
                       id="resume"
                       type="file"
                       accept=".pdf,.doc,.docx"
                       onChange={handleResumeChange}
-                      className="block w-full text-sm text-charcoal-light file:mr-3 file:border-0 file:bg-charcoal file:px-4 file:py-2.5 file:text-xs file:font-medium file:uppercase file:tracking-wide file:text-ivory hover:file:bg-gold hover:file:text-charcoal"
+                      className="block w-full text-sm text-charcoal-light file:mr-3 file:border-0 file:bg-charcoal file:px-4 file:py-1 file:text-xs file:font-medium file:uppercase file:tracking-wide file:text-ivory hover:file:bg-gold hover:file:text-charcoal"
                     />
 
-                    <p className="mt-2 text-xs text-charcoal/45">
+                    <p className="mt-1 text-xs text-charcoal/45">
                       Optional · PDF, DOC or DOCX · Maximum 5 MB
                     </p>
 
 
                     {resume && (
 
-                      <p className="mt-2 text-sm text-charcoal">
+                      <p className="mt-1 text-sm text-charcoal">
 
                         Selected:{" "}
 
@@ -915,12 +915,12 @@ export default function Careers() {
                     SUBMIT
                 ================================================= */}
 
-                <div className="pt-1">
+                <div>
 
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="w-full bg-gold px-5 py-3 text-sm font-medium uppercase tracking-[0.18em] text-charcoal transition-colors duration-200 hover:bg-gold/85 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="w-full bg-gold px-5 py-2 text-sm font-medium uppercase tracking-[0.18em] text-charcoal transition-colors duration-200 hover:bg-gold/85 disabled:cursor-not-allowed disabled:opacity-60"
                   >
 
                     {status === "submitting"
@@ -930,7 +930,7 @@ export default function Careers() {
                   </button>
 
 
-                  <p className="mt-3 text-center text-xs leading-5 text-charcoal/40">
+                  <p className="mt-2 text-center text-xs leading-5 text-charcoal/40">
                     By submitting this application, you confirm that the
                     information provided is accurate.
                   </p>
@@ -982,10 +982,10 @@ export default function Careers() {
 
         .form-input {
           width: 100%;
-          min-height: 42px;
+          min-height: 36px;
           border: 1px solid rgba(30, 30, 25, 0.2);
           background: #faf8f5;
-          padding: 0.5rem 0.7rem;
+          padding: 0.3rem 0.7rem;
           font-size: 0.9rem;
           line-height: 1.4;
           color: #20231f;
@@ -1008,7 +1008,7 @@ export default function Careers() {
         }
 
         textarea.form-input {
-          min-height: 78px;
+          min-height: 58px;
         }
 
         select.form-input {
@@ -1017,12 +1017,12 @@ export default function Careers() {
 
         .country-select {
           width: 130px;
-          min-height: 42px;
+          min-height: 36px;
           flex-shrink: 0;
           border: 1px solid rgba(30, 30, 25, 0.2);
           border-right: 0;
           background: #faf8f5;
-          padding: 0.5rem 0.6rem;
+          padding: 0.3rem 0.6rem;
           font-size: 0.85rem;
           color: #20231f;
           outline: none;
@@ -1059,7 +1059,7 @@ function FormField({ label, required, children }) {
 
     <div>
 
-      <label className="mb-1.5 block text-[0.8rem] font-medium tracking-wide text-charcoal">
+      <label className="mb-1 block text-sm font-semibold tracking-wide text-charcoal">
 
         {label}
 

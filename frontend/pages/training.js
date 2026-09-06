@@ -178,7 +178,7 @@ export default function Training() {
 
                 <span className="h-px w-16 bg-[#C6A348]" />
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#555B50]">
+                <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#555B50]">
                   Training & Standards
                 </span>
 
@@ -229,7 +229,7 @@ export default function Training() {
                         360°
                       </p>
 
-                      <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.25em] text-[#656B60]">
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#656B60]">
                         Practical training
 
                       </p>
@@ -245,7 +245,7 @@ export default function Training() {
 
               {/* SCROLL */}
 
-              <div className="training-reveal training-delay-4 mt-16 flex items-center gap-4 text-[9px] font-semibold uppercase tracking-[0.25em] text-[#73786E]">
+              <div className="training-reveal training-delay-4 mt-16 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#73786E]">
 
                 <span className="relative h-9 w-px overflow-hidden bg-[#D3D0C7]">
 
@@ -287,7 +287,7 @@ export default function Training() {
             </div>
 
 
-            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#F7F5EF]/40">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F7F5EF]/40">
 
               Discipline • Alertness • Responsibility
 
@@ -351,7 +351,7 @@ export default function Training() {
 
               <div>
 
-                <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B3923D]">
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
                   What we teach
                 </p>
 
@@ -364,7 +364,7 @@ export default function Training() {
               </div>
 
 
-              <p className="max-w-lg text-sm leading-7 text-[#646A5F] lg:ml-auto">
+              <p className="max-w-lg text-base leading-8 text-[#646A5F] lg:ml-auto">
 
                 Our programme focuses on the everyday skills a guard needs,
                 along with the confidence to deal with unexpected situations.
@@ -473,7 +473,7 @@ export default function Training() {
 
               <div>
 
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B3923D]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
                   Training leadership
                 </p>
 
@@ -490,7 +490,7 @@ export default function Training() {
 
               <div className="border-l border-[#C6A348] pl-7 sm:pl-10">
 
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#777B71]">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#777B71]">
                   Lead Instructor
                 </p>
 
@@ -498,7 +498,7 @@ export default function Training() {
                   {training.trainer.name}
                 </h3>
 
-                <p className="mt-3 text-sm font-medium text-[#B3923D]">
+                <p className="mt-3 text-base font-medium text-[#B3923D]">
                   {training.trainer.credential}
                 </p>
 
@@ -543,7 +543,7 @@ export default function Training() {
 
               <div>
 
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B3923D]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
                   The result
                 </p>
 
@@ -553,7 +553,7 @@ export default function Training() {
 
                 </h2>
 
-                <p className="mt-6 max-w-md text-sm leading-7 text-[#646A5F]">
+                <p className="mt-6 max-w-md text-base leading-8 text-[#646A5F]">
 
                   The goal is simple: people who know what they are doing,
                   know how to behave and know how to react when something
@@ -670,7 +670,7 @@ export default function Training() {
 
             <div className="max-w-3xl">
 
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#C6A348]">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C6A348]">
                 Security starts with preparation
               </p>
 
@@ -693,7 +693,7 @@ export default function Training() {
 
             <a
               href="/contact"
-              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
+              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
             >
 
               Discuss your requirements

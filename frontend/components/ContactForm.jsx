@@ -152,7 +152,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
 
       {/* ========================================================
           NAME
@@ -161,7 +161,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="contact-name"
-          className="block text-sm font-medium text-charcoal mb-2"
+          className="block text-sm font-semibold text-charcoal mb-2"
         >
           Name
         </label>
@@ -194,7 +194,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="contact-email"
-          className="block text-sm font-medium text-charcoal mb-2"
+          className="block text-sm font-semibold text-charcoal mb-2"
         >
           Email
         </label>
@@ -227,7 +227,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="contact-phone"
-          className="block text-sm font-medium text-charcoal mb-2"
+          className="block text-sm font-semibold text-charcoal mb-2"
         >
           Phone Number
         </label>
@@ -253,7 +253,7 @@ export default function ContactForm() {
           />
         </div>
 
-        <p className="mt-1.5 text-xs text-charcoal-light">
+        <p className="mt-2 text-sm text-charcoal-light">
           Enter a valid 10-digit Indian phone number.
         </p>
       </div>
@@ -266,7 +266,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="contact-service"
-          className="block text-sm font-medium text-charcoal mb-2"
+          className="block text-sm font-semibold text-charcoal mb-2"
         >
           Service Required
         </label>
@@ -345,7 +345,7 @@ export default function ContactForm() {
       </button>
 
 
-      <p className="text-xs text-charcoal-light text-center">
+      <p className="text-sm text-charcoal-light text-center">
         Our team will get back to you regarding your requirement.
       </p>
 

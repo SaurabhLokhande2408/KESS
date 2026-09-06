@@ -557,13 +557,13 @@ export default function Services() {
               mx-auto
               max-w-7xl
               px-5
-              pb-12
-              pt-14
+              pb-16
+              pt-20
               sm:px-8
-              sm:pb-14
-              sm:pt-16
-              lg:pb-16
-              lg:pt-18
+              sm:pb-20
+              sm:pt-24
+              lg:pb-24
+              lg:pt-28
             "
           >
 
@@ -585,8 +585,8 @@ export default function Services() {
 
                   <p
                     className="
-                      mb-4
-                      text-[10px]
+                      mb-5
+                      text-xs
                       font-semibold
                       uppercase
                       tracking-[0.28em]
@@ -657,7 +657,7 @@ export default function Services() {
                       border-b
                       border-charcoal
                       pb-2
-                      text-[10px]
+                      text-xs
                       font-semibold
                       uppercase
                       tracking-[0.18em]
@@ -700,10 +700,10 @@ export default function Services() {
             relative
             overflow-hidden
             px-5
-            py-12
+            py-20
             sm:px-8
-            sm:py-14
-            lg:py-16
+            sm:py-24
+            lg:py-28
           "
         >
 

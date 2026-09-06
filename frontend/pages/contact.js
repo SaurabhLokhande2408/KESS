@@ -49,7 +49,7 @@ export default function Contact() {
           CONTACT SECTION
       ====================================================== */}
 
-      <section className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8">
 
         {/* Right decorative curves */}
 
@@ -72,7 +72,7 @@ export default function Contact() {
         />
 
 
-        <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
 
           {/* ==================================================
@@ -83,9 +83,9 @@ export default function Contact() {
 
             <div className="absolute top-0 left-0 w-16 h-1 bg-gold" />
 
-            <div className="mb-7">
+            <div className="mb-9">
 
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center gap-3 mb-4">
 
                 <div className="w-10 h-10 flex items-center justify-center bg-ivory border border-border">
 
@@ -96,7 +96,7 @@ export default function Contact() {
 
                 </div>
 
-                <span className="text-xs uppercase tracking-wide text-gold font-medium">
+                <span className="text-xs uppercase tracking-[0.16em] text-gold font-semibold">
                   Enquiry
                 </span>
 
@@ -108,7 +108,7 @@ export default function Contact() {
               </h2>
 
 
-              <p className="mt-2 text-sm leading-6 text-charcoal-light max-w-lg">
+              <p className="mt-3 text-base leading-7 text-charcoal-light max-w-lg">
                 Tell us what you need and our team will get in touch with you shortly.
               </p>
 
@@ -124,19 +124,19 @@ export default function Contact() {
               CONTACT INFORMATION
           ================================================== */}
 
-          <div className="relative space-y-8 lg:pt-4">
+          <div className="relative space-y-10 lg:pt-4">
 
             <div>
 
-              <span className="text-xs uppercase tracking-wide text-gold font-medium">
+              <span className="text-xs uppercase tracking-[0.16em] text-gold font-semibold">
                 KESS
               </span>
 
-              <h2 className="font-display text-2xl sm:text-3xl text-charcoal mt-2">
+              <h2 className="font-display text-3xl sm:text-4xl text-charcoal mt-3">
                 Let's connect.
               </h2>
 
-              <p className="text-charcoal-light text-base leading-7 mt-3 max-w-md">
+              <p className="text-charcoal-light text-base leading-8 mt-4 max-w-md">
                 Whether you need security personnel, housekeeping, or manpower support, we're here to understand your requirement.
               </p>
 

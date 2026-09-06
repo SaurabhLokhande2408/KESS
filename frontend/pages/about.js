@@ -26,7 +26,7 @@ export default function About() {
         image="/images/team.jpg"
       />
 
-      <section className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-5 sm:px-8">
         <CurveLines
           position="right"
           size="compact"
@@ -34,32 +34,32 @@ export default function About() {
           opacity={0.75}
           className="right-[-160px] bottom-[-80px] hidden sm:block"
         />
-        <div className="relative z-10 max-w-5xl mx-auto grid sm:grid-cols-2 gap-8">
-          <div className="border border-border bg-white p-7">
-            <h3 className="font-display text-xl text-gold mb-2">Our Mission</h3>
+        <div className="relative z-10 max-w-5xl mx-auto grid sm:grid-cols-2 gap-10">
+          <div className="border border-border bg-white p-8">
+            <h3 className="font-display text-xl text-gold mb-3">Our Mission</h3>
             <p className="text-charcoal-light text-base leading-8">{about.mission}</p>
           </div>
-          <div className="border border-border bg-white p-7">
-            <h3 className="font-display text-xl text-gold mb-2">Our Vision</h3>
+          <div className="border border-border bg-white p-8">
+            <h3 className="font-display text-xl text-gold mb-3">Our Vision</h3>
             <p className="text-charcoal-light text-base leading-8">{about.vision}</p>
           </div>
         </div>
       </section>
 
-      <section className="py-14 sm:py-20 px-5 sm:px-8 bg-charcoal text-ivory">
+      <section className="py-20 sm:py-24 px-5 sm:px-8 bg-charcoal text-ivory">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             eyebrow="Leadership & Management"
             title="Guided by Indian Army Veterans"
             description="KESS is led by people who understand discipline first-hand, not just as a business term."
           />
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-8">
             {leadership.map((person) => (
-              <div key={person.name} className="border border-gold/20 p-6">
+              <div key={person.name} className="border border-gold/20 p-7">
                 <h3 className="font-display text-lg text-gold">
                   {person.name}
                 </h3>
-                <p className="text-ivory/50 text-[10px] uppercase tracking-wide mb-2">
+                <p className="text-ivory/50 text-xs font-medium uppercase tracking-[0.12em] mb-3">
                   {person.role}
                 </p>
                 <p className="text-ivory/70 text-base leading-8">
@@ -71,24 +71,24 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-20 px-5 sm:px-8">
+      <section className="py-20 sm:py-24 px-5 sm:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <SectionHeading
             eyebrow="Compliance"
             title="Registered, Licensed, Accountable"
             align="center"
           />
-          <div className="grid sm:grid-cols-3 gap-4 text-sm">
-            <div className="border border-border bg-white p-5">
-              <p className="text-charcoal-light text-[10px] uppercase tracking-wide mb-1">PSARA ({registration.psara.state})</p>
+          <div className="grid sm:grid-cols-3 gap-6 text-sm">
+            <div className="border border-border bg-white p-6">
+              <p className="text-charcoal-light text-xs font-medium uppercase tracking-[0.12em] mb-2">PSARA ({registration.psara.state})</p>
               <p className="font-display text-charcoal">{registration.psara.number}</p>
             </div>
-            <div className="border border-border bg-white p-5">
-              <p className="text-charcoal-light text-[10px] uppercase tracking-wide mb-1">PF Number</p>
+            <div className="border border-border bg-white p-6">
+              <p className="text-charcoal-light text-xs font-medium uppercase tracking-[0.12em] mb-2">PF Number</p>
               <p className="font-display text-charcoal">{registration.pfNumber}</p>
             </div>
-            <div className="border border-border bg-white p-5">
-              <p className="text-charcoal-light text-[10px] uppercase tracking-wide mb-1">ESI Number</p>
+            <div className="border border-border bg-white p-6">
+              <p className="text-charcoal-light text-xs font-medium uppercase tracking-[0.12em] mb-2">ESI Number</p>
               <p className="font-display text-charcoal">{registration.esiNumber}</p>
             </div>
           </div>

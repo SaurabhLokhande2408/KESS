@@ -54,7 +54,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.18em] transition-all duration-300 ${
+                    className={`relative px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300 ${
                       active
                         ? "text-[#C8A96B]"
                         : "text-[#AEB8C6] hover:text-[#F4F1EA]"
@@ -78,7 +78,7 @@ export default function Navbar() {
           {/* Desktop Contact Button */}
           <Link
             href="/contact"
-            className="group hidden items-center gap-3 rounded-sm bg-[#C8A96B] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#07111F] transition-all duration-300 hover:bg-[#D7BC83] hover:shadow-[0_8px_30px_rgba(200,169,107,0.15)] lg:flex"
+            className="group hidden items-center gap-3 rounded-sm bg-[#C8A96B] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#07111F] transition-all duration-300 hover:bg-[#D7BC83] hover:shadow-[0_8px_30px_rgba(200,169,107,0.15)] lg:flex"
           >
             <span>Contact Us</span>
 
@@ -155,7 +155,7 @@ export default function Navbar() {
                   }`}
                 >
                   <div className="flex items-center gap-5">
-                    <span className="text-[9px] font-medium tracking-[0.15em] text-white/20">
+                    <span className="text-[10px] font-medium tracking-[0.15em] text-white/20">
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
@@ -187,7 +187,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="mt-7 flex items-center justify-center gap-3 rounded-sm bg-[#C8A96B] px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#07111F] transition-all duration-300 hover:bg-[#D7BC83]"
+            className="mt-8 flex items-center justify-center gap-3 rounded-sm bg-[#C8A96B] px-5 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#07111F] transition-all duration-300 hover:bg-[#D7BC83]"
           >
             <span>Contact Us</span>
 

@@ -14,10 +14,6 @@ export default function Clients() {
   const [visibleClients, setVisibleClients] = useState(new Set());
   const clientRefs = useRef([]);
 
-  /* ================================================================
-     REVEAL CLIENT LOGOS ON SCROLL
-     ================================================================ */
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,9 +49,7 @@ export default function Clients() {
   return (
     <div className="clients-page min-h-screen overflow-hidden bg-[#F7F5EF] text-[#20241D]">
 
-      {/* ==============================================================
-          SEO
-          ============================================================== */}
+      {/* SEO */}
 
       <SEO
         title="Our Clients"
@@ -63,9 +57,7 @@ export default function Clients() {
         path="/clients"
       />
 
-      {/* ==============================================================
-          NAVBAR
-          ============================================================== */}
+      {/* NAVBAR */}
 
       <Navbar />
 
@@ -77,9 +69,7 @@ export default function Clients() {
 
         <section className="relative min-h-[calc(100vh-54px)] overflow-hidden px-5 sm:px-8">
 
-          {/* ----------------------------------------------------------
-              LEFT-SIDE BACKGROUND CURVES
-              ---------------------------------------------------------- */}
+          {/* LEFT-SIDE BACKGROUND CURVES */}
 
           <div
             aria-hidden="true"
@@ -99,19 +89,12 @@ export default function Clients() {
           </div>
 
 
-          {/* ----------------------------------------------------------
-              RIGHT-SIDE SECURITY VISUAL
-
-              Curves + shield occupy the empty space without
-              interfering with the headline.
-              ---------------------------------------------------------- */}
+          {/* RIGHT-SIDE SECURITY VISUAL */}
 
           <div
             aria-hidden="true"
             className="hero-security-visual"
           >
-
-            {/* Curved lines */}
 
             <svg
               className="security-curves"
@@ -125,21 +108,16 @@ export default function Clients() {
             </svg>
 
 
-            {/* Shield composition */}
-
             <div className="hero-shield">
 
               <div className="shield-ring shield-ring-outer" />
               <div className="shield-ring shield-ring-inner" />
-
 
               <svg
                 className="shield-icon"
                 viewBox="0 0 240 280"
                 fill="none"
               >
-
-                {/* Main shield */}
 
                 <path
                   d="
@@ -155,9 +133,6 @@ export default function Clients() {
                   strokeWidth="3"
                 />
 
-
-                {/* Inner shield */}
-
                 <path
                   d="
                     M120 38
@@ -171,9 +146,6 @@ export default function Clients() {
                   stroke="currentColor"
                   strokeWidth="1"
                 />
-
-
-                {/* Central star */}
 
                 <path
                   d="
@@ -192,9 +164,6 @@ export default function Clients() {
                   fill="currentColor"
                 />
 
-
-                {/* Discipline mark */}
-
                 <path
                   d="M120 151V193"
                   stroke="currentColor"
@@ -212,16 +181,10 @@ export default function Clients() {
               </svg>
 
 
-              {/* Shield labels */}
-
               <div className="shield-caption">
-
                 <span>PROTECTION</span>
-
                 <span>VIGILANCE</span>
-
                 <span>DISCIPLINE</span>
-
               </div>
 
             </div>
@@ -229,35 +192,26 @@ export default function Clients() {
           </div>
 
 
-          {/* ==========================================================
-              HERO CONTENT
-              ========================================================== */}
+          {/* HERO CONTENT */}
 
           <div className="relative z-10 mx-auto flex min-h-[calc(100vh-54px)] max-w-7xl items-center">
 
             <div className="w-full py-24 sm:py-28">
 
-
-              {/* ------------------------------------------------------
-                  EYEBROW
-                  ------------------------------------------------------ */}
+              {/* EYEBROW */}
 
               <div className="hero-reveal hero-delay-1 mb-8 flex items-center gap-5">
 
                 <span className="h-px w-16 bg-[#C6A348]" />
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#555B50]">
+                <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#3F453C]">
                   Our Clients
                 </span>
 
               </div>
 
 
-              {/* ------------------------------------------------------
-                  MAIN HEADLINE
-
-                  ALL BLACK
-                  ------------------------------------------------------ */}
+              {/* MAIN HEADLINE */}
 
               <h1 className="hero-reveal hero-delay-2 max-w-[1080px] font-display text-[4rem] font-medium leading-[0.9] tracking-[-0.045em] text-[#20241D] sm:text-6xl md:text-7xl lg:text-[7.3rem]">
 
@@ -267,28 +221,17 @@ export default function Clients() {
 
                 organisations
 
-                <br />
-
-                that take security
-
-                <br />
-
-                seriously.
-
               </h1>
 
 
-              {/* ------------------------------------------------------
-                  DESCRIPTION + YEARS
-                  ------------------------------------------------------ */}
+              {/* DESCRIPTION + YEARS */}
 
               <div className="hero-reveal hero-delay-3 mt-12 max-w-5xl sm:mt-16">
 
                 <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
 
-                  <p className="max-w-2xl text-[15px] leading-7 text-[#555B50] sm:text-lg sm:leading-8">
+                  <p className="max-w-2xl text-base font-medium leading-7 text-[#454B42] sm:text-lg sm:leading-8">
 
-                    For over {company.yearsInBusiness} years,{" "}
                     {company.name} has supported corporate, institutional and
                     residential environments with disciplined people,
                     structured operations and dependable service.
@@ -296,7 +239,7 @@ export default function Clients() {
                   </p>
 
 
-                  {/* Years */}
+                  {/* YEARS */}
 
                   <div className="flex items-center gap-5">
 
@@ -308,7 +251,7 @@ export default function Clients() {
                         {company.yearsInBusiness}
                       </p>
 
-                      <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.25em] text-[#656B60]">
+                      <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#454B42]">
                         Years of service
                       </p>
 
@@ -321,19 +264,25 @@ export default function Clients() {
               </div>
 
 
-              {/* ------------------------------------------------------
-                  SCROLL INDICATOR
-                  ------------------------------------------------------ */}
+              {/* SCROLL INDICATOR */}
 
-              <div className="hero-reveal hero-delay-4 mt-16 flex items-center gap-4 text-[9px] font-semibold uppercase tracking-[0.25em] text-[#73786E]">
+              <div className="hero-reveal hero-delay-4 mt-16 flex items-center gap-5 text-sm font-bold uppercase tracking-[0.28em] text-[#4A5047]">
 
-                <span className="relative h-9 w-px overflow-hidden bg-[#D3D0C7]">
-
-                  <span className="scroll-line absolute left-0 top-0 h-3 w-px bg-[#C6A348]" />
-
+                <span className="relative h-14 w-[2px] overflow-hidden bg-[#C8C5BC]">
+                  <span className="scroll-line absolute left-0 top-0 h-7 w-[2px] bg-[#C6A348]" />
                 </span>
 
-                Explore our clients
+                <div className="flex items-center gap-4">
+
+                  <span>
+                    Explore our clients
+                  </span>
+
+                  <span className="animate-bounce text-2xl font-bold text-[#C6A348]">
+                    ↓
+                  </span>
+
+                </div>
 
               </div>
 
@@ -348,32 +297,48 @@ export default function Clients() {
             DARK INTRO STRIP
             ============================================================ */}
 
-        <section className="relative overflow-hidden bg-[#20251E] px-5 py-12 sm:px-8">
+        <section className="relative overflow-hidden bg-[#20251E] px-5 py-10 sm:px-8 lg:py-12">
 
-          <div className="mx-auto flex max-w-7xl flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mx-auto max-w-7xl">
 
-            <div className="flex max-w-2xl items-start gap-5">
+            <div className="flex items-center justify-between">
 
-              <span className="mt-1 h-9 w-px shrink-0 bg-[#C6A348]" />
+              <div className="flex flex-wrap items-center gap-x-35 gap-y-3">
 
-              <p className="text-sm leading-7 text-[#F7F5EF]/65 sm:text-[15px]">
+                <span className="text-sm font-bold uppercase tracking-[0.18em] text-[#F7F5EF]/85">
+                  Corporate
+                </span>
 
-                Trusted across corporate workplaces, residential communities
-                and institutional environments — with every deployment built
-                around the standards of the organisation we serve.
+                <span className="text-[#C6A348]">
+                  •
+                </span>
 
-              </p>
+                <span className="text-sm font-bold uppercase tracking-[0.18em] text-[#F7F5EF]/85">
+                  Institutional
+                </span>
 
-            </div>
+                <span className="text-[#C6A348]">
+                  •
+                </span>
+
+                <span className="text-sm font-bold uppercase tracking-[0.18em] text-[#F7F5EF]/85">
+                  Residential
+                </span>
+
+              </div>
 
 
-            <div className="flex gap-7 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#F7F5EF]/40">
+              <div className="hidden items-center gap-3 sm:flex">
 
-              <span>Corporate</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#F7F5EF]/55">
+                  Explore
+                </span>
 
-              <span>Institutional</span>
+                <span className="text-lg leading-none text-[#C6A348]">
+                  ↓
+                </span>
 
-              <span>Residential</span>
+              </div>
 
             </div>
 
@@ -388,19 +353,16 @@ export default function Clients() {
 
         <section className="relative overflow-hidden px-5 py-24 sm:px-8 sm:py-32">
 
-
-          {/* ----------------------------------------------------------
-              LARGE DECORATIVE CURVES
-              ---------------------------------------------------------- */}
+          {/* RIGHT-SIDE DECORATIVE CURVES */}
 
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-[420px] top-[-50px] h-[1050px] w-[1050px]"
+            className="pointer-events-none absolute -right-[420px] top-[-50px] h-[1050px] w-[1050px]"
           >
 
             <svg
               viewBox="0 0 1000 1000"
-              className="h-full w-full"
+              className="h-full w-full -scale-x-100"
               fill="none"
             >
 
@@ -433,52 +395,30 @@ export default function Clients() {
           </div>
 
 
-          {/* ----------------------------------------------------------
-              CONTENT
-              ---------------------------------------------------------- */}
+          {/* CONTENT */}
 
           <div className="relative z-10 mx-auto max-w-7xl">
 
-
-            {/* Section heading */}
+            {/* SECTION HEADING */}
 
             <div className="grid gap-8 border-b border-[#20241D]/10 pb-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
 
               <div>
 
-                <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B3923D]">
+                <p className="mb-5 text-xs font-bold uppercase tracking-[0.26em] text-[#9B7A2F]">
                   Organisations we serve
                 </p>
 
                 <h2 className="max-w-2xl font-display text-4xl leading-[1.02] tracking-[-0.025em] text-[#20241D] sm:text-5xl lg:text-6xl">
-
                   A decade of dependable partnerships.
-
                 </h2>
 
               </div>
 
-
-              <p className="max-w-lg text-sm leading-7 text-[#646A5F] lg:ml-auto">
-
-                Our work extends across environments where security,
-                discipline and dependable manpower are essential to everyday
-                operations.
-
-              </p>
-
             </div>
 
 
-            {/* ----------------------------------------------------------
-                LOGO GRID
-
-                IMPORTANT:
-                - No numbers
-                - No cards
-                - No grayscale
-                - Original logo colours preserved
-                ---------------------------------------------------------- */}
+            {/* LOGO GRID */}
 
             <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
 
@@ -498,8 +438,6 @@ export default function Clients() {
                     }`}
                   >
 
-                    {/* Logo */}
-
                     <div className="client-logo-area">
 
                       <div className="client-glow" />
@@ -518,21 +456,6 @@ export default function Clients() {
                     </div>
 
 
-                    {/* ------------------------------------------------
-                        NAME
-
-                        Name is pulled ONLY from siteData.json.
-
-                        Empty string = no name.
-
-                        Example:
-
-                        "name": "Hindustan Petroleum"
-
-                        will display the name.
-
-                        ------------------------------------------------ */}
-
                     {client.name?.trim() && (
                       <div className="client-name">
                         {client.name}
@@ -541,120 +464,8 @@ export default function Clients() {
 
                   </article>
                 );
+
               })}
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ============================================================
-            WHY CLIENTS CHOOSE KESS
-            ============================================================ */}
-
-        <section className="relative overflow-hidden bg-[#F0EDE4] px-5 py-24 sm:px-8 sm:py-32">
-
-          <div className="mx-auto max-w-7xl">
-
-            <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-28">
-
-
-              {/* Left */}
-
-              <div>
-
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B3923D]">
-                  The KESS difference
-                </p>
-
-                <h2 className="mt-5 max-w-lg font-display text-4xl leading-[1.03] tracking-[-0.02em] text-[#20241D] sm:text-5xl">
-
-                  Security is only as strong as the standards behind it.
-
-                </h2>
-
-              </div>
-
-
-              {/* Right */}
-
-              <div className="grid gap-x-12 gap-y-12 sm:grid-cols-2">
-
-
-                {/* Item 1 */}
-
-                <div className="border-t border-[#20241D]/15 pt-5">
-
-                  <span className="text-xs text-[#B3923D]">
-                    Ex-servicemen leadership
-                  </span>
-
-                  <p className="mt-4 text-sm leading-7 text-[#646A5F]">
-
-                    Military discipline and leadership shape the way KESS
-                    approaches operations and training.
-
-                  </p>
-
-                </div>
-
-
-                {/* Item 2 */}
-
-                <div className="border-t border-[#20241D]/15 pt-5">
-
-                  <span className="text-xs text-[#B3923D]">
-                    Structured training
-                  </span>
-
-                  <p className="mt-4 text-sm leading-7 text-[#646A5F]">
-
-                    Personnel receive physical, firefighting, first-aid and
-                    workplace training.
-
-                  </p>
-
-                </div>
-
-
-                {/* Item 3 */}
-
-                <div className="border-t border-[#20241D]/15 pt-5">
-
-                  <span className="text-xs text-[#B3923D]">
-                    Statutory compliance
-                  </span>
-
-                  <p className="mt-4 text-sm leading-7 text-[#646A5F]">
-
-                    PF, ESI and required documentation are maintained for
-                    deployed employees.
-
-                  </p>
-
-                </div>
-
-
-                {/* Item 4 */}
-
-                <div className="border-t border-[#20241D]/15 pt-5">
-
-                  <span className="text-xs text-[#B3923D]">
-                    Ten years of service
-                  </span>
-
-                  <p className="mt-4 text-sm leading-7 text-[#646A5F]">
-
-                    A decade of experience across corporate, residential and
-                    institutional environments.
-
-                  </p>
-
-                </div>
-
-              </div>
 
             </div>
 
@@ -669,8 +480,7 @@ export default function Clients() {
 
         <section className="relative overflow-hidden bg-[#20251E] px-5 py-24 text-[#F7F5EF] sm:px-8 sm:py-32">
 
-
-          {/* Decorative CTA curves */}
+          {/* CTA CURVES */}
 
           <svg
             aria-hidden="true"
@@ -700,38 +510,33 @@ export default function Clients() {
           </svg>
 
 
-          {/* CTA content */}
+          {/* CTA CONTENT */}
 
           <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
 
-
             <div className="max-w-3xl">
 
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#C6A348]">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C6A348]">
                 Work with KESS
               </p>
 
               <h2 className="mt-5 font-display text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
-
                 Looking for a dependable security or manpower partner?
-
               </h2>
 
               <p className="mt-6 max-w-2xl text-sm leading-7 text-[#F7F5EF]/60 sm:text-base">
-
                 Tell us about your organisation, site and requirements. We
                 will work with you to build the right deployment.
-
               </p>
 
             </div>
 
 
-            {/* CTA link */}
+            {/* CTA LINK */}
 
             <Link
               href="/contact"
-              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
+              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
             >
 
               Discuss your requirements
@@ -749,18 +554,16 @@ export default function Clients() {
       </main>
 
 
-      {/* ==============================================================
-          FOOTER
-          ============================================================== */}
+      {/* FOOTER */}
 
       <Footer />
 
       <FloatingWhatsApp />
 
 
-      {/* ==============================================================
+      {/* ============================================================
           PAGE STYLES
-          ============================================================== */}
+          ============================================================ */}
 
       <style jsx>{`
 
@@ -817,7 +620,6 @@ export default function Clients() {
 
         .hero-curves {
           position: absolute;
-
           pointer-events: none;
         }
 
@@ -1002,10 +804,6 @@ export default function Clients() {
         }
 
 
-        /* ============================================================
-           SHIELD RINGS
-           ============================================================ */
-
         .shield-ring {
           position: absolute;
 
@@ -1059,10 +857,6 @@ export default function Clients() {
         }
 
 
-        /* ============================================================
-           SHIELD HOVER
-           ============================================================ */
-
         .hero-security-visual:hover .shield-icon {
           transform: scale(1.045);
 
@@ -1089,13 +883,13 @@ export default function Clients() {
 
           white-space: nowrap;
 
-          font-size: 7px;
+          font-size: 9px;
 
-          font-weight: 600;
+          font-weight: 700;
 
-          letter-spacing: 0.2em;
+          letter-spacing: 0.18em;
 
-          color: rgba(82, 86, 76, 0.46);
+          color: rgba(55, 60, 53, 0.62);
         }
 
 
@@ -1249,10 +1043,6 @@ export default function Clients() {
         }
 
 
-        /* ============================================================
-           SUBTLE STAGGER
-           ============================================================ */
-
         .client-item:nth-child(4n + 2) {
           transition-delay: 0.06s;
         }
@@ -1288,10 +1078,6 @@ export default function Clients() {
         }
 
 
-        /* ============================================================
-           SUBTLE GOLD ATMOSPHERE
-           ============================================================ */
-
         .client-glow {
           position: absolute;
 
@@ -1322,11 +1108,6 @@ export default function Clients() {
 
         /* ============================================================
            CLIENT LOGO
-
-           Original colours preserved.
-           No grayscale.
-           No opacity reduction.
-           No blend mode.
            ============================================================ */
 
         .client-logo {
@@ -1355,12 +1136,6 @@ export default function Clients() {
         }
 
 
-        /* ============================================================
-           LOGO HOVER
-
-           Only gentle zoom.
-           ============================================================ */
-
         .client-item:hover .client-logo {
           transform: scale(1.08);
         }
@@ -1380,17 +1155,19 @@ export default function Clients() {
            ============================================================ */
 
         .client-name {
-          min-height: 28px;
+          min-height: 30px;
 
-          padding-top: 8px;
+          padding-top: 10px;
 
           text-align: center;
 
-          font-size: 10px;
+          font-size: 12px;
 
-          font-weight: 600;
+          font-weight: 700;
 
-          letter-spacing: 0.14em;
+          letter-spacing: 0.11em;
+
+          line-height: 1.4;
 
           text-transform: uppercase;
 

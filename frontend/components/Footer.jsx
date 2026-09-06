@@ -206,7 +206,7 @@ export default function Footer() {
                   {company.shortName}
                 </p>
 
-                <p className="mt-1 text-[9px] uppercase tracking-[0.25em] text-gold">
+                <p className="mt-1 text-xs font-medium uppercase tracking-[0.25em] text-gold">
                   Knight Eyes Security
                 </p>
               </div>
@@ -216,7 +216,7 @@ export default function Footer() {
 
             <div className="mt-6 max-w-2xl">
 
-              <p className="text-[10px] uppercase tracking-[0.26em] text-gold mb-3">
+              <p className="text-xs font-medium uppercase tracking-[0.26em] text-gold mb-4">
                 {company.tagline}
               </p>
 
@@ -227,7 +227,7 @@ export default function Footer() {
                 </span>
               </h2>
 
-              <p className="mt-5 max-w-lg text-[14px] leading-6 text-ivory/50">
+              <p className="mt-6 max-w-lg text-sm leading-7 text-ivory/50">
                 {about.description}
               </p>
 
@@ -240,7 +240,7 @@ export default function Footer() {
 
           <div className="lg:border-l lg:border-ivory/10 lg:pl-10 flex flex-col justify-end">
 
-            <p className="text-[9px] uppercase tracking-[0.25em] text-gold mb-3">
+            <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold mb-4">
               Need Reliable People On Site?
             </p>
 
@@ -254,7 +254,7 @@ export default function Footer() {
 
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-3 border border-gold bg-gold px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-charcoal transition-all duration-300 hover:bg-transparent hover:text-gold"
+                className="group inline-flex items-center gap-3 border border-gold bg-gold px-4 py-2.5 text-xs font-medium uppercase tracking-[0.12em] text-charcoal transition-all duration-300 hover:bg-transparent hover:text-gold"
               >
                 Get in Touch
 
@@ -266,7 +266,7 @@ export default function Footer() {
                 href={waLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 border border-ivory/15 px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-ivory/70 transition-all duration-300 hover:border-gold hover:text-gold"
+                className="group inline-flex items-center gap-2.5 border border-ivory/15 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.12em] text-ivory/70 transition-all duration-300 hover:border-gold hover:text-gold"
               >
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 WhatsApp
@@ -292,7 +292,7 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-[9px] uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
                 Quick Links
               </p>
 
@@ -333,7 +333,7 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-[9px] uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
                 Company
               </p>
 
@@ -374,7 +374,7 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-[9px] uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
                 Get in Touch
               </p>
 
@@ -505,7 +505,7 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-[9px] uppercase tracking-[0.24em] text-gold mb-1.5">
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-2">
                 Service Locations
               </p>
 
@@ -570,7 +570,7 @@ export default function Footer() {
 
             <ShieldCheckIcon className="h-4.5 w-4.5 text-gold" />
 
-            <p className="text-[9px] uppercase tracking-[0.24em] text-gold">
+            <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold">
               Compliance & Registration
             </p>
 
@@ -644,7 +644,7 @@ export default function Footer() {
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
 
-            <p className="text-[10px] text-ivory/25">
+            <p className="text-xs text-ivory/25">
               © {year} {company.name}. All rights reserved.
             </p>
 

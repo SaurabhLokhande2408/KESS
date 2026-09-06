@@ -235,7 +235,7 @@ export default function Home() {
             CORE SERVICES
         ===================================================== */}
 
-        <section className="relative overflow-hidden bg-ivory px-5 py-10 sm:px-8 sm:py-12 lg:py-16">
+        <section className="relative overflow-hidden bg-ivory px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
 
           {/* Large curve lives behind the upper-right whitespace */}
           <CurveLines
@@ -264,7 +264,7 @@ export default function Home() {
 
               <div>
 
-                <p className="mb-7 font-display text-lg font-semibold uppercase tracking-[0.25em] text-charcoal sm:text-xl">
+                <p className="mb-6 font-display text-sm font-semibold uppercase tracking-[0.25em] text-charcoal sm:text-base">
                   What We Offer
                 </p>
 
@@ -292,7 +292,7 @@ export default function Home() {
 
                 <Link
                   href="/services"
-                  className="group mt-8 inline-flex w-fit items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.2em] text-charcoal transition-colors duration-300 hover:text-gold"
+                  className="group mt-10 inline-flex w-fit items-center gap-3 font-display text-xs font-semibold uppercase tracking-[0.2em] text-charcoal transition-colors duration-300 hover:text-gold"
                 >
                   View All Services
 
@@ -309,7 +309,7 @@ export default function Home() {
                 DIVIDER
             ------------------------------------------------- */}
 
-            <div className="my-10 h-px w-full bg-border sm:my-12 lg:my-14" />
+            <div className="my-12 h-px w-full bg-border sm:my-16 lg:my-20" />
 
             {/* -------------------------------------------------
                 SERVICE CARDS

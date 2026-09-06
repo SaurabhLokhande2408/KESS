@@ -43,11 +43,11 @@ export default function Gallery() {
         imageAlt="KESS security personnel standing in formation"
       />
 
-      <main className="px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-6xl space-y-14">
+      <main className="px-5 py-20 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-7xl space-y-16">
           {GALLERY_CATEGORIES.map((category) => (
             <section key={category.label}>
-              <h2 className="mb-5 font-display text-2xl text-charcoal">
+              <h2 className="mb-6 font-display text-3xl sm:text-4xl text-charcoal">
                 {category.label}
               </h2>
               <div className="grid gap-5 sm:grid-cols-2">
