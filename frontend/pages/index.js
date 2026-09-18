@@ -185,12 +185,12 @@ export default function Home() {
             "Providing elite corporate protection with military precision."
           }
           primaryCta={{
-            label: "Meet Our Leaders",
-            href: "/about",
+            label: "Enquire",
+            href: "/contact",
           }}
           secondaryCta={{
-            label: "Our Story",
-            href: "/about#story",
+            label: "Services",
+            href: "/services",
           }}
           image="/images/images_used/hero_bg.png"
           imageAlt="KESS security personnel standing in formation"
