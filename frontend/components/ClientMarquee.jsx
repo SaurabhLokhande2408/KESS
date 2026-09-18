@@ -18,14 +18,14 @@ export default function ClientMarquee() {
               {clients.map((client, idx) => (
                 <div
                   key={`${client.logo}-${idx}`}
-                  className="flex h-[185px] w-[240px] shrink-0 items-center justify-center sm:h-[220px] sm:w-[300px]"
+                  className="flex h-[89px] w-[120px] shrink-0 items-center justify-center sm:h-[105px] sm:w-[150px]"
                 >
                   <img
                     src={getLogoSrc(client.logo)}
                     alt={client.name || "KESS client logo"}
                     width={client.width}
                     height={client.height}
-                    className="max-h-[150px] max-w-[200px] object-contain sm:max-h-[180px] sm:max-w-[250px]"
+                    className="max-h-[68px] max-w-[110px] object-contain sm:max-h-[82px] sm:max-w-[130px]"
                   />
                 </div>
               ))}

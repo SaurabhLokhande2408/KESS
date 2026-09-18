@@ -174,53 +174,27 @@ export default function Home() {
 
       <main>
 
-        {/* =====================================================
-            HERO
-            -----------------------------------------------------
-            Curve intentionally pushed into upper-right negative
-            space. It stays behind the hero content.
-        ===================================================== */}
-
-        <section className="relative overflow-hidden">
-
-          <CurveLines
-            className="
-              right-[-170px]
-              top-[-65px]
-              hidden
-              h-[360px]
-              w-[650px]
-              lg:block
-            "
-            variant="wide"
-            opacity={0.07}
-          />
-
-          <div className="relative z-10">
-            <PageHero
-              eyebrow="Built on Military Heritage."
-              titleLines={[
-                "Honor. Discipline. Experience.",
-                "The KESS Security Team",
-              ]}
-              description={
-                company.subTagline ||
-                "Providing elite corporate protection with military precision."
-              }
-              primaryCta={{
-                label: "Meet Our Leaders",
-                href: "/about",
-              }}
-              secondaryCta={{
-                label: "Our Story",
-                href: "/about#story",
-              }}
-              image="/images/team.jpg"
-              imageAlt="KESS security personnel standing in formation"
-            />
-          </div>
-
-        </section>
+        <PageHero
+          eyebrow="Built on Military Heritage."
+          titleLines={[
+            "Honor. Discipline. Experience.",
+            "The KESS Security Team",
+          ]}
+          description={
+            company.subTagline ||
+            "Providing elite corporate protection with military precision."
+          }
+          primaryCta={{
+            label: "Meet Our Leaders",
+            href: "/about",
+          }}
+          secondaryCta={{
+            label: "Our Story",
+            href: "/about#story",
+          }}
+          image="/images/images_used/hero_bg.png"
+          imageAlt="KESS security personnel standing in formation"
+        />
 
         {/* =====================================================
             STATS
@@ -263,7 +237,7 @@ export default function Home() {
 
               <div>
 
-                <p className="mb-6 font-display text-[2rem] font-bold uppercase tracking-[0.25em] text-charcoal sm:text-base">
+                <p className="mb-6 font-display text-sm font-semibold uppercase tracking-[0.25em] text-charcoal sm:text-base">
                   What We Offer
                 </p>
 

@@ -209,21 +209,22 @@ export default function WhyTrustKess() {
   return (
     <section aria-labelledby="why-trust-kess" className="kess-trust py-20 md:py-28" style={{ backgroundColor: PAPER }}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <header className="max-w-3xl">
-          <div className="flex items-center gap-3">
+        <header className="mx-auto max-w-4xl text-center">
+          <div className="flex items-center justify-center gap-3">
             <span className="h-px w-10" style={{ backgroundColor: GOLD }} />
             <span className="kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.28em]" style={{ color: GOLD }}>
               Uncompromising Standards
             </span>
+            <span className="h-px w-10" style={{ backgroundColor: GOLD }} />
           </div>
           <h2
             id="why-trust-kess"
-            className="mt-6 text-[2.4rem] uppercase leading-[0.98] tracking-wide sm:text-[3rem] md:text-[3.6rem]"
+            className="mx-auto mt-6 max-w-4xl text-[2.4rem] uppercase leading-[0.98] tracking-wide sm:text-[3rem] md:text-[3.6rem]"
             style={{ color: INK }}
           >
             Why Organizations Trust KESS
           </h2>
-          <p className="kess-desc mt-5 max-w-2xl text-lg leading-relaxed md:text-xl" style={{ color: SAGE }}>
+          <p className="kess-desc mx-auto mt-5 max-w-3xl text-lg leading-relaxed md:text-xl" style={{ color: SAGE }}>
             For over a decade, KESS Security has safeguarded businesses, institutions and
             townships with integrity and precision, led by military veterans who hold every
             posting to a soldier's standard.

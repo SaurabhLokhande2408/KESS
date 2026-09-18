@@ -10,6 +10,12 @@ import siteData from "@/data/siteData.json";
 export default function Training() {
   const { training } = siteData;
 
+  const showcaseImages = [
+    "/images/images_company/training_1.png",
+    "/images/images_company/traninig_2.png",
+    "/images/images_company/traninig_2.png",
+  ];
+
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
 
@@ -396,22 +402,18 @@ export default function Training() {
             </div>
 
             {/* BIG IMAGE SHOWCASE GRID (Supports 3 large cards) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {[0, 1, 2].map((idx) => (
-                <div 
-                  key={idx} 
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+              {showcaseImages.map((image, idx) => (
+                <div
+                  key={`${image}-${idx}`}
                   className="group relative overflow-hidden rounded-3xl border border-[#20241D]/15 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C6A348]/40"
                 >
-                  {/* Large Immersive Image Frame Slot */}
-                  <div className="relative h-[400px] sm:h-[460px] w-full bg-[#E5E2D9] overflow-hidden flex items-center justify-center">
-                    
-                    {/* Subtle grid pattern overlay */}
-                    <div className="absolute inset-0 bg-[radial-gradient(#20241D_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
-
-                    {/* Placeholder branding watermark */}
-                    <div className="absolute inset-0 flex items-center justify-center text-[#555B50]/20 font-display text-8xl tracking-widest select-none pointer-events-none">
-                      KESS
-                    </div>
+                  <div className="relative h-[400px] w-full overflow-hidden sm:h-[460px]">
+                    <img
+                      src={image}
+                      alt={`KESS training session ${idx + 1}`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
                   </div>
                 </div>
               ))}

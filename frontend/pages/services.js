@@ -504,17 +504,12 @@ export default function Services() {
   ======================================================= */
 
   const imageList = [
-    "https://images.unsplash.com/photo-1560252829-804f1aedf1be?auto=format&fit=crop&w=1400&q=85",
-
-    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=85",
-
-    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=85",
-
-    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=85",
-
-    "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1400&q=85",
-
-    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=85",
+    "/images/images_company/Security_guarding.jpeg",
+    "/images/images_company/hosuekeeping.png",
+    "/images/images_company/Screenshot 2026-09-18 184202.png",
+    "/images/images_company/on_job_training.png",
+    "/images/images_company/vip_protection.png",
+    "/images/images_company/edacf068-cb92-4324-8d77-2af33de64519.png",
   ];
 
   /* =======================================================
