@@ -122,13 +122,11 @@ const QUICK_LINKS = [
   ["Training", "/training"],
 ];
 
-const COMPANY_LIN_KS = [
+const COMPANY_LINKS = [
   ["Gallery", "/gallery"],
   ["Clients", "/clients"],
   ["Careers", "/careers"],
 ];
-
-const COMPANY_LINKS = COMPANY_LIN_KS;
 
 
 /* =========================================================

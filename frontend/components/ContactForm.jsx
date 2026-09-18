@@ -3,6 +3,74 @@ import { AsYouType, isValidPhoneNumber } from "libphonenumber-js";
 import Icon from "@/components/Icon";
 import { submitContactEnquiry } from "@/src/api/contact";
 
+function Field({
+  id,
+  label,
+  name,
+  type,
+  value,
+  onChange,
+  placeholder,
+  icon,
+  autoComplete,
+  inputMode,
+  maxLength,
+  disabled,
+  hint,
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-charcoal">
+        {label}
+      </label>
+
+      <div className="relative">
+        <Icon
+          name={icon}
+          className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gold"
+        />
+
+        <input
+          id={id}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          inputMode={inputMode}
+          maxLength={maxLength}
+          disabled={disabled}
+          className="w-full border border-border bg-ivory py-3.5 pl-12 pr-4 text-charcoal placeholder:text-charcoal-light outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
+        />
+      </div>
+
+      {hint ? <p className="mt-2 text-sm text-charcoal-light">{hint}</p> : null}
+    </div>
+  );
+}
+
+function StatusMessage({ status }) {
+  if (!status.message) return null;
+
+  return (
+    <div
+      className={
+        status.type === "success"
+          ? "flex items-start gap-3 border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+          : "flex items-start gap-3 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      }
+    >
+      <Icon
+        name={status.type === "success" ? "check-circle" : "alert-circle"}
+        className="mt-0.5 h-5 w-5 flex-shrink-0"
+      />
+
+      <p>{status.message}</p>
+    </div>
+  );
+}
+
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,14 +86,9 @@ export default function ContactForm() {
     message: "",
   });
 
-  // ============================================================
-  // HANDLE INPUT
-  // ============================================================
-
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    // Phone formatting using libphonenumber-js
     if (name === "phone") {
       const formattedPhone = new AsYouType("IN").input(value);
 
@@ -48,10 +111,6 @@ export default function ContactForm() {
     }
   };
 
-  // ============================================================
-  // SUBMIT FORM
-  // ============================================================
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -59,10 +118,6 @@ export default function ContactForm() {
       type: "",
       message: "",
     });
-
-    // ----------------------------------------------------------
-    // NAME
-    // ----------------------------------------------------------
 
     if (!formData.name.trim()) {
       setStatus({
@@ -72,10 +127,6 @@ export default function ContactForm() {
       return;
     }
 
-    // ----------------------------------------------------------
-    // EMAIL
-    // ----------------------------------------------------------
-
     if (!formData.email.trim()) {
       setStatus({
         type: "error",
@@ -83,10 +134,6 @@ export default function ContactForm() {
       });
       return;
     }
-
-    // ----------------------------------------------------------
-    // PHONE
-    // ----------------------------------------------------------
 
     if (!formData.phone.trim()) {
       setStatus({
@@ -96,7 +143,6 @@ export default function ContactForm() {
       return;
     }
 
-    // Validate Indian phone number
     if (!isValidPhoneNumber(formData.phone, "IN")) {
       setStatus({
         type: "error",
@@ -105,10 +151,6 @@ export default function ContactForm() {
       return;
     }
 
-    // ----------------------------------------------------------
-    // SERVICE
-    // ----------------------------------------------------------
-
     if (!formData.service_required.trim()) {
       setStatus({
         type: "error",
@@ -116,10 +158,6 @@ export default function ContactForm() {
       });
       return;
     }
-
-    // ----------------------------------------------------------
-    // SEND
-    // ----------------------------------------------------------
 
     setIsSubmitting(true);
 
@@ -153,202 +191,86 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <Field
+        id="contact-name"
+        label="Name"
+        name="name"
+        type="text"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Your Name"
+        icon="user"
+        autoComplete="name"
+        disabled={isSubmitting}
+      />
 
-      {/* ========================================================
-          NAME
-      ======================================================== */}
+      <Field
+        id="contact-email"
+        label="Email"
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="company@gmail.com"
+        icon="mail"
+        autoComplete="email"
+        disabled={isSubmitting}
+      />
 
-      <div>
-        <label
-          htmlFor="contact-name"
-          className="block text-sm font-semibold text-charcoal mb-2"
-        >
-          Name
-        </label>
+      <Field
+        id="contact-phone"
+        label="Phone Number"
+        name="phone"
+        type="tel"
+        value={formData.phone}
+        onChange={handleChange}
+        placeholder="xxxxxxxxxx"
+        icon="phone"
+        autoComplete="tel"
+        inputMode="numeric"
+        maxLength={14}
+        disabled={isSubmitting}
+        hint="Enter a valid 10-digit Indian phone number."
+      />
 
-        <div className="relative">
-          <Icon
-            name="user"
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
-          />
+      <Field
+        id="contact-service"
+        label="Service Required"
+        name="service_required"
+        type="text"
+        value={formData.service_required}
+        onChange={handleChange}
+        placeholder="Security Services"
+        icon="briefcase"
+        disabled={isSubmitting}
+      />
 
-          <input
-            id="contact-name"
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-            autoComplete="name"
-            disabled={isSubmitting}
-            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
-          />
-        </div>
-      </div>
-
-
-      {/* ========================================================
-          EMAIL
-      ======================================================== */}
-
-      <div>
-        <label
-          htmlFor="contact-email"
-          className="block text-sm font-semibold text-charcoal mb-2"
-        >
-          Email
-        </label>
-
-        <div className="relative">
-          <Icon
-            name="mail"
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
-          />
-
-          <input
-            id="contact-email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="company@gmail.com"
-            autoComplete="email"
-            disabled={isSubmitting}
-            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
-          />
-        </div>
-      </div>
-
-
-      {/* ========================================================
-          PHONE
-      ======================================================== */}
-
-      <div>
-        <label
-          htmlFor="contact-phone"
-          className="block text-sm font-semibold text-charcoal mb-2"
-        >
-          Phone Number
-        </label>
-
-        <div className="relative">
-          <Icon
-            name="phone"
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
-          />
-
-          <input
-            id="contact-phone"
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="xxxxxxxxxx"
-            autoComplete="tel"
-            inputMode="numeric"
-            maxLength={14}
-            disabled={isSubmitting}
-            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
-          />
-        </div>
-
-        <p className="mt-2 text-sm text-charcoal-light">
-          Enter a valid 10-digit Indian phone number.
-        </p>
-      </div>
-
-
-      {/* ========================================================
-          SERVICE REQUIRED
-      ======================================================== */}
-
-      <div>
-        <label
-          htmlFor="contact-service"
-          className="block text-sm font-semibold text-charcoal mb-2"
-        >
-          Service Required
-        </label>
-
-        <div className="relative">
-          <Icon
-            name="briefcase"
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none"
-          />
-
-          <input
-            id="contact-service"
-            type="text"
-            name="service_required"
-            value={formData.service_required}
-            onChange={handleChange}
-            placeholder="Security Services"
-            disabled={isSubmitting}
-            className="w-full border border-border bg-ivory text-charcoal placeholder:text-charcoal-light pl-12 pr-4 py-3.5 outline-none transition-all duration-200 focus:border-gold focus:ring-1 focus:ring-gold disabled:opacity-60"
-          />
-        </div>
-      </div>
-
-
-      {/* ========================================================
-          STATUS
-      ======================================================== */}
-
-      {status.message && (
-        <div
-          className={
-            status.type === "success"
-              ? "flex items-start gap-3 border border-green-200 bg-green-50 text-green-800 px-4 py-3 text-sm"
-              : "flex items-start gap-3 border border-red-200 bg-red-50 text-red-700 px-4 py-3 text-sm"
-          }
-        >
-          <Icon
-            name={
-              status.type === "success"
-                ? "check-circle"
-                : "alert-circle"
-            }
-            className="w-5 h-5 flex-shrink-0 mt-0.5"
-          />
-
-          <p>{status.message}</p>
-        </div>
-      )}
-
-
-      {/* ========================================================
-          SUBMIT
-      ======================================================== */}
+      <StatusMessage status={status} />
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="group w-full flex items-center justify-center gap-3 bg-charcoal text-white px-6 py-3.5 font-medium transition-all duration-300 hover:bg-gold hover:text-charcoal disabled:opacity-60 disabled:cursor-not-allowed"
+        className="group flex w-full items-center justify-center gap-3 bg-charcoal px-6 py-3.5 font-medium text-white transition-all duration-300 hover:bg-gold hover:text-charcoal disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? (
           <>
-            <span className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-
+            <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
             Sending Enquiry...
           </>
         ) : (
           <>
             Send Enquiry
-
             <Icon
               name="arrow-right"
-              className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+              className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
             />
           </>
         )}
       </button>
 
-
-      <p className="text-sm text-charcoal-light text-center">
+      <p className="text-center text-sm text-charcoal-light">
         Our team will get back to you regarding your requirement.
       </p>
-
     </form>
   );
 }
