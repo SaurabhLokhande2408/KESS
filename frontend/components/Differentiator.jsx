@@ -45,7 +45,7 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
    ========================================================================== */
 const IconBox = ({ bg, children }) => (
   <div
-    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
     style={{ backgroundColor: bg }}
   >
     {children}
@@ -54,7 +54,7 @@ const IconBox = ({ bg, children }) => (
 
 const IcoPhysical = () => (
   <IconBox bg="rgba(199,154,46,0.12)">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
       <path d="M4 9v6M2 8v8" stroke="#C79A2E" strokeWidth="1.8" strokeLinecap="round" />
       <path d="M20 9v6M22 8v8" stroke="#C79A2E" strokeWidth="1.8" strokeLinecap="round" />
       <rect x="6" y="7" width="3" height="10" rx="1" fill="#E8C874" />
@@ -255,11 +255,8 @@ const Differentiator = () => {
                 delay={(i % 3) * 80 + Math.floor(i / 3) * 60}
                 className="bg-charcoal p-6 sm:p-7"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center justify-start">
                   <item.Icon />
-                  <span className="font-sans text-xs font-semibold tracking-[0.15em] text-gold">
-                    {item.number}
-                  </span>
                 </div>
                 <h4 className="mt-4 font-serif text-xl leading-snug tracking-tight text-ivory">
                   {item.title}
@@ -275,7 +272,7 @@ const Differentiator = () => {
         {/* SERVICES */}
         <div className="mt-16 pb-4">
           <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
+            <div className="max-w-xl">
               <p className="font-sans kess-eyebrow text-[1.85rem] font-bold uppercase uppercase tracking-[0.2em] text-gold">
                 Beyond Security
               </p>
@@ -283,7 +280,7 @@ const Differentiator = () => {
                 People for every operational need.
               </h3>
             </div>
-            <p className="max-w-sm font-sans text-base leading-7 text-white/50 sm:text-[17px]">
+            <p className="max-w-[30rem] font-sans text-base font-semibold leading-7 tracking-[-0.01em] text-white/75 sm:ml-auto sm:text-[17px] sm:leading-8">
               Security personnel, skilled and unskilled manpower, and
               housekeeping support for a wide range of requirements.
             </p>
@@ -297,10 +294,7 @@ const Differentiator = () => {
                 delay={(index % 6) * 50}
                 className="bg-charcoal p-5"
               >
-                <span className="block font-sans text-[10px] tracking-[0.1em] text-gold">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-2 font-serif text-base leading-tight text-white/80">
+                <p className="font-serif text-[1.15rem] font-semibold leading-tight text-white/90 sm:text-[1.3rem]">
                   {service}
                 </p>
               </Reveal>

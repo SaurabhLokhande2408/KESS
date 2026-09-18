@@ -401,16 +401,12 @@ export default function Home() {
 
                   {/* Top row */}
 
-                  <div className="flex items-center justify-between">
-
-                    <span className="font-display text-[11px] font-medium tracking-[0.2em] text-gold">
-                      {service.number}
+                  <div className="flex items-center justify-end">
+                    <span className="inline-flex items-center justify-center text-gold transition-transform duration-500 group-hover:scale-110">
+                      <span className="block [&>svg]:h-10 [&>svg]:w-10 [&>svg]:sm:h-11 [&>svg]:sm:w-11">
+                        {service.icon}
+                      </span>
                     </span>
-
-                    <span className="text-gold transition-transform duration-500 group-hover:scale-110">
-                      {service.icon}
-                    </span>
-
                   </div>
 
                   {/* Divider */}
@@ -428,26 +424,6 @@ export default function Home() {
                     <p className="mt-5 max-w-[285px] font-sans text-base leading-7 text-white/70">
                       {service.description}
                     </p>
-
-                  </div>
-
-                  {/* Arrow */}
-
-                  <div className="mt-8">
-
-                    <span
-                      className="
-                        inline-flex
-                        text-xl
-                        text-gold
-                        transition-all
-                        duration-500
-                        group-hover:translate-x-1
-                        group-hover:-translate-y-1
-                      "
-                    >
-                      ↗
-                    </span>
 
                   </div>
 
