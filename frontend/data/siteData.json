@@ -63,37 +63,37 @@
     {
       "id": "guarding",
       "title": "Security Guarding",
-      "description": "Trained, disciplined security personnel for commercial, residential and industrial premises, on rotating or fixed shifts.",
+      "description": "Trained security personnel for commercial, residential and industrial premises.",
       "icon": "shield"
     },
     {
       "id": "housekeeping",
       "title": "Housekeeping Services",
-      "description": "Professional housekeeping and facility upkeep for offices, townships and commercial spaces.",
+      "description": "Professional housekeeping support for offices, townships and commercial spaces.",
       "icon": "sparkles"
     },
     {
       "id": "manpower",
       "title": "Manpower Outsourcing",
-      "description": "Data entry operators, office assistants, receptionists, peons, courier boys and casual labour — fully compliant staffing.",
+      "description": "Support staff for office, reception, data entry and general operational roles.",
       "icon": "users"
     },
     {
       "id": "training",
       "title": "On-the-Job Training Programme",
-      "description": "Physical training, firefighting basics, mount-dismount control & command, and martial arts training led by a black belt Wu-Shu Kung Fu instructor.",
+      "description": "Structured training in discipline, safety procedures and field readiness.",
       "icon": "target"
     },
     {
       "id": "vip-protection",
       "title": "VIP Protection & Bodyguards",
-      "description": "Dedicated close-protection personnel trained in mount-dismount control and command procedures.",
+      "description": "Close protection personnel for secure personal and executive movement.",
       "icon": "user-check"
     },
     {
       "id": "crowd-control",
       "title": "Crowd Control & Event Security",
-      "description": "Trained personnel for events, ceremonies and crowd management scenarios.",
+      "description": "Staffing and monitoring for events, ceremonies and managed access points.",
       "icon": "users-round"
     }
   ],
@@ -134,108 +134,72 @@
   },
 "clients": [
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (1).jpg"
+    "name": "The Fern",
+    "logo": "/images/clients%20_logos/The-Fern-Logo-PNG-01.webp"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (1).png"
+    "name": "Aashi Solutions",
+    "logo": "/images/clients%20_logos/Aashi solution 2.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (10).jpg"
+    "name": "ABANE Hospital",
+    "logo": "/images/clients%20_logos/ABANE HOSPITAL.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (11).jpg"
+    "name": "Abhyasa School",
+    "logo": "/images/clients%20_logos/Abhyasa school 1.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (12).jpg"
+    "name": "Amanora School",
+    "logo": "/images/clients%20_logos/amanora school ..jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (13).jpg"
+    "name": "Amanora Gold Towers",
+    "logo": "/images/clients%20_logos/amanora_gold_towers.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (14).jpg"
+    "name": "Amanora Ascent Avenue",
+    "logo": "/images/clients%20_logos/AMNORA ASCENT AVENUE.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (15).jpg"
+    "name": "Casalino Towers",
+    "logo": "/images/clients%20_logos/Casalino Towers.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (16).jpg"
+    "name": "Central Railway Hospital Pune",
+    "logo": "/images/clients%20_logos/central railway hospital pune.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (17).jpg"
+    "name": "Gateway Towers",
+    "logo": "/images/clients%20_logos/Gateway towers.png"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (18).jpg"
+    "name": "Indo Global Precast",
+    "logo": "/images/clients%20_logos/Indo global precast 1.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (19).jpg"
+    "name": "Modak International School",
+    "logo": "/images/clients%20_logos/Modak international school ..jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (2).jpg"
+    "name": "Noble Heights",
+    "logo": "/images/clients%20_logos/Noble heights.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (2).png"
+    "name": "Park Infinia",
+    "logo": "/images/clients%20_logos/park infinia fursungi.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (20).jpg"
+    "name": "Sadhana Bank",
+    "logo": "/images/clients%20_logos/sadhana bank.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (21).jpg"
+    "name": "Satav Patil Group",
+    "logo": "/images/clients%20_logos/satav patil group  2.jpg.jpeg"
   },
   {
-    "name": "",
-    "logo": "/images/clients/unnamed (22).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (3).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (4).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (5).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (6).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (7).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (8).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed (9).jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed.jpg"
-  },
-  {
-    "name": "",
-    "logo": "/images/clients/unnamed.png"
+    "name": "Taksha Group",
+    "logo": "/images/clients%20_logos/taksha group.jpg.jpeg"
   }
 ],
   "testimonials": [],
@@ -292,7 +256,8 @@
       "number": "PSA/L/74/H/2020/MAY/3/92"
     },
     "pfNumber": "PUPUN2249014000",
-    "esiNumber": "33000787770001099"
+    "esiNumber": "33000787770001099",
+    "gstin": ""
   },
 
   "contact": {

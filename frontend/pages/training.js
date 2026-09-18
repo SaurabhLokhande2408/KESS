@@ -155,12 +155,6 @@ export default function Training() {
 
               </svg>
 
-
-              <div className="training-mark-label">
-                TRAINED<br />
-                TO RESPOND
-              </div>
-
             </div>
 
           </div>
@@ -178,7 +172,7 @@ export default function Training() {
 
                 <span className="h-px w-16 bg-[#C6A348]" />
 
-                <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#555B50]">
+                <span className=" kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.28em] text-[#555B50]">
                   Training & Standards
                 </span>
 
@@ -242,21 +236,6 @@ export default function Training() {
 
               </div>
 
-
-              {/* SCROLL */}
-
-              <div className="training-reveal training-delay-4 mt-16 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#73786E]">
-
-                <span className="relative h-9 w-px overflow-hidden bg-[#D3D0C7]">
-
-                  <span className="training-scroll-line absolute left-0 top-0 h-3 w-px bg-[#C6A348]" />
-
-                </span>
-
-                See how we train
-
-              </div>
-
             </div>
 
           </div>
@@ -299,12 +278,12 @@ export default function Training() {
 
 
         {/* ============================================================
-            WHAT WE TEACH
+            WHAT WE TEACH (Compact Dense Grid Cards - Cleaned)
             ============================================================ */}
 
         <section
           ref={sectionRef}
-          className="relative overflow-hidden px-5 py-24 sm:px-8 sm:py-32"
+          className="relative overflow-hidden px-5 py-10 sm:px-8 sm:py-12"
         >
 
           {/* DECORATIVE CURVE */}
@@ -345,100 +324,51 @@ export default function Training() {
 
           <div className="relative z-10 mx-auto max-w-7xl">
 
-            {/* HEADING */}
-
-            <div className="grid gap-8 border-b border-[#20241D]/10 pb-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#20241D]/10 pb-6 gap-6">
 
               <div>
-
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
-                  What we teach
-                </p>
-
-                <h2 className="max-w-2xl font-display text-4xl leading-[1.02] tracking-[-0.025em] text-[#20241D] sm:text-5xl lg:text-6xl">
-
-                  Training for the situations that matter.
-
+                
+                <h2 className="font-display text-[2.4rem] font-semibold tracking-[-0.025em] text-[#20241D] sm:text-[3rem]">
+                  Training for <span className="text-[#B3923D]">prepared personnel.</span>
                 </h2>
-
               </div>
 
 
-              <p className="max-w-lg text-base leading-8 text-[#646A5F] lg:ml-auto">
-
-                Our programme focuses on the everyday skills a guard needs,
-                along with the confidence to deal with unexpected situations.
-
+              <p className="max-w-md text-[15px] font-medium leading-[1.5] text-[#50554C]">
+                Our programme focuses on the everyday skills a guard needs, along with the confidence to deal with unexpected situations.
               </p>
 
             </div>
 
 
-            {/* TRAINING LIST */}
+            {/* COMPACT DENSE GRID */}
 
-            <div className="mt-12 sm:mt-14">
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
               {training.programme.map((item, index) => {
-
-                const titles = [
-                  "Basic security training",
-                  "Physical fitness",
-                  "Emergency & first aid",
-                  "Reporting & communication",
-                  "Practical on-the-job training",
-                  "VIP protection",
-                  "Crowd control",
-                ];
-
-                const descriptions = [
-                  "Punctuality, alertness, good behaviour and discipline at work.",
-                  "Regular physical training helps personnel stay fit and prepared for demanding duties.",
-                  "Learning what to do during a fire, accident or other emergency before professional help arrives.",
-                  "Guards learn how to properly report incidents and communicate important information.",
-                  "Training continues at the actual workplace so personnel understand their real responsibilities.",
-                  "Special preparation for personnel assigned to protect important people and manage their movements safely.",
-                  "How to manage people, maintain order and respond safely during busy events or large gatherings.",
-                ];
-
                 return (
                   <div
                     key={item}
-                    className={`training-row ${
-                      visible ? "training-row-visible" : ""
-                    }`}
+                    className="group relative flex flex-col justify-center rounded-xl border border-[#20241D]/10 bg-white/50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#C6A348]/50 hover:bg-white hover:shadow-md"
                     style={{
-                      transitionDelay: `${index * 70}ms`,
+                      transitionDelay: `${index * 40}ms`,
+                      minHeight: "110px",
                     }}
                   >
-
-                    {/* NUMBER */}
-
-                    <div className="training-row-marker">
-                      <span />
-                    </div>
-
-
-                    {/* CONTENT */}
-
-                    <div className="training-row-content">
-
-                      <h3>
-                        {titles[index] || item}
+                    <div>
+                      <h3 className="text-[16px] font-semibold leading-snug text-[#20241D] transition-colors duration-300 group-hover:text-[#B3923D]">
+                        {item
+                          .replace(/\s*\(.*?\)/g, "")
+                          .replace(/\s*\/\s*/g, " / ")
+                          .replace(/^Basic training for security personnel/i, "Basic training")
+                          .replace(/^First-aid /i, "First-aid /")
+                          .replace(/^Bodyguard and /i, "Bodyguard & ")
+                          .replace(/^On-the-job training programme/i, "On-the-job training")
+                          .replace(/^Reporting systems/i, "Reporting systems")
+                          .replace(/^Physical training/i, "Physical training")
+                          .replace(/^Crowd control/i, "Crowd control")}
                       </h3>
-
-                      <p>
-                        {descriptions[index] || item}
-                      </p>
-
                     </div>
-
-
-                    {/* ARROW */}
-
-                    <div className="training-row-arrow">
-                      →
-                    </div>
-
                   </div>
                 );
               })}
@@ -451,76 +381,47 @@ export default function Training() {
 
 
         {/* ============================================================
-            INSTRUCTOR
+            BIG IMMERSIVE IMAGE SHOWCASE SECTION (3 Large Photos - Completely Cleaned of Text/CTAs)
             ============================================================ */}
 
-        <section className="relative overflow-hidden bg-[#ECE9E0] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
-
-          <div aria-hidden="true" className="training-leadership-pattern pointer-events-none absolute bottom-[-180px] right-[-80px] h-[620px] w-[620px]">
-            <svg viewBox="0 0 620 620" className="h-full w-full" fill="none">
-              <path d="M310 44 500 112v154c0 132-79 236-190 307-111-71-190-175-190-307V112L310 44Z" />
-              <path d="M310 88 458 141v123c0 103-60 185-148 245-88-60-148-142-148-245V141L310 88Z" />
-              <path d="M310 132 420 172v89c0 76-44 138-110 188-66-50-110-112-110-188v-89L310 132Z" />
-            </svg>
-          </div>
-
-          <div className="relative z-10 mx-auto max-w-7xl">
-
-            <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-
-
-              {/* LEFT */}
-
+        <section className="relative overflow-hidden bg-[#20251E]/[0.04] px-5 py-16 sm:px-8 sm:py-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
-
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
-                  Training leadership
-                </p>
-
-                <h2 className="mt-5 max-w-xl font-display text-4xl leading-[1.04] tracking-[-0.025em] text-[#20241D] sm:text-5xl">
-
-                  Training led by experience.
-
+               
+                <h2 className="mt-2 font-display text-3xl font-semibold sm:text-5xl text-[#20241D]">
+                  Training in Action
                 </h2>
-
               </div>
-
-
-              {/* RIGHT */}
-
-              <div className="border-l border-[#C6A348] pl-7 sm:pl-10">
-
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#777B71]">
-                  Lead Instructor
-                </p>
-
-                <h3 className="mt-4 font-display text-4xl text-[#20241D] sm:text-5xl">
-                  {training.trainer.name}
-                </h3>
-
-                <p className="mt-3 text-base font-medium text-[#B3923D]">
-                  {training.trainer.credential}
-                </p>
-
-                <p className="mt-7 max-w-xl text-[15px] leading-8 text-[#62685D]">
-
-                  The training is designed to make security personnel
-                  physically prepared, mentally confident and capable of
-                  handling their responsibilities professionally.
-
-                </p>
-
-              </div>
-
             </div>
 
-          </div>
+            {/* BIG IMAGE SHOWCASE GRID (Supports 3 large cards) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {[0, 1, 2].map((idx) => (
+                <div 
+                  key={idx} 
+                  className="group relative overflow-hidden rounded-3xl border border-[#20241D]/15 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C6A348]/40"
+                >
+                  {/* Large Immersive Image Frame Slot */}
+                  <div className="relative h-[400px] sm:h-[460px] w-full bg-[#E5E2D9] overflow-hidden flex items-center justify-center">
+                    
+                    {/* Subtle grid pattern overlay */}
+                    <div className="absolute inset-0 bg-[radial-gradient(#20241D_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
 
+                    {/* Placeholder branding watermark */}
+                    <div className="absolute inset-0 flex items-center justify-center text-[#555B50]/20 font-display text-8xl tracking-widest select-none pointer-events-none">
+                      KESS
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
 
         {/* ============================================================
-            WHAT TRAINING ACHIEVES
+            WHAT TRAINING ACHIEVES (Redesigned to remove empty left space)
             ============================================================ */}
 
         <section className="relative overflow-hidden px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
@@ -536,173 +437,80 @@ export default function Training() {
 
           <div className="relative z-10 mx-auto max-w-7xl">
 
-            <div className="grid gap-16 lg:grid-cols-[0.75fr_1.25fr]">
-
-
-              {/* LEFT */}
-
-              <div>
-
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#B3923D]">
-                  The result
-                </p>
-
-                <h2 className="mt-5 max-w-md font-display text-4xl leading-[1.04] tracking-[-0.025em] sm:text-5xl">
-
+            {/* HEADER ALIGNED TOP TO REMOVE LEFT SPACE */}
+            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#20241D]/10 pb-8">
+              <div className="max-w-2xl">
+               
+                <h2 className="mt-4 font-display text-4xl leading-[1.04] tracking-[-0.025em] text-[#20241D] sm:text-5xl">
                   What this means for our clients.
-
                 </h2>
-
-                <p className="mt-6 max-w-md text-base leading-8 text-[#646A5F]">
-
-                  The goal is simple: people who know what they are doing,
-                  know how to behave and know how to react when something
-                  goes wrong.
-
-                </p>
-
               </div>
+              <p className="max-w-md text-[15px] font-medium leading-[1.6] text-[#50554C]">
+                The goal is simple: people who know what they are doing,
+                know how to behave and know how to react when something
+                goes wrong.
+              </p>
+            </div>
 
+            {/* FULL WIDTH GRID FOR RESULTS */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
-              {/* RIGHT */}
+              {training.aims.map((aim, index) => {
 
-              <div>
+                const simpleAims = [
+                  {
+                    title: "Professional behaviour",
+                    text: "Guards understand workplace manners, communication and how to deal with people respectfully.",
+                  },
+                  {
+                    title: "Physical readiness",
+                    text: "Personnel are prepared for long and physically demanding shifts.",
+                  },
+                  {
+                    title: "Confidence in emergencies",
+                    text: "Training helps guards stay calm and make sensible decisions during unexpected situations.",
+                  },
+                  {
+                    title: "Fire & first-aid awareness",
+                    text: "Personnel learn basic steps to take during fires, accidents and other emergencies.",
+                  },
+                  {
+                    title: "Team discipline",
+                    text: "Clear instructions, responsibility and teamwork are built into the training.",
+                  },
+                ];
 
-                {training.aims.map((aim, index) => {
+                const content = simpleAims[index];
 
-                  const simpleAims = [
-                    {
-                      title: "Professional behaviour",
-                      text: "Guards understand workplace manners, communication and how to deal with people respectfully.",
-                    },
-                    {
-                      title: "Physical readiness",
-                      text: "Personnel are prepared for long and physically demanding shifts.",
-                    },
-                    {
-                      title: "Confidence in emergencies",
-                      text: "Training helps guards stay calm and make sensible decisions during unexpected situations.",
-                    },
-                    {
-                      title: "Fire & first-aid awareness",
-                      text: "Personnel learn basic steps to take during fires, accidents and other emergencies.",
-                    },
-                    {
-                      title: "Team discipline",
-                      text: "Clear instructions, responsibility and teamwork are built into the training.",
-                    },
-                  ];
+                return (
+                  <div
+                    key={aim}
+                    className="training-result-row group relative flex flex-col justify-center rounded-2xl border border-[#20241D]/10 bg-white/50 p-6 sm:p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#C6A348]/40 hover:bg-white hover:shadow-md"
+                  >
 
-                  const content = simpleAims[index];
+                    <div className="flex items-start gap-4">
 
-                  return (
-                    <div
-                      key={aim}
-                      className="training-result-row group border-t border-[#20241D]/30 py-6 first:pt-0 sm:py-7"
-                    >
+                      <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#C6A348] transition-transform duration-300 group-hover:scale-150" />
 
-                      <div className="flex gap-8">
+                      <div>
 
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#C6A348]" />
+                        <h3 className="font-display text-[1.4rem] font-medium leading-tight text-[#20241D] transition-colors duration-300 group-hover:text-[#B3923D]">
+                          {content?.title || "Prepared for the job"}
+                        </h3>
 
-                        <div>
-
-                          <h3 className="font-display text-[1.7rem] font-medium leading-tight text-[#20241D] sm:text-3xl">
-                            {content?.title || "Prepared for the job"}
-                          </h3>
-
-                          <p className="mt-3 max-w-2xl text-[15px] leading-7 text-[#646A5F] sm:text-base">
-                            {content?.text || aim}
-                          </p>
-
-                        </div>
+                        <p className="mt-3 text-[14.5px] leading-relaxed text-[#646A5F]">
+                          {content?.text || aim}
+                        </p>
 
                       </div>
 
                     </div>
-                  );
-                })}
 
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ============================================================
-            CTA
-            ============================================================ */}
-
-        <section className="relative overflow-hidden bg-[#20251E] px-5 py-24 text-[#F7F5EF] sm:px-8 sm:py-32">
-
-          <svg
-            aria-hidden="true"
-            className="training-cta-curves pointer-events-none absolute -right-[10%] -top-[40%] h-[850px] w-[850px]"
-            viewBox="0 0 850 850"
-            fill="none"
-          >
-
-            <path
-              d="M900 80C630 0 340 105 315 300C290 495 490 565 665 585C810 600 830 700 650 850"
-              stroke="rgba(247,245,239,0.09)"
-              strokeWidth="1"
-            />
-
-            <path
-              d="M900 145C650 65 390 150 365 320C340 480 515 540 680 560C800 575 820 655 690 790"
-              stroke="rgba(247,245,239,0.07)"
-              strokeWidth="0.75"
-            />
-
-            <path
-              d="M900 210C675 135 440 200 415 345C395 475 540 520 695 540C795 555 815 615 720 735"
-              stroke="rgba(247,245,239,0.05)"
-              strokeWidth="0.55"
-            />
-
-          </svg>
-
-
-          <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
-
-            <div className="max-w-3xl">
-
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C6A348]">
-                Security starts with preparation
-              </p>
-
-              <h2 className="mt-5 font-display text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
-
-                Need trained people for your organisation?
-
-              </h2>
-
-              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#F7F5EF]/60 sm:text-base">
-
-                Tell us about your site and requirements. We can discuss the
-                right security, manpower or training support for your
-                organisation.
-
-              </p>
+                  </div>
+                );
+              })}
 
             </div>
-
-
-            <a
-              href="/contact"
-              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
-            >
-
-              Discuss your requirements
-
-              <span className="text-lg leading-none text-[#C6A348]">
-                →
-              </span>
-
-            </a>
 
           </div>
 
@@ -990,31 +798,6 @@ export default function Training() {
         }
 
 
-        .training-mark-label {
-          position: absolute;
-
-          bottom: -2px;
-
-          left: 50%;
-
-          transform: translateX(-50%);
-
-          text-align: center;
-
-          white-space: nowrap;
-
-          font-size: 7px;
-
-          line-height: 1.7;
-
-          font-weight: 600;
-
-          letter-spacing: 0.24em;
-
-          color: rgba(82, 86, 76, 0.42);
-        }
-
-
         @keyframes trainingMarkFloat {
 
           0%,
@@ -1069,81 +852,31 @@ export default function Training() {
         }
 
 
-        /* ==========================================================
-           TRAINING ROW
-           ========================================================== */
-
-        .training-row {
-          display: grid;
-
-          grid-template-columns:
-            24px
-            1fr
-            35px;
-
-          gap: 22px;
-
-          align-items: center;
-
-          padding:
-            30px 0;
-
-          border-top:
-            1px solid rgba(32, 36, 29, 0.32);
-
-          opacity: 0;
-
-          transform: translateY(25px);
-
-          transition:
-            opacity 0.7s ease,
-            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-
-        .training-row:last-child {
-          border-bottom:
-            1px solid rgba(32, 36, 29, 0.32);
-        }
-
-
-        .training-row-visible {
-          opacity: 1;
-
-          transform: translateY(0);
-        }
-
-
-        .training-result-pattern,
-        .training-leadership-pattern {
+        .training-result-pattern {
           color: rgba(32, 36, 29, 0.14);
           opacity: 0;
           animation: trainingPatternReveal 1.2s ease-out 0.2s forwards;
         }
 
 
-        .training-result-pattern svg,
-        .training-leadership-pattern svg {
+        .training-result-pattern svg {
           overflow: visible;
         }
 
 
-        .training-result-pattern path,
-        .training-leadership-pattern path {
+        .training-result-pattern path {
           stroke: currentColor;
           stroke-linecap: round;
           stroke-linejoin: round;
         }
 
 
-        .training-result-pattern path:nth-child(2),
-        .training-leadership-pattern path:nth-child(2) {
+        .training-result-pattern path:nth-child(2) {
           opacity: 0.65;
         }
 
 
-        .training-result-pattern path:nth-child(3),
-        .training-leadership-pattern path:nth-child(3) {
+        .training-result-pattern path:nth-child(3) {
           stroke: #c6a348;
           opacity: 0.55;
         }
@@ -1165,119 +898,6 @@ export default function Training() {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-
-
-        .training-result-row > div:last-child,
-        .training-row-content {
-          transition: transform 0.45s ease-out;
-        }
-
-
-        .training-result-row:hover > div:last-child,
-        .training-row:hover .training-row-content {
-          transform: translateX(5px);
-        }
-
-
-        .training-row-marker {
-          display: flex;
-
-          align-items: center;
-
-          justify-content: center;
-        }
-
-
-        .training-row-marker span {
-          width: 7px;
-
-          height: 7px;
-
-          border-radius: 50%;
-
-          background: #C6A348;
-
-          transition:
-            transform 0.5s ease;
-        }
-
-
-        .training-row:hover .training-row-marker span {
-          transform: scale(1.5);
-        }
-
-
-        .training-row-content h3 {
-          font-family: var(--font-display, serif);
-
-          font-size: 24px;
-
-          line-height: 1.2;
-
-          color: #20241D;
-        }
-
-
-        .training-row-content p {
-          max-width: 680px;
-
-          margin-top: 7px;
-
-          font-size: 15px;
-
-          line-height: 1.8;
-
-          color: #666C61;
-        }
-
-
-        .training-row-arrow {
-          font-size: 22px;
-
-          color: #B3923D;
-
-          opacity: 0.45;
-
-          transform: translateX(0);
-
-          transition:
-            opacity 0.4s ease,
-            transform 0.4s ease;
-        }
-
-
-        .training-row:hover .training-row-arrow {
-          opacity: 1;
-
-          transform: translateX(5px);
-        }
-
-
-        /* ==========================================================
-           CTA CURVES
-           ========================================================== */
-
-        .training-cta-curves {
-          animation:
-            trainingCtaFloat
-            18s
-            ease-in-out
-            infinite;
-        }
-
-
-        @keyframes trainingCtaFloat {
-
-          0%,
-          100% {
-            transform: translate(0, 0);
-          }
-
-          50% {
-            transform: translate(-15px, 10px);
-          }
-
         }
 
 
@@ -1344,11 +964,6 @@ export default function Training() {
             height: 215px;
           }
 
-
-          .training-mark-label {
-            display: none;
-          }
-
         }
 
 
@@ -1373,35 +988,6 @@ export default function Training() {
             opacity: 0.23;
           }
 
-
-          .training-row {
-            grid-template-columns:
-              12px
-              1fr;
-
-            gap: 15px;
-
-            padding:
-              24px 0;
-          }
-
-
-          .training-row-arrow {
-            display: none;
-          }
-
-
-          .training-row-content h3 {
-            font-size: 21px;
-          }
-
-
-          .training-row-content p {
-            font-size: 15px;
-
-            line-height: 1.7;
-          }
-
         }
 
 
@@ -1416,17 +1002,14 @@ export default function Training() {
           .training-visual,
           .training-visual-curves,
           .training-mark,
-          .training-scroll-line,
-          .training-cta-curves,
-          .training-row {
+          .training-scroll-line {
             animation: none !important;
 
             transition: none !important;
           }
 
 
-          .training-result-pattern,
-          .training-leadership-pattern {
+          .training-result-pattern {
             transform: scale(0.72);
             transform-origin: bottom right;
             opacity: 0.7;
@@ -1434,16 +1017,14 @@ export default function Training() {
 
 
           .training-reveal,
-          .training-visual,
-          .training-row {
+          .training-visual {
             opacity: 1 !important;
 
             transform: none !important;
           }
 
 
-          .training-result-pattern,
-          .training-leadership-pattern {
+          .training-result-pattern {
             animation: none !important;
             opacity: 0.7 !important;
             transform: none !important;

@@ -34,6 +34,56 @@ body {
   color: var(--color-charcoal);
 }
 
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+    font-weight: 700;
+    color: var(--color-charcoal);
+  }
+
+  h1 {
+    font-size: clamp(2.75rem, 4.8vw, 5.25rem);
+  }
+
+  h2 {
+    font-size: clamp(2.2rem, 3.8vw, 4rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  }
+}
+
+.kess-page-heading,
+.kess-section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.4vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+
+.kess-section-heading {
+  font-size: clamp(2.3rem, 3.8vw, 3.8rem);
+}
+
+.kess-card-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -79,11 +129,8 @@ body {
   }
 }
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 60s linear infinite;
   will-change: transform;
-}
-.animate-marquee:hover {
-  animation-play-state: paused;
 }
 
 /* Focus visibility (accessibility floor) */

@@ -5,7 +5,7 @@ export default function GoogleMap({
 }) {
   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
     address
-  )}&output=embed`;
+  )}&z=15&output=embed`;
 
   return (
     <div

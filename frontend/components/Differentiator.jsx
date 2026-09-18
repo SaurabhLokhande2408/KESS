@@ -144,73 +144,97 @@ const Differentiator = () => {
     <section className="bg-charcoal text-ivory border-t border-white/10">
       <div className="mx-auto max-w-[1400px] px-6 py-16 sm:px-10 sm:py-20 lg:px-14 lg:py-24">
 
-        {/* SECTION HEADER */}
-        <Reveal className="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 lg:grid-cols-[0.3fr_1fr] lg:gap-16 lg:pb-14">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-            Why KESS
-          </p>
-          <div>
-            <h2 className="font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-              Discipline built into the foundation.
-            </h2>
-            <p className="mt-6 max-w-2xl font-sans text-base leading-8 text-white/60 sm:text-[17px]">
-              Knight Eyes Security Services is built on the values of military
-              service: discipline, preparedness, leadership and
-              responsibility. Those principles shape the people KESS trains
-              and the services it delivers.
-            </p>
-          </div>
-        </Reveal>
+        
+        
+     
 
-        {/* FOUNDER */}
-        <div className="mt-16 grid grid-cols-1 gap-10 border-b border-white/10 pb-16 lg:grid-cols-12 lg:gap-12">
-          <Reveal className="lg:col-span-4">
-            <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10">
-              <img
-                src="/images/founder-team/MrNamdevBhanudas%20Doke.png"
-                alt="Mr. Namdev Bhanudas Doke, Managing Director of KESS"
-                className="h-full w-full object-cover object-center grayscale-[15%]"
-              />
-              <div className="absolute inset-x-0 bottom-0 border-t border-gold/40 bg-charcoal/90 px-5 py-4">
-                <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-gold">
-                  Managing Director
-                </p>
-                <p className="mt-1 font-sans text-[11px] uppercase tracking-[0.15em] text-white/60">
-                  Retired Indian Army
-                </p>
+    <section className="w-full border-y border-white/10 bg-charcoal text-white">
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="grid grid-cols-1 items-center gap-1 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-7">
+            <div className="max-w-[35rem]">
+             
+
+              <h3 className="mt-4 font-sans text-[clamp(2.25rem,4vw,4rem)] font-bold leading-[1.05] tracking-tight text-white sm:mt-5">
+                The Leadership
+                <br />
+                Behind KESS
+              </h3>
+
+              <p className="mt-4 font-sans text-xl font-semibold text-white sm:text-2xl lg:text-3xl">
+                Mr. Namdev Bhanudas Doke
+              </p>
+
+              <p className="mt-1 font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white/75">
+                Founder &amp; Managing Director · Retired Indian Army
+              </p>
+
+              <p className="mt-5 max-w-xl font-sans text-[17px] leading-8 text-white/80 sm:mt-6 sm:text-[18px]">
+                KESS is built on a foundation of discipline, responsibility and
+                professional service. Under the leadership of Mr. Namdev Bhanudas
+                Doke, these principles continue to shape how we train our people,
+                manage operations and serve our clients.
+              </p>
+
+              <div className="mt-7 grid grid-cols-1 gap-8 border-t border-white/10 pt-6 sm:grid-cols-2">
+                <div className="flex gap-4 border-b border-white/10 pb-4 sm:border-b-0 sm:pb-0">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-5 w-5 text-gold">
+                      <path d="M12 3L19 6V11C19 15.5 16.1 19.2 12 21C7.9 19.2 5 15.5 5 11V6L12 3Z" />
+                      <path d="M9 12L11 14L15 10" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-sans text-base font-semibold uppercase tracking-[0.08em] text-white sm:text-[17px]">
+                      Disciplined Leadership
+                    </h4>
+                    <p className="mt-2 font-sans text-[15px] leading-7 text-white/75 sm:text-base">
+                      Military experience translated into structured and accountable operations.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 border-b border-white/10 pb-4 sm:border-b-0 sm:pb-0">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-5 w-5 text-gold">
+                      <path d="M12 3L20 7V12C20 16.5 16.8 19.5 12 21C7.2 19.5 4 16.5 4 12V7L12 3Z" />
+                      <path d="M8.5 12L11 14.5L15.5 10" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-sans text-base font-semibold uppercase tracking-[0.08em] text-white sm:text-[17px]">
+                      KESS Standards
+                    </h4>
+                    <p className="mt-2 font-sans text-[15px] leading-7 text-white/75 sm:text-base">
+                      Professionalism, preparation and responsibility in every assignment.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={100} className="lg:col-span-8 lg:pl-6">
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              The Founder
-            </p>
-            <h3 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl">
-              Mr. Namdev Bhanudas Doke
-            </h3>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <p className="font-sans text-base leading-8 text-white/60 sm:text-[17px]">
-                The leadership behind KESS brings distinguished military
-                experience and a record of command across diverse formations.
-                That background is the foundation for an organisation built
-                on discipline and dependable execution.
-              </p>
-              <p className="font-sans text-base leading-8 text-white/60 sm:text-[17px]">
-                Today, that philosophy extends beyond security. KESS supports
-                organisations with trained manpower, housekeeping and other
-                operational services, while holding the same standard of
-                preparation and accountability.
-              </p>
+          <Reveal delay={100} className="lg:col-span-5">
+            <div className="relative ml-auto w-full max-w-[28rem] lg:max-w-[32rem]">
+              <div className="aspect-[4/5] overflow-hidden bg-charcoal">
+                <img
+                  src="/images/founder-team/MrNamdevBhanudas%20Doke.png"
+                  alt="Mr. Namdev Bhanudas Doke, Founder and Managing Director of KESS"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+
             </div>
           </Reveal>
         </div>
+      </div>
+    </section>
 
         {/* TRAINING FRAMEWORK */}
         <div className="mt-16 border-b border-white/10 pb-16">
           <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="font-sans kess-eyebrow text-[1.85rem] font-bold uppercase uppercase tracking-[0.2em] text-gold">
                 Training Framework
               </p>
               <h3 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl">
@@ -252,7 +276,7 @@ const Differentiator = () => {
         <div className="mt-16 pb-4">
           <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="font-sans kess-eyebrow text-[1.85rem] font-bold uppercase uppercase tracking-[0.2em] text-gold">
                 Beyond Security
               </p>
               <h3 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl">

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import siteData from "@/data/siteData.json";
 import CurveLines from "@/components/CurveLines";
@@ -122,11 +122,13 @@ const QUICK_LINKS = [
   ["Training", "/training"],
 ];
 
-const COMPANY_LINKS = [
+const COMPANY_LIN_KS = [
   ["Gallery", "/gallery"],
   ["Clients", "/clients"],
   ["Careers", "/careers"],
 ];
+
+const COMPANY_LINKS = COMPANY_LIN_KS;
 
 
 /* =========================================================
@@ -181,84 +183,31 @@ export default function Footer() {
             BRAND + CTA
         =================================================== */}
 
-        <section className="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-14 py-12 sm:py-14 lg:py-16">
-
-          {/* BRAND */}
-
-          <div>
-
-            <Link
-              href="/"
-              className="inline-flex items-center gap-3"
-            >
-
-              <div className="relative h-11 w-9 shrink-0">
-                <Image
-                  src="/images/logo/logo.jpeg"
-                  alt="KESS Shield Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <div>
-                <p className="font-display text-2xl text-ivory leading-none">
-                  {company.shortName}
-                </p>
-
-                <p className="mt-1 text-xs font-medium uppercase tracking-[0.25em] text-gold">
-                  Knight Eyes Security
-                </p>
-              </div>
-
-            </Link>
-
-
-            <div className="mt-6 max-w-2xl">
-
-              <p className="text-xs font-medium uppercase tracking-[0.26em] text-gold mb-4">
-                {company.tagline}
-              </p>
-
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1] text-ivory">
-                Security that{" "}
-                <span className="text-gold">
-                  stands watch.
-                </span>
-              </h2>
-
-              <p className="mt-6 max-w-lg text-sm leading-7 text-ivory/50">
-                {about.description}
-              </p>
-
-            </div>
-
-          </div>
-
+        <section className="py-6 sm:py-8 lg:py-10">
 
           {/* CTA */}
 
-          <div className="lg:border-l lg:border-ivory/10 lg:pl-10 flex flex-col justify-end">
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-gold mb-4">
-              Need Reliable People On Site?
-            </p>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold mb-1">
+                Need Reliable People On Site?
+              </p>
 
-            <h3 className="font-display text-2xl sm:text-3xl leading-tight text-ivory">
-              Let's talk about
-              <br />
-              your requirements.
-            </h3>
+              <h3 className="font-display text-2xl sm:text-3xl font-bold leading-tight text-ivory">
+                Let's talk about your requirements.
+              </h3>
+            </div>
 
-            <div className="mt-5 flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap gap-3 shrink-0">
 
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-3 border border-gold bg-gold px-4 py-2.5 text-xs font-medium uppercase tracking-[0.12em] text-charcoal transition-all duration-300 hover:bg-transparent hover:text-gold"
+                className="group inline-flex items-center gap-3 border border-gold bg-gold px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-charcoal transition-all duration-300 hover:bg-transparent hover:text-gold"
               >
                 Get in Touch
 
-                <ArrowIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
 
 
@@ -266,9 +215,9 @@ export default function Footer() {
                 href={waLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 border border-ivory/15 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.12em] text-ivory/70 transition-all duration-300 hover:border-gold hover:text-gold"
+                className="group inline-flex items-center gap-2.5 border border-ivory/15 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-ivory transition-all duration-300 hover:border-gold hover:text-gold"
               >
-                <WhatsAppIcon className="h-3.5 w-3.5" />
+                <WhatsAppIcon className="h-4 w-4" />
                 WhatsApp
               </a>
 
@@ -283,16 +232,16 @@ export default function Footer() {
             LINKS + CONTACT
         =================================================== */}
 
-        <section className="border-t border-ivory/10 py-10 sm:py-12">
+        <section className="border-t border-ivory/10 py-6 sm:py-8">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[0.65fr_0.65fr_1.7fr] gap-9 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[0.55fr_0.55fr_1.9fr] gap-6 lg:gap-8">
 
 
             {/* QUICK LINKS */}
 
             <div>
 
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold mb-3">
                 Quick Links
               </p>
 
@@ -307,7 +256,7 @@ export default function Footer() {
 
                     <Link
                       href={href}
-                      className="group flex items-center justify-between py-2.5 text-[14px] text-ivory/60 transition-colors duration-200 hover:text-ivory"
+                      className="group flex items-center justify-between py-2 text-sm font-semibold text-ivory/90 transition-colors duration-200 hover:text-gold"
                     >
 
                       <span>
@@ -315,7 +264,7 @@ export default function Footer() {
                       </span>
 
                       <ArrowIcon
-                        className="h-3.5 w-3.5 text-gold/0 -translate-x-2 transition-all duration-200 group-hover:translate-x-0 group-hover:text-gold"
+                        className="h-4 w-4 text-gold/0 -translate-x-2 transition-all duration-200 group-hover:translate-x-0 group-hover:text-gold"
                       />
 
                     </Link>
@@ -333,7 +282,7 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold mb-3">
                 Company
               </p>
 
@@ -348,7 +297,7 @@ export default function Footer() {
 
                     <Link
                       href={href}
-                      className="group flex items-center justify-between py-2.5 text-[14px] text-ivory/60 transition-colors duration-200 hover:text-ivory"
+                      className="group flex items-center justify-between py-2 text-sm font-semibold text-ivory/90 transition-colors duration-200 hover:text-gold"
                     >
 
                       <span>
@@ -356,7 +305,7 @@ export default function Footer() {
                       </span>
 
                       <ArrowIcon
-                        className="h-3.5 w-3.5 text-gold/0 -translate-x-2 transition-all duration-200 group-hover:translate-x-0 group-hover:text-gold"
+                        className="h-4 w-4 text-gold/0 -translate-x-2 transition-all duration-200 group-hover:translate-x-0 group-hover:text-gold"
                       />
 
                     </Link>
@@ -374,17 +323,17 @@ export default function Footer() {
 
             <div>
 
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold mb-3">
                 Get in Touch
               </p>
 
 
-              <div className="grid sm:grid-cols-2 gap-7">
+              <div className="grid sm:grid-cols-2 gap-5">
 
 
                 {/* DETAILS */}
 
-                <div className="space-y-5">
+                <div className="space-y-3">
 
 
                   {/* ADDRESS */}
@@ -395,11 +344,11 @@ export default function Footer() {
 
                     <div>
 
-                      <p className="mb-1 text-[9px] uppercase tracking-[0.17em] text-ivory/30">
+                      <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.17em] text-ivory/50">
                         Head Office
                       </p>
 
-                      <p className="text-[13px] leading-5 text-ivory/60">
+                      <p className="text-xs font-medium leading-snug text-ivory">
                         {contact.headOffice.address}
                       </p>
 
@@ -416,7 +365,7 @@ export default function Footer() {
 
                     <div>
 
-                      <p className="mb-1 text-[9px] uppercase tracking-[0.17em] text-ivory/30">
+                      <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.17em] text-ivory/50">
                         Call Us
                       </p>
 
@@ -427,7 +376,7 @@ export default function Footer() {
                           <a
                             key={phone}
                             href={`tel:+91${phone}`}
-                            className="text-[13px] leading-6 text-ivory/60 transition-colors hover:text-gold"
+                            className="text-xs font-medium leading-snug text-ivory transition-colors hover:text-gold"
                           >
                             +91 {phone}
                           </a>
@@ -449,11 +398,11 @@ export default function Footer() {
 
                     <div>
 
-                      <p className="mb-1 text-[9px] uppercase tracking-[0.17em] text-ivory/30">
+                      <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.17em] text-ivory/50">
                         Office Hours
                       </p>
 
-                      <p className="text-[13px] leading-5 text-ivory/60">
+                      <p className="text-xs font-medium leading-snug text-ivory">
                         {contact.officeHours}
                       </p>
 
@@ -468,9 +417,9 @@ export default function Footer() {
 
                 <div>
 
-                  <div className="mb-2 flex items-center justify-between">
+                  <div className="mb-1.5 flex items-center justify-between">
 
-                    <p className="text-[9px] uppercase tracking-[0.17em] text-ivory/30">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.17em] text-ivory/50">
                       Find Our Office
                     </p>
 
@@ -480,8 +429,8 @@ export default function Footer() {
 
                   <GoogleMap
                     address={contact.headOffice.address}
-                    height={185}
-                    className="border border-ivory/10 opacity-80 transition-opacity duration-300 hover:opacity-100"
+                    height={150}
+                    className="border border-ivory/15 opacity-90 transition-opacity duration-300 hover:opacity-100"
                   />
 
                 </div>
@@ -499,61 +448,27 @@ export default function Footer() {
             SERVICE LOCATIONS
         =================================================== */}
 
-        <section className="border-t border-ivory/10 py-7 sm:py-8">
+        <section className="border-t border-ivory/10 py-5 sm:py-6">
 
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="mb-4">
 
-            <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.20em] text-gold sm:text-base">
+              Service Locations
+            </p>
 
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold mb-2">
-                Service Locations
-              </p>
+          </div>
 
-              <p className="text-[13px] text-ivory/35">
-                Supporting organisations across Maharashtra.
-              </p>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-6">
 
-            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/80 sm:text-sm">
+              <span className="text-gold">Head Office</span> — Pune
+            </p>
 
+            <span className="hidden h-4 w-px bg-ivory/15 lg:block" aria-hidden="true" />
 
-            <div className="flex flex-wrap gap-y-4">
-
-
-              {/* HEAD OFFICE */}
-
-              <div className="pr-7 mr-7 border-r border-ivory/10">
-
-                <p className="text-[8px] uppercase tracking-[0.18em] text-ivory/25 mb-1">
-                  Head Office
-                </p>
-
-                <p className="text-[13px] text-ivory/60">
-                  Pune
-                </p>
-
-              </div>
-
-
-              {contact.branches?.map((branch, index) => (
-
-                <div
-                  key={`${branch.label}-${index}`}
-                  className="pr-7 mr-7 last:mr-0 last:pr-0 border-r last:border-r-0 border-ivory/10"
-                >
-
-                  <p className="text-[8px] uppercase tracking-[0.18em] text-ivory/25 mb-1">
-                    Branch
-                  </p>
-
-                  <p className="text-[13px] text-ivory/60">
-                    {branch.label}
-                  </p>
-
-                </div>
-
-              ))}
-
-            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/80 sm:text-sm">
+              <span className="text-gold">Branches</span> — Pune, Ahmednagar
+            </p>
 
           </div>
 
@@ -564,34 +479,34 @@ export default function Footer() {
             COMPLIANCE
         =================================================== */}
 
-        <section className="border-t border-ivory/10 py-7 sm:py-8">
+        <section className="border-t border-ivory/10 pt-6 pb-6">
 
-          <div className="flex items-center gap-2.5 mb-5">
+          <div className="mb-4 flex items-center gap-2.5">
 
-            <ShieldCheckIcon className="h-4.5 w-4.5 text-gold" />
+            <ShieldCheckIcon className="h-4 w-4 text-gold" />
 
-            <p className="text-xs font-medium uppercase tracking-[0.24em] text-gold">
+            <p className="text-sm font-semibold uppercase tracking-[0.20em] text-gold sm:text-base">
               Compliance & Registration
             </p>
 
           </div>
 
 
-          <div className="grid grid-cols-1 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
 
             {/* PSARA */}
 
-            <div className="py-3 sm:pr-7 sm:border-r border-ivory/10">
+            <div className="border-ivory/15 py-2 lg:border-r lg:pr-6">
 
-              <p className="text-[8px] uppercase tracking-[0.18em] text-ivory/25 mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/60 sm:text-sm">
                 PSARA
               </p>
 
-              <p className="text-[13px] text-ivory/65">
+              <p className="mt-2 text-base font-semibold text-ivory sm:text-lg">
                 {registration.psara.state}
               </p>
 
-              <p className="mt-0.5 text-[10px] text-ivory/30 break-all">
+              <p className="mt-1 text-sm font-medium text-ivory/70 break-all sm:text-base">
                 {registration.psara.number}
               </p>
 
@@ -600,13 +515,13 @@ export default function Footer() {
 
             {/* PF */}
 
-            <div className="py-3 sm:px-7 sm:border-r border-ivory/10">
+            <div className="border-ivory/15 py-2 lg:border-r lg:px-6">
 
-              <p className="text-[8px] uppercase tracking-[0.18em] text-ivory/25 mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/60 sm:text-sm">
                 Provident Fund
               </p>
 
-              <p className="text-[13px] text-ivory/65 break-all">
+              <p className="mt-2 text-base font-semibold text-ivory break-all sm:text-lg">
                 {registration.pfNumber}
               </p>
 
@@ -615,14 +530,29 @@ export default function Footer() {
 
             {/* ESI */}
 
-            <div className="py-3 sm:pl-7">
+            <div className="border-ivory/15 py-2 lg:border-r lg:px-6">
 
-              <p className="text-[8px] uppercase tracking-[0.18em] text-ivory/25 mb-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/60 sm:text-sm">
                 ESI
               </p>
 
-              <p className="text-[13px] text-ivory/65 break-all">
+              <p className="mt-2 text-base font-semibold text-ivory break-all sm:text-lg">
                 {registration.esiNumber}
+              </p>
+
+            </div>
+
+
+            {/* GSTIN */}
+
+            <div className="py-2 lg:pl-6">
+
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ivory/60 sm:text-sm">
+                GSTIN
+              </p>
+
+              <p className="mt-2 text-base font-semibold text-ivory break-all sm:text-lg">
+                {registration?.gstin || "To be updated"}
               </p>
 
             </div>
@@ -636,15 +566,15 @@ export default function Footer() {
 
       {/* =====================================================
           FINAL BAR
-      ===================================================== */}
+    ===================================================== */}
 
       <div className="border-t border-ivory/10">
 
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-4">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-3">
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 
-            <p className="text-xs text-ivory/25">
+            <p className="text-[11px] font-medium text-ivory/50">
               © {year} {company.name}. All rights reserved.
             </p>
 
@@ -653,15 +583,15 @@ export default function Footer() {
 
               <span className="h-1.5 w-1.5 rounded-full bg-gold" />
 
-              <p className="text-[9px] uppercase tracking-[0.13em] text-ivory/30">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-ivory/60">
                 PSARA Licensed
               </p>
 
-              <span className="text-ivory/15">
+              <span className="text-ivory/30">
                 •
               </span>
 
-              <p className="text-[9px] uppercase tracking-[0.13em] text-ivory/30">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-ivory/60">
                 {company.yearsInBusiness}+ Years of Trusted Protection
               </p>
 

@@ -204,7 +204,7 @@ export default function Clients() {
 
                 <span className="h-px w-16 bg-[#C6A348]" />
 
-                <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#3F453C]">
+                <span className="kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.28em] text-[#3F453C]">
                   Our Clients
                 </span>
 
@@ -266,7 +266,7 @@ export default function Clients() {
 
               {/* SCROLL INDICATOR */}
 
-              <div className="hero-reveal hero-delay-4 mt-16 flex items-center gap-5 text-sm font-bold uppercase tracking-[0.28em] text-[#4A5047]">
+              <div className="hero-reveal hero-delay-4 mt-16 flex items-center gap-5 text-md font-bold uppercase tracking-[0.28em] text-[#4A5047]">
 
                 <span className="relative h-14 w-[2px] overflow-hidden bg-[#C8C5BC]">
                   <span className="scroll-line absolute left-0 top-0 h-7 w-[2px] bg-[#C6A348]" />
@@ -405,7 +405,7 @@ export default function Clients() {
 
               <div>
 
-                <p className="mb-5 text-xs font-bold uppercase tracking-[0.26em] text-[#9B7A2F]">
+                <p className="kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.26em] text-[#9B7A2F]">
                   Organisations we serve
                 </p>
 
@@ -512,42 +512,47 @@ export default function Clients() {
 
           {/* CTA CONTENT */}
 
-          <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
-            <div className="max-w-3xl">
+  {/* LEFT SIDE: Heading */}
+  <div className="max-w-xl lg:w-1/2">
+    <div className="flex items-center gap-3">
+      <span className="h-px w-8 bg-[#C6A348]" />
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C6A348]">
+        Work with KESS
+      </p>
+    </div>
 
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C6A348]">
-                Work with KESS
-              </p>
+    <h2 className="mt-4 font-display text-3xl font-medium leading-[1.1] tracking-[-0.02em] text-[#F7F5EF] sm:text-4xl">
+      Looking for a dependable security or manpower partner?
+    </h2>
+  </div>
 
-              <h2 className="mt-5 font-display text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
-                Looking for a dependable security or manpower partner?
-              </h2>
+  {/* RIGHT SIDE: Description, CTA & Extra Detail */}
+  <div className="flex flex-col items-start border-[#F7F5EF]/10 lg:w-1/2 lg:border-l lg:pl-12">
+    
+    <p className="max-w-md text-[13px] font-medium leading-relaxed text-[#F7F5EF]/70 sm:text-sm">
+      Tell us about your organisation, site and requirements. We will work with you to design and build the right deployment strategy.
+    </p>
 
-              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#F7F5EF]/60 sm:text-base">
-                Tell us about your organisation, site and requirements. We
-                will work with you to build the right deployment.
-              </p>
+    <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
+      {/* CTA LINK */}
+      <Link
+        href="/contact"
+        className="group flex w-fit items-center gap-3 border-b border-[#C6A348]/50 pb-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F7F5EF] transition-all duration-300 hover:gap-5 hover:border-[#C6A348]"
+      >
+        Discuss requirements
+        <span className="text-sm text-[#C6A348] transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+      </Link>
 
-            </div>
+      
+    </div>
 
+  </div>
 
-            {/* CTA LINK */}
-
-            <Link
-              href="/contact"
-              className="group flex w-fit items-center gap-5 border-b border-[#C6A348] pb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#F7F5EF] transition-all duration-500 hover:gap-8"
-            >
-
-              Discuss your requirements
-
-              <span className="text-lg leading-none text-[#C6A348]">
-                →
-              </span>
-
-            </Link>
-
-          </div>
+</div>
 
         </section>
 

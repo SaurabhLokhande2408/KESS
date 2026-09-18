@@ -356,7 +356,7 @@ export default function Careers() {
 
           <div className="max-w-4xl">
 
-            <p className="mb-5 text-sm font-medium uppercase tracking-[0.28em] text-gold">
+            <p className=" kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.28em] text-gold">
               Careers at KESS
             </p>
 
@@ -392,7 +392,7 @@ export default function Careers() {
 
               <div>
 
-                <p className="text-xs uppercase tracking-[0.22em] text-gold">
+                <p className="kess-eyebrow text-[1.85rem] font-bold uppercase tracking-[0.22em] text-gold">
                   Latest Opening
                 </p>
 
@@ -442,7 +442,7 @@ export default function Careers() {
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
 
-            <p className="text-sm uppercase tracking-[0.25em] text-gold">
+            <p className="kess-eyebrow text-[1rem] font-bold uppercase tracking-[0.25em] text-gold">
               Join the team
             </p>
 

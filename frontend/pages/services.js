@@ -361,6 +361,45 @@ const Arrow = () => (
   </svg>
 );
 
+const ServicesShieldMark = () => (
+  <div className="flex items-center justify-center text-gold/90">
+    <svg
+      viewBox="0 0 240 240"
+      className="h-16 w-16 sm:h-20 sm:w-20"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M120 20L205 50V116C205 171 172 211 120 240C68 211 35 171 35 116V50L120 20Z"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+
+      <circle
+        cx="120"
+        cy="88"
+        r="18"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+
+      <path
+        d="M82 160C85 132 98 119 120 119C142 119 155 132 158 160"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M73 177H167"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  </div>
+);
+
 /* =========================================================
    SERVICE IMAGE
 ========================================================= */
@@ -368,7 +407,6 @@ const Arrow = () => (
 function ServiceImage({
   image,
   title,
-  number,
 }) {
   return (
     <div
@@ -410,27 +448,6 @@ function ServiceImage({
           group-hover:bg-charcoal/10
         "
       />
-
-      {/* Number */}
-      <div
-        className="
-          absolute
-          left-4
-          top-4
-          flex
-          h-10
-          w-10
-          items-center
-          justify-center
-          bg-charcoal/75
-          text-[9px]
-          tracking-[0.15em]
-          text-gold
-          backdrop-blur-sm
-        "
-      >
-        {number}
-      </div>
 
       {/* Hover reveal */}
       <div
@@ -585,9 +602,7 @@ export default function Services() {
 
                   <p
                     className="
-                      mb-5
-                      text-xs
-                      font-semibold
+                      kess-eyebrow text-[1.85rem] font-bold 
                       uppercase
                       tracking-[0.28em]
                       text-gold
@@ -734,7 +749,7 @@ export default function Services() {
                 <p
                   className="
                     pt-2
-                    text-[10px]
+                    kess-eyebrow text-[1.85rem] font-bold 
                     uppercase
                     tracking-[0.28em]
                     text-gold
@@ -863,10 +878,6 @@ export default function Services() {
                     <ServiceImage
                       image={service.image}
                       title={service.title}
-                      number={String(index + 1).padStart(
-                        2,
-                        "0"
-                      )}
                     />
 
                   </Reveal>
@@ -911,20 +922,6 @@ export default function Services() {
                           "
                         >
 
-                          <p
-                            className="
-                              pt-2
-                              text-[9px]
-                              font-semibold
-                              uppercase
-                              tracking-[0.25em]
-                              text-gold
-                            "
-                          >
-                            {service.eyebrow ||
-                              `0${index + 1} / SERVICE`}
-                          </p>
-
                           {/* ICON */}
 
                           {Icon && (
@@ -946,13 +943,14 @@ export default function Services() {
 
                         <h2
                           className="
-                            mt-4
+                            mt-3
                             max-w-xl
                             font-display
                             text-[2.5rem]
-                            font-normal
+                            font-semibold
                             leading-[0.95]
                             tracking-[-0.035em]
+                            text-charcoal
                             transition-transform
                             duration-500
                             group-hover:translate-x-1
@@ -970,10 +968,11 @@ export default function Services() {
                           className="
                             mt-5
                             max-w-xl
-                            text-[16px]
-                            leading-[1.75]
-                            text-charcoal-light
-                            sm:text-[17px]
+                            text-[17px]
+                            font-medium
+                            leading-[1.65]
+                            text-charcoal
+                            sm:text-[18px]
                           "
                         >
                           {service.description}
@@ -988,23 +987,12 @@ export default function Services() {
                           mt-7
                           flex
                           items-center
-                          justify-between
+                          justify-end
                           border-t
                           border-border
                           pt-4
                         "
                       >
-
-                        <span
-                          className="
-                            text-[9px]
-                            uppercase
-                            tracking-[0.2em]
-                            text-charcoal-light/60
-                          "
-                        >
-                          KESS Services
-                        </span>
 
                         <Link
                           href="/contact"
@@ -1012,12 +1000,17 @@ export default function Services() {
                             group/link
                             inline-flex
                             items-center
-                            gap-2
-                            text-[10px]
+                            gap-3
+                            rounded-none
+                            px-5
+                            py-3
+                            text-sm
                             font-semibold
                             uppercase
-                            tracking-[0.18em]
-                            transition-colors
+                            tracking-[0.16em]
+                            text-charcoal
+                            transition-all
+                            duration-300
                             hover:text-gold
                           "
                         >
@@ -1031,7 +1024,7 @@ export default function Services() {
                               group-hover/link:translate-x-0.5
                             "
                           >
-                            <Arrow />
+                            <Arrow className="h-5 w-5" />
                           </span>
 
                         </Link>
@@ -1059,10 +1052,10 @@ export default function Services() {
             relative
             overflow-hidden
             px-5
-            py-12
+            py-8
             sm:px-8
-            sm:py-14
-            lg:py-16
+            sm:py-10
+            lg:py-12
           "
         >
 
@@ -1081,9 +1074,9 @@ export default function Services() {
             <div
               className="
                 grid
-                gap-9
+                gap-7
                 lg:grid-cols-[0.6fr_1.4fr]
-                lg:gap-16
+                lg:gap-12
               "
             >
 
@@ -1095,10 +1088,10 @@ export default function Services() {
 
                   <p
                     className="
-                      text-[10px]
+                     kess-eyebrow text-[1.25rem] font-bold
                       uppercase
-                      tracking-[0.28em]
-                      text-gold
+                      tracking-[0.22em]
+                      text-black
                     "
                   >
                     Manpower Outsourcing
@@ -1109,11 +1102,13 @@ export default function Services() {
                       mt-4
                       max-w-xl
                       font-display
-                      text-[2.8rem]
-                      font-normal
-                      leading-[0.95]
-                      tracking-[-0.035em]
-                      sm:text-[3.6rem]
+                      text-[2.5rem]
+                      font-semibold
+                      leading-[0.98]
+                      tracking-[-0.025em]
+                      text-charcoal
+                      sm:text-[3.2rem]
+                      lg:text-[3.5rem]
                     "
                   >
                     People for
@@ -1121,22 +1116,23 @@ export default function Services() {
                     different
                     <br />
 
-                    <span className="italic text-gold">
+                    <span className="font-semibold text-gold">
                       requirements.
                     </span>
                   </h2>
 
                   <p
                     className="
-                      mt-5
+                      mt-4
                       max-w-md
                       text-[16px]
-                      leading-[1.75]
+                      font-medium
+                      leading-[1.6]
                       text-charcoal-light
+                      sm:text-[17px]
                     "
                   >
-                    KESS provides manpower across different
-                    categories according to client requirements.
+                    KESS provides trained manpower across multiple categories based on client requirements.
                   </p>
 
                 </div>
@@ -1154,146 +1150,52 @@ export default function Services() {
 
                   {/* CATEGORY LIST */}
 
-                  <div className="border-t border-border">
-
-                    {manpowerCategories.map(
-                      (category, index) => (
-
-                        <div
-                          key={category}
-                          className="
-                            group/item
-                            flex
-                            items-center
-                            justify-between
-                            border-b
-                            border-border
-                            py-3.5
-                            transition-colors
-                            hover:bg-charcoal/[0.025]
-                          "
-                        >
-
-                          <div className="flex items-center gap-5">
-
-                            <span
-                              className="
-                                text-[9px]
-                                tracking-[0.18em]
-                                text-gold
-                              "
-                            >
-                              {String(index + 1).padStart(
-                                2,
-                                "0"
-                              )}
-                            </span>
-
-                            <span
-                              className="
-                                text-[16px]
-                                text-charcoal-light
-                                transition-all
-                                duration-300
-                                group-hover/item:translate-x-1
-                                group-hover/item:text-charcoal
-                                sm:text-[17px]
-                              "
-                            >
-                              {category}
-                            </span>
-
-                          </div>
-
-                          <span
-                            className="
-                              text-charcoal-light/30
-                              transition-all
-                              duration-300
-                              group-hover/item:translate-x-1
-                              group-hover/item:text-gold
-                            "
-                          >
-                            <Arrow />
-                          </span>
-
-                        </div>
-
-                      )
-                    )}
-
-                  </div>
-
-                  {/* ADDITIONAL CATEGORIES */}
-
-                  <div
-                    className="
-                      mt-6
-                      grid
-                      border-y
-                      border-border
-                      sm:grid-cols-3
-                    "
-                  >
-
+                  <div className="grid grid-cols-1 gap-0 border-t border-border sm:grid-cols-2">
                     {[
+                      ...manpowerCategories,
                       "Supervisors",
                       "Fitters",
                       "Electricians",
-                    ].map((item, index) => (
-
+                    ].map((category, index) => (
                       <div
-                        key={item}
+                        key={`${category}-${index}`}
                         className="
+                          flex
+                          items-center
+                          gap-3
                           border-b
+                          border-r
                           border-border
                           px-4
-                          py-4
-                          last:border-b-0
-                          sm:border-b-0
-                          sm:border-r
+                          py-3
+                          last:border-r-0
                           sm:last:border-r-0
                         "
                       >
-
                         <span
                           className="
                             text-[9px]
-                            tracking-[0.18em]
+                            font-medium
+                            tracking-[0.15em]
                             text-gold
                           "
                         >
-                          0{index + 1}
+                          {String(index + 1).padStart(2, "0")}
                         </span>
 
-                        <p
+                        <span
                           className="
-                            mt-2
-                            font-display
-                            text-[19px]
+                            text-[15px]
+                            font-medium
+                            text-charcoal
+                            sm:text-[16px]
                           "
                         >
-                          {item}
-                        </p>
-
+                          {category}
+                        </span>
                       </div>
-
                     ))}
-
                   </div>
-
-                  <p
-                    className="
-                      mt-5
-                      max-w-xl
-                      text-[15px]
-                      leading-[1.7]
-                      text-charcoal-light
-                    "
-                  >
-                    Labour supply is also part of the manpower
-                    service offering for client requirements.
-                  </p>
 
                 </div>
 
@@ -1358,16 +1260,7 @@ export default function Services() {
 
                 <div>
 
-                  <p
-                    className="
-                      text-[10px]
-                      uppercase
-                      tracking-[0.28em]
-                      text-gold
-                    "
-                  >
-                    Training
-                  </p>
+                 
 
                   <h2
                     className="
@@ -1469,51 +1362,6 @@ export default function Services() {
 
                   </div>
 
-                  {/* TRAINER */}
-
-                  {training.trainer && (
-                    <div
-                      className="
-                        mt-5
-                        border-t
-                        border-charcoal/15
-                        pt-4
-                      "
-                    >
-
-                      <p
-                        className="
-                          text-[9px]
-                          uppercase
-                          tracking-[0.2em]
-                          text-gold
-                        "
-                      >
-                        Trainer
-                      </p>
-
-                      <p
-                        className="
-                          mt-2
-                          font-display
-                          text-[22px]
-                        "
-                      >
-                        {training.trainer.name}
-                      </p>
-
-                      <p
-                        className="
-                          mt-1
-                          text-[13px]
-                          text-charcoal-light
-                        "
-                      >
-                        {training.trainer.credential}
-                      </p>
-
-                    </div>
-                  )}
 
                 </div>
 
@@ -1555,48 +1403,14 @@ export default function Services() {
 
             <Reveal>
 
-              <div
-                className="
-                  mb-8
-                  grid
-                  gap-5
-                  lg:grid-cols-[0.6fr_1.4fr]
-                  lg:gap-16
-                "
-              >
-
-                <p
-                  className="
-                    pt-2
-                    text-[10px]
-                    uppercase
-                    tracking-[0.28em]
-                    text-gold
-                  "
-                >
-                  Areas We Serve
-                </p>
-
-                <h2
-                  className="
-                    max-w-4xl
-                    font-display
-                    text-[2.8rem]
-                    font-normal
-                    leading-[0.95]
-                    tracking-[-0.035em]
-                    sm:text-[3.6rem]
-                    lg:text-[4.1rem]
-                  "
-                >
-                  Services across
-                  <br />
-
-                  <span className="italic text-gold">
-                    different environments.
-                  </span>
+              <div className="mb-8 flex items-end justify-between gap-4 lg:gap-8">
+                <h2 className="max-w-4xl font-display text-[2.8rem] font-normal leading-[0.95] tracking-[-0.035em] sm:text-[3.6rem] lg:text-[4.1rem]">
+                  Services across <span className="italic text-gold">different environments.</span>
                 </h2>
 
+                <div className="hidden shrink-0 opacity-90 lg:flex">
+                  <ServicesShieldMark />
+                </div>
               </div>
 
             </Reveal>
@@ -1750,10 +1564,16 @@ export default function Services() {
 
                   <p
                     className="
-                      text-[10px]
+                      inline-block
+                      bg-charcoal/10
+                      px-4
+                      py-2
+                      text-[11px]
+                      font-bold
                       uppercase
-                      tracking-[0.28em]
-                      text-gold
+                      tracking-[0.26em]
+                      text-ivory
+                      sm:text-[12px]
                     "
                   >
                     Need a Service?
@@ -1761,14 +1581,16 @@ export default function Services() {
 
                   <h2
                     className="
-                      mt-4
+                      mt-5
                       max-w-4xl
                       font-display
-                      text-[2.8rem]
+                      text-[3rem]
                       font-normal
-                      leading-[0.95]
-                      tracking-[-0.035em]
-                      sm:text-[4rem]
+                      leading-[0.9]
+                      tracking-[-0.045em]
+                      text-ivory
+                      sm:text-[4.3rem]
+                      lg:text-[5.5rem]
                     "
                   >
                     Tell us what your organisation
@@ -1781,11 +1603,13 @@ export default function Services() {
 
                   <p
                     className="
-                      mt-5
+                      mt-6
                       max-w-xl
-                      text-[16px]
+                      text-[17px]
+                      font-medium
                       leading-[1.7]
-                      text-ivory/65
+                      text-ivory/75
+                      sm:text-[18px]
                     "
                   >
                     Get in touch with KESS to discuss your security,
@@ -1814,13 +1638,15 @@ export default function Services() {
                     border-b
                     border-ivory/50
                     pb-2
-                    text-[10px]
+                    text-[12px]
                     font-semibold
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.2em]
+                    text-white
                     transition-colors
                     hover:border-gold
                     hover:text-gold
+                    sm:text-[13px]
                   "
                 >
                   Contact KESS
@@ -1833,7 +1659,7 @@ export default function Services() {
                       group-hover:translate-x-0.5
                     "
                   >
-                    <Arrow />
+                    <Arrow className="h-5 w-5" />
                   </span>
 
                 </Link>

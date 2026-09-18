@@ -1,19 +1,7 @@
 import Link from "next/link";
 import India from "@svg-maps/india";
 import CurveLines from "@/components/CurveLines";
-/**
- * Split editorial hero — ivory left column, full-bleed photo right.
- *
- * <PageHero
- *   eyebrow="Built on Military Heritage."
- *   titleLines={["Honor. Discipline. Experience.", "The KESS Security Team"]}
- *   description="Providing Elite Corporate Protection with Military Precision."
- *   primaryCta={{ label: "Meet Our Leaders", href: "/about" }}
- *   secondaryCta={{ label: "Our Story", href: "/about#story" }}
- *   image="/images/team.jpg"
- *   badge="Built by Ex-Servicemen"
- * />
- */
+
 export default function PageHero({
   eyebrow,
   title,
@@ -23,10 +11,8 @@ export default function PageHero({
   secondaryCta,
   image,
   imageAlt = "KESS security team",
-  badge,
 }) {
   const lines = titleLines || (title ? [title] : []);
-  const badgeWords = badge ? badge.split(" ") : [];
 
   return (
     <section className="relative overflow-hidden bg-ivory text-charcoal border-b border-gold/30">
@@ -88,32 +74,6 @@ export default function PageHero({
             </div>
           )}
 
-          {badge && (
-            <div className="mt-12 flex items-center gap-4">
-              <svg
-                viewBox={India.viewBox}
-                className="h-16 w-14 text-charcoal/40"
-                fill="currentColor"
-                stroke="none"
-                aria-hidden="true"
-              >
-                {India.locations.map((state) => (
-                  <path key={state.id} d={state.path} />
-                ))}
-              </svg>
-              <span className="relative inline-block border-2 border-gold bg-gold/15 px-5 py-2 text-center uppercase tracking-[0.12em] text-xs font-semibold text-charcoal leading-tight">
-                {badgeWords.length > 2 ? (
-                  <>
-                    {badgeWords.slice(0, -1).join(" ")}
-                    <br />
-                    {badgeWords.slice(-1)}
-                  </>
-                ) : (
-                  badge
-                )}
-              </span>
-            </div>
-          )}
         </div>
 
         {/* RIGHT: image */}

@@ -217,7 +217,6 @@ export default function Home() {
               }}
               image="/images/team.jpg"
               imageAlt="KESS security personnel standing in formation"
-              badge="Built by Ex-Servicemen"
             />
           </div>
 
@@ -264,7 +263,7 @@ export default function Home() {
 
               <div>
 
-                <p className="mb-6 font-display text-sm font-semibold uppercase tracking-[0.25em] text-charcoal sm:text-base">
+                <p className="mb-6 font-display text-[2rem] font-bold uppercase tracking-[0.25em] text-charcoal sm:text-base">
                   What We Offer
                 </p>
 

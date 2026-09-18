@@ -8,7 +8,7 @@ export default function SectionHeading({ eyebrow, title, description, align = "l
           {eyebrow}
         </p>
       )}
-      <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.04] text-charcoal">
+      <h2 className="kess-section-heading">
         {title}
       </h2>
       {description && (

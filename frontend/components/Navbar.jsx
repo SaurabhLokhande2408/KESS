@@ -32,14 +32,18 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="group relative flex items-center"
+            className="group relative flex items-center gap-3"
             aria-label="KESS Home"
           >
             <img
-              src="/images/logo/logo.jpeg"
-              alt="KESS - Knight Eyes Security"
-              className="h-11 w-auto object-contain transition-all duration-500 group-hover:opacity-85 sm:h-12"
+              src="/images/logo/kess_logo.png"
+              alt="KESS — Knight Eyes Security Services"
+              className="h-10 w-auto object-contain transition-all duration-500 group-hover:opacity-85 sm:h-11"
             />
+
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#F4F1EA] transition-colors duration-300 group-hover:text-[#C8A96B] sm:text-[11px]">
+              Knight Eyes Security Services
+            </span>
 
             <span className="absolute -bottom-2 left-0 h-px w-0 bg-[#C8A96B] transition-all duration-500 group-hover:w-full" />
           </Link>
@@ -212,7 +216,7 @@ export default function Navbar() {
             <span className="h-px flex-1 bg-white/[0.06]" />
 
             <span className="text-[8px] uppercase tracking-[0.3em] text-white/20">
-              Knight Eyes Security
+              Knight Eyes Security Services
             </span>
 
             <span className="h-px flex-1 bg-white/[0.06]" />
