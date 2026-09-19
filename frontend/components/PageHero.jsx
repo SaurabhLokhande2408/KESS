@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 
 /* =========================================================
@@ -17,7 +18,13 @@ export default function PageHero({
   const lines = titleLines || (title ? [title] : []);
 
   return (
-    <section className="relative flex min-h-[85vh] items-center overflow-hidden border-b border-gold/30 bg-black sm:min-h-[90vh]">
+    <>
+      {image && (
+        <Head>
+          <link rel="preload" as="image" href={image} fetchPriority="high" />
+        </Head>
+      )}
+      <section className="relative flex min-h-[85vh] items-center overflow-hidden border-b border-gold/30 bg-black sm:min-h-[90vh]">
 
       {/* BACKGROUND IMAGE & GRADIENT OVERLAY */}
       {image && (
@@ -31,6 +38,10 @@ export default function PageHero({
           <img
             src={image}
             alt={imageAlt}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 80vw"
             className="absolute inset-y-0 right-0 h-full w-[125%] object-cover object-left sm:w-[95%] sm:object-left lg:w-[85%] xl:w-[80%]"
           />
           {/*
@@ -122,6 +133,7 @@ export default function PageHero({
         </div>
       </div>
     </section>
+    </>
   );
 }
 

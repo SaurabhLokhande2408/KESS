@@ -1,4 +1,5 @@
 import { Fraunces, Inter } from "next/font/google";
+import GlobalLoader from "@/components/GlobalLoader";
 import "@/styles/globals.css";
 
 const fraunces = Fraunces({
@@ -18,6 +19,7 @@ const inter = Inter({
 export default function App({ Component, pageProps }) {
   return (
     <div className={`${fraunces.variable} ${inter.variable} font-sans`}>
+      <GlobalLoader />
       <Component {...pageProps} />
     </div>
   );

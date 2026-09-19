@@ -115,6 +115,97 @@ body {
   color: var(--color-charcoal);
 }
 
+@keyframes loader-ring-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(251, 245, 183, 0.25));
+    opacity: 0.72;
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(251, 245, 183, 0.65));
+    opacity: 1;
+  }
+}
+
+@keyframes loader-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-ring-draw {
+  0% {
+    stroke-dasharray: 0 520;
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 520 0;
+    opacity: 0.9;
+  }
+}
+
+@keyframes loader-dot-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0) scale(0.8);
+    box-shadow: 0 0 0 rgba(251, 245, 183, 0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1);
+    box-shadow: 0 0 12px rgba(251, 245, 183, 0.8);
+  }
+}
+
+.loader-shell {
+  background: #000000;
+  backdrop-filter: blur(2px);
+}
+
+.loader-content {
+  will-change: opacity, transform;
+}
+
+.loader-frame {
+  width: clamp(9rem, 18vw, 13rem);
+  height: clamp(9rem, 18vw, 13rem);
+  animation: loader-ring-glow 2.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.loader-ring {
+  stroke-dasharray: 0 520;
+  stroke-linecap: round;
+  transform-origin: center;
+  will-change: transform;
+  animation: loader-ring-draw 2.2s ease-in-out infinite alternate, loader-ring-spin 2.2s linear infinite;
+}
+
+.loader-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #fcf6ba 0%, #d4af37 100%);
+  display: inline-block;
+  animation: loader-dot-pulse 1.4s ease-in-out infinite;
+}
+
+.loader-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

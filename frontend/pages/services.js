@@ -424,6 +424,9 @@ function ServiceImage({
         src={image}
         alt={title}
         loading="lazy"
+        fetchPriority="low"
+        decoding="async"
+        sizes="(max-width: 640px) 100vw, 50vw"
         className="
           absolute
           inset-0

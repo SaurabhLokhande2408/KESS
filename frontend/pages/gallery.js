@@ -198,6 +198,9 @@ export default function Gallery({ images = [] }) {
                       alt={image.alt}
                       className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.08]"
                       loading="lazy"
+                      fetchPriority="low"
+                      decoding="async"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3 text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
@@ -243,6 +246,9 @@ export default function Gallery({ images = [] }) {
                 src={selectedImage.src}
                 alt={selectedImage.alt}
                 className="max-h-[80vh] w-full object-contain"
+                loading="lazy"
+                fetchPriority="low"
+                decoding="async"
               />
             </div>
 

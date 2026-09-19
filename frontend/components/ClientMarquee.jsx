@@ -25,6 +25,10 @@ export default function ClientMarquee() {
                     alt={client.name || "KESS client logo"}
                     width={client.width}
                     height={client.height}
+                    loading="lazy"
+                    fetchPriority="low"
+                    decoding="async"
+                    sizes="(max-width: 640px) 110px, 150px"
                     className="max-h-[68px] max-w-[110px] object-contain sm:max-h-[82px] sm:max-w-[130px]"
                   />
                 </div>

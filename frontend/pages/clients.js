@@ -450,6 +450,9 @@ export default function Clients() {
                             : `KESS client ${index + 1}`
                         }
                         loading="lazy"
+                        fetchPriority="low"
+                        decoding="async"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="client-logo"
                       />
 
