@@ -41,7 +41,7 @@ export default function Contact() {
         eyebrow="Get in Touch"
         title="Let's Talk About Your Security Requirement"
         description="Reach out for a quote, or send us your requirement and we'll get back within 24 hours."
-        image="/images/team.jpg"
+        image="/images/images_used/hero_bg.png"
       />
 
 

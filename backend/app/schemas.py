@@ -68,9 +68,9 @@ class CareerApplication(BaseModel):
         max_length=500,
     )
 
-    message: str = Field(
-        ...,
-        min_length=5,
+    message: Optional[str] = Field(
+        default="",
+        min_length=0,
         max_length=2000,
     )
 

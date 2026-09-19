@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AsYouType, isValidPhoneNumber } from "libphonenumber-js";
 import Icon from "@/components/Icon";
 import { submitContactEnquiry } from "@/src/api/contact";
@@ -85,6 +85,16 @@ export default function ContactForm() {
     type: "",
     message: "",
   });
+
+  useEffect(() => {
+    if (!status.message) return;
+
+    const timer = setTimeout(() => {
+      setStatus({ type: "", message: "" });
+    }, 4200);
+
+    return () => clearTimeout(timer);
+  }, [status.message]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -190,87 +200,122 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <Field
-        id="contact-name"
-        label="Name"
-        name="name"
-        type="text"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Your Name"
-        icon="user"
-        autoComplete="name"
-        disabled={isSubmitting}
-      />
+    <>
+      {status.message ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className={`fixed inset-0 z-[70] flex items-center justify-center bg-black/30 px-4 backdrop-blur-[1px]`}
+        >
+          <div
+            className={`relative w-full max-w-md rounded-xl border px-5 py-4 shadow-2xl ${
+              status.type === "success"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-red-200 bg-red-50 text-red-700"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setStatus({ type: "", message: "" })}
+              className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full text-2xl font-medium text-current/70 transition hover:bg-black/5"
+              aria-label="Close notification"
+            >
+              ×
+            </button>
 
-      <Field
-        id="contact-email"
-        label="Email"
-        name="email"
-        type="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="company@gmail.com"
-        icon="mail"
-        autoComplete="email"
-        disabled={isSubmitting}
-      />
+            <div className="flex items-start gap-3 pr-7">
+              <Icon
+                name={status.type === "success" ? "check-circle" : "alert-circle"}
+                className="mt-0.5 h-5 w-5 flex-shrink-0"
+              />
+              <p className="text-sm font-medium leading-6">{status.message}</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
-      <Field
-        id="contact-phone"
-        label="Phone Number"
-        name="phone"
-        type="tel"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="xxxxxxxxxx"
-        icon="phone"
-        autoComplete="tel"
-        inputMode="numeric"
-        maxLength={14}
-        disabled={isSubmitting}
-        hint="Enter a valid 10-digit Indian phone number."
-      />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <Field
+          id="contact-name"
+          label="Name"
+          name="name"
+          type="text"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Your Name"
+          icon="user"
+          autoComplete="name"
+          disabled={isSubmitting}
+        />
 
-      <Field
-        id="contact-service"
-        label="Service Required"
-        name="service_required"
-        type="text"
-        value={formData.service_required}
-        onChange={handleChange}
-        placeholder="Security Services"
-        icon="briefcase"
-        disabled={isSubmitting}
-      />
+        <Field
+          id="contact-email"
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="company@gmail.com"
+          icon="mail"
+          autoComplete="email"
+          disabled={isSubmitting}
+        />
 
-      <StatusMessage status={status} />
+        <Field
+          id="contact-phone"
+          label="Phone Number"
+          name="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="xxxxxxxxxx"
+          icon="phone"
+          autoComplete="tel"
+          inputMode="numeric"
+          maxLength={14}
+          disabled={isSubmitting}
+          hint="Enter a valid 10-digit Indian phone number."
+        />
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="group flex w-full items-center justify-center gap-3 bg-charcoal px-6 py-3.5 font-medium text-white transition-all duration-300 hover:bg-gold hover:text-charcoal disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {isSubmitting ? (
-          <>
-            <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-            Sending Enquiry...
-          </>
-        ) : (
-          <>
-            Send Enquiry
-            <Icon
-              name="arrow-right"
-              className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </>
-        )}
-      </button>
+        <Field
+          id="contact-service"
+          label="Service Required"
+          name="service_required"
+          type="text"
+          value={formData.service_required}
+          onChange={handleChange}
+          placeholder="Security Services"
+          icon="briefcase"
+          disabled={isSubmitting}
+        />
 
-      <p className="text-center text-sm text-charcoal-light">
-        Our team will get back to you regarding your requirement.
-      </p>
-    </form>
+        <StatusMessage status={status} />
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="group flex w-full items-center justify-center gap-3 bg-charcoal px-6 py-3.5 font-medium text-white transition-all duration-300 hover:bg-gold hover:text-charcoal disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isSubmitting ? (
+            <>
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              Sending Enquiry...
+            </>
+          ) : (
+            <>
+              Send Enquiry
+              <Icon
+                name="arrow-right"
+                className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </>
+          )}
+        </button>
+
+        <p className="text-center text-sm text-charcoal-light">
+          Our team will get back to you regarding your requirement.
+        </p>
+      </form>
+    </>
   );
 }

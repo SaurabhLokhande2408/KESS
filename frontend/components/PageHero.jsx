@@ -31,13 +31,13 @@ export default function PageHero({
           <img
             src={image}
             alt={imageAlt}
-            className="absolute inset-y-0 right-0 h-full w-full object-cover object-right sm:w-[95%] sm:object-left lg:w-[85%] xl:w-[80%]"
+            className="absolute inset-y-0 right-0 h-full w-[125%] object-cover object-left sm:w-[95%] sm:object-left lg:w-[85%] xl:w-[80%]"
           />
           {/*
             Keep a lighter mobile overlay so the background remains visible,
             while still preserving contrast for the hero text.
           */}
-          <div className="absolute inset-0 bg-black/60 sm:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20 sm:hidden" />
           <div className="absolute inset-y-0 left-0 hidden w-full bg-gradient-to-r from-black from-30% via-black/70 to-transparent sm:block md:w-[65%] lg:w-[50%] xl:w-[45%]" />
         </>
       )}

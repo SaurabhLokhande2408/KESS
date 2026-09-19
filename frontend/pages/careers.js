@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -80,6 +80,17 @@ export default function Careers() {
 
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [toast, setToast] = useState({ type: "", message: "" });
+
+  useEffect(() => {
+    if (!toast.message) return;
+
+    const timer = setTimeout(() => {
+      setToast({ type: "", message: "" });
+    }, 4200);
+
+    return () => clearTimeout(timer);
+  }, [toast.message]);
 
 
   /* =========================================================
@@ -229,11 +240,7 @@ export default function Careers() {
       return "Please enter your present address.";
     }
 
-    if (!form.message.trim()) {
-      return "Please enter a short message.";
-    }
-
-    // IMPORTANT:
+    // Message is intentionally optional.
     // Resume is intentionally NOT validated because it is optional.
 
     return "";
@@ -253,6 +260,7 @@ export default function Careers() {
 
     if (validationError) {
       setError(validationError);
+      setToast({ type: "error", message: validationError });
       return;
     }
 
@@ -295,6 +303,11 @@ export default function Careers() {
       await submitCareerApplication(formData);
 
       setStatus("success");
+      setError("");
+      setToast({
+        type: "success",
+        message: "Application sent successfully. Our team will review it shortly.",
+      });
       setForm(initialForm);
       setResume(null);
 
@@ -309,16 +322,18 @@ export default function Careers() {
 
       setStatus("error");
 
-      setError(
-        err?.message ||
-          "We could not submit your application. Please try again."
-      );
+      const nextError =
+        err?.message || "We could not submit your application. Please try again.";
+
+      setError(nextError);
+      setToast({ type: "error", message: nextError });
     }
   };
 
   const handleSubmitAnother = () => {
     setStatus("idle");
     setError("");
+    setToast({ type: "", message: "" });
     setForm(initialForm);
     setResume(null);
 
@@ -344,6 +359,36 @@ export default function Careers() {
       />
 
       <Navbar />
+
+      {toast.message ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/30 px-4 backdrop-blur-[1px]"
+        >
+          <div
+            className={`relative w-full max-w-md rounded-xl border px-5 py-4 shadow-2xl ${
+              toast.type === "success"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-red-200 bg-red-50 text-red-700"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setToast({ type: "", message: "" })}
+              className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full text-2xl font-medium text-current/70 transition hover:bg-black/5"
+              aria-label="Close notification"
+            >
+              ×
+            </button>
+
+            <div className="flex items-start gap-3 pr-7">
+              <span className="mt-0.5 text-lg">{toast.type === "success" ? "✓" : "!"}</span>
+              <p className="text-sm font-medium leading-6">{toast.message}</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
 
       {/* =========================================================
@@ -857,7 +902,7 @@ export default function Careers() {
                     MESSAGE
                 ================================================= */}
 
-                <FormField label="Message" required>
+                <FormField label="Message" required={false}>
 
                   <textarea
                     name="message"
