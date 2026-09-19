@@ -5,11 +5,14 @@ import { HOME_CRITICAL_IMAGES, ROUTE_CRITICAL_IMAGES, doBackgroundWarmup, warmIm
 import useScrollLock from "@/lib/useScrollLock";
 
 const MAX_LOADER_MS = 2000;
+const MIN_LOADER_MS = 1500;
 
 export default function GlobalLoader() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const hideTimerRef = useRef(null);
+  const minHideTimerRef = useRef(null);
+  const loaderShownAtRef = useRef(Date.now());
 
   useScrollLock(isLoading);
 
@@ -23,16 +26,37 @@ export default function GlobalLoader() {
         window.clearTimeout(hideTimerRef.current);
         hideTimerRef.current = null;
       }
+
+      if (minHideTimerRef.current) {
+        window.clearTimeout(minHideTimerRef.current);
+        minHideTimerRef.current = null;
+      }
     };
 
     const showLoader = () => {
       clearHideTimer();
+      loaderShownAtRef.current = Date.now();
       setIsLoading(true);
     };
 
     const hideLoader = () => {
       clearHideTimer();
       setIsLoading(false);
+    };
+
+    const hideLoaderWithMinimum = () => {
+      const elapsed = Date.now() - loaderShownAtRef.current;
+      const remaining = Math.max(MIN_LOADER_MS - elapsed, 0);
+
+      if (remaining > 0) {
+        minHideTimerRef.current = window.setTimeout(() => {
+          minHideTimerRef.current = null;
+          hideLoader();
+        }, remaining);
+        return;
+      }
+
+      hideLoader();
     };
 
     const resolveRouteAssets = (pathname) => {
@@ -48,13 +72,13 @@ export default function GlobalLoader() {
       const criticalAssets = resolveRouteAssets(pathname);
       const waitForCriticalAssets = warmImageSet(criticalAssets, 2000);
       hideTimerRef.current = window.setTimeout(() => {
-        hideLoader();
+        hideLoaderWithMinimum();
       }, MAX_LOADER_MS);
 
       waitForCriticalAssets.then(() => {
-        hideLoader();
+        hideLoaderWithMinimum();
       }).catch(() => {
-        hideLoader();
+        hideLoaderWithMinimum();
       });
     };
 
