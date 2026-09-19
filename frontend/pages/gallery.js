@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import fs from "fs";
 import path from "path";
@@ -193,13 +194,13 @@ export default function Gallery({ images = [] }) {
                   aria-label={`Open gallery image ${index + 1}`}
                 >
                   <div className="relative overflow-hidden">
-                    <img
+                    <Image
                       src={image.src}
                       alt={image.alt}
+                      width={1200}
+                      height={900}
                       className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.08]"
-                      loading="lazy"
-                      fetchPriority="low"
-                      decoding="async"
+                      loading="eager"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -242,13 +243,13 @@ export default function Gallery({ images = [] }) {
             </button>
 
             <div className="relative overflow-hidden rounded-sm border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-              <img
+              <Image
                 src={selectedImage.src}
                 alt={selectedImage.alt}
+                width={1600}
+                height={1200}
                 className="max-h-[80vh] w-full object-contain"
-                loading="lazy"
-                fetchPriority="low"
-                decoding="async"
+                loading="eager"
               />
             </div>
 

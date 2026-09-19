@@ -423,8 +423,8 @@ function ServiceImage({
       <img
         src={image}
         alt={title}
-        loading="lazy"
-        fetchPriority="low"
+        loading="eager"
+        fetchPriority="high"
         decoding="async"
         sizes="(max-width: 640px) 100vw, 50vw"
         className="

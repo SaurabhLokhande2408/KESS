@@ -1,3 +1,4 @@
+import Image from "next/image";
 import siteData from "@/data/siteData.json";
 
 export default function ClientMarquee() {
@@ -20,14 +21,14 @@ export default function ClientMarquee() {
                   key={`${client.logo}-${idx}`}
                   className="flex h-[89px] w-[120px] shrink-0 items-center justify-center sm:h-[105px] sm:w-[150px]"
                 >
-                  <img
+                  <Image
                     src={getLogoSrc(client.logo)}
                     alt={client.name || "KESS client logo"}
-                    width={client.width}
-                    height={client.height}
-                    loading="lazy"
-                    fetchPriority="low"
-                    decoding="async"
+                    width={client.width || 150}
+                    height={client.height || 80}
+                    loading="eager"
+                    priority={idx < 4}
+                    fetchPriority="high"
                     sizes="(max-width: 640px) 110px, 150px"
                     className="max-h-[68px] max-w-[110px] object-contain sm:max-h-[82px] sm:max-w-[130px]"
                   />

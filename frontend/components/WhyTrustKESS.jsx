@@ -3,14 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 /* ==========================================================================
-   THEME — matches the rest of the KESS site (Bebas Neue / Barlow Condensed,
-   ink / gold / paper tokens used in the other sections)
+   THEME — matches the rest of the KESS site using the app-level font tokens.
    ========================================================================== */
 const TRUST_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700&display=swap');
   .kess-trust { --ink:#12160F; --ink-soft:#4A5240; --paper:#FAF8F5; --line:rgba(18,22,15,0.12); --gold:#C79A2E; }
-  .kess-trust h2, .kess-trust h3 { font-family:'Bebas Neue',sans-serif; letter-spacing:.5px; }
-  .kess-trust p, .kess-trust span.kess-eyebrow, .kess-trust .kess-desc { font-family:'Barlow Condensed',sans-serif; }
+  .kess-trust h2, .kess-trust h3 { font-family: var(--font-display), ui-serif, serif; letter-spacing:.5px; }
+  .kess-trust p, .kess-trust span.kess-eyebrow, .kess-trust .kess-desc { font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif; }
 `;
 
 const PAPER = "var(--paper)";

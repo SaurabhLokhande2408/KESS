@@ -1,91 +1,99 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { HOME_CRITICAL_IMAGES, ROUTE_CRITICAL_IMAGES, doBackgroundWarmup, warmImageSet } from "@/lib/routeCriticalAssets";
+import useScrollLock from "@/lib/useScrollLock";
 
-const MIN_LOADER_MS = 1000;
+const MAX_LOADER_MS = 2000;
 
 export default function GlobalLoader() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const minimumTimerRef = useRef(null);
+  const hideTimerRef = useRef(null);
+
+  useScrollLock(isLoading);
 
   useEffect(() => {
     if (typeof window === "undefined") {
       return undefined;
     }
 
-    const criticalLoader = document.getElementById("kess-critical-loader");
-
-    const clearMinimumTimer = () => {
-      if (minimumTimerRef.current) {
-        window.clearTimeout(minimumTimerRef.current);
-        minimumTimerRef.current = null;
+    const clearHideTimer = () => {
+      if (hideTimerRef.current) {
+        window.clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = null;
       }
     };
 
-    const beginMinimumTimer = () => {
-      clearMinimumTimer();
-      minimumTimerRef.current = window.setTimeout(() => {
-        setIsLoading(false);
-        minimumTimerRef.current = null;
-      }, MIN_LOADER_MS);
+    const showLoader = () => {
+      clearHideTimer();
+      setIsLoading(true);
     };
 
-    const activateReactLoader = () => {
-      setIsLoading(true);
-      beginMinimumTimer();
+    const hideLoader = () => {
+      clearHideTimer();
+      setIsLoading(false);
+    };
 
-      requestAnimationFrame(() => {
-        if (criticalLoader) {
-          criticalLoader.classList.add("is-hidden");
-        }
+    const resolveRouteAssets = (pathname) => {
+      if (!pathname || pathname === "/") {
+        return HOME_CRITICAL_IMAGES;
+      }
+
+      return ROUTE_CRITICAL_IMAGES[pathname] || [];
+    };
+
+    const gateLoaderForRoute = (pathname) => {
+      showLoader();
+      const criticalAssets = resolveRouteAssets(pathname);
+      const waitForCriticalAssets = warmImageSet(criticalAssets, 2000);
+      hideTimerRef.current = window.setTimeout(() => {
+        hideLoader();
+      }, MAX_LOADER_MS);
+
+      waitForCriticalAssets.then(() => {
+        hideLoader();
+      }).catch(() => {
+        hideLoader();
       });
     };
 
-    const handlePageReady = () => {
-      activateReactLoader();
-    };
-
-    const handleStateChange = () => {
-      if (document.readyState === "complete") {
-        handlePageReady();
+    const handleRouteStart = (url) => {
+      const nextPath = new URL(url, window.location.origin).pathname;
+      showLoader();
+      const criticalAssets = resolveRouteAssets(nextPath);
+      if (criticalAssets.length) {
+        warmImageSet(criticalAssets, 2000);
       }
     };
 
-    const handleWindowLoad = () => {
-      handlePageReady();
+    const handleRouteComplete = (url) => {
+      const nextPath = url ? new URL(url, window.location.origin).pathname : router.pathname;
+      gateLoaderForRoute(nextPath);
     };
 
-    const handleRouteStart = () => {
-      setIsLoading(true);
-      beginMinimumTimer();
-    };
+    if (router.isReady) {
+      gateLoaderForRoute(router.pathname);
+      doBackgroundWarmup();
+    }
 
-    const handleRouteComplete = () => {
-      setIsLoading(true);
-      beginMinimumTimer();
-    };
-
-    document.addEventListener("readystatechange", handleStateChange);
-    window.addEventListener("load", handleWindowLoad, { once: true });
     router.events.on("routeChangeStart", handleRouteStart);
     router.events.on("routeChangeComplete", handleRouteComplete);
     router.events.on("routeChangeError", handleRouteComplete);
 
     return () => {
-      clearMinimumTimer();
-      document.removeEventListener("readystatechange", handleStateChange);
-      window.removeEventListener("load", handleWindowLoad);
+      clearHideTimer();
       router.events.off("routeChangeStart", handleRouteStart);
       router.events.off("routeChangeComplete", handleRouteComplete);
       router.events.off("routeChangeError", handleRouteComplete);
     };
-  }, [router.events]);
+  }, [router.events, router.isReady, router.pathname]);
 
   return (
     <div
       aria-live="polite"
       aria-busy={isLoading}
-      className={`loader-shell fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-black transition-opacity duration-500 ease-out ${
+      className={`loader-shell fixed inset-0 z-[9999] flex h-dvh items-center justify-center overflow-hidden bg-black transition-opacity duration-500 ease-out ${
         isLoading ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
@@ -117,11 +125,13 @@ export default function GlobalLoader() {
             />
           </svg>
 
-          <img
+          <Image
             src="/images/logo/kess_logo.png"
             alt="KESS logo"
+            width={112}
+            height={112}
+            priority
             className="relative z-10 h-24 w-24 object-contain sm:h-28 sm:w-28 md:h-32 md:w-32"
-            loading="eager"
           />
         </div>
 

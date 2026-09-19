@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -27,9 +27,6 @@ export default function Navbar() {
 
   return (
     <>
-      <Head>
-        <link rel="preload" as="image" href="/images/logo/kess_logo.png" fetchPriority="high" />
-      </Head>
       <header className="fixed inset-x-0 top-0 z-50 w-full">
         <div className="border-b border-white/[0.08] bg-[#07111F]/95 backdrop-blur-2xl">
           <div className="mx-auto flex h-[82px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
@@ -40,13 +37,12 @@ export default function Navbar() {
             className="group relative flex items-center gap-3"
             aria-label="KESS Home"
           >
-            <img
+            <Image
               src="/images/logo/kess_logo.png"
               alt="KESS — Knight Eyes Security Services"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              sizes="(max-width: 768px) 40px, 52px"
+              width={52}
+              height={52}
+              priority
               className="h-10 w-auto object-contain transition-all duration-500 group-hover:opacity-85 sm:h-11"
             />
 

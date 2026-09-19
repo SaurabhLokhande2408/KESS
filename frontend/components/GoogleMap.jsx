@@ -17,7 +17,8 @@ export default function GoogleMap({
         width="100%"
         height={height}
         style={{ border: 0 }}
-        loading="lazy"
+        loading="eager"
+        fetchPriority="high"
         allowFullScreen
         referrerPolicy="no-referrer-when-downgrade"
       />
