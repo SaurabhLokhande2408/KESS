@@ -570,14 +570,14 @@ export default function Footer() {
 
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-3">
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
 
             <p className="text-[11px] font-medium text-ivory/50">
               © {year} {company.name}. All rights reserved.
             </p>
 
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 sm:ml-auto">
 
               <span className="h-1.5 w-1.5 rounded-full bg-gold" />
 
@@ -594,6 +594,15 @@ export default function Footer() {
               </p>
 
             </div>
+
+            <a
+              href="https://www.linkedin.com/in/saurabh-lokhande-111459376/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold transition-colors duration-200 hover:text-ivory sm:ml-4"
+            >
+              Developed by Saurabh Lokhande
+            </a>
 
           </div>
 
