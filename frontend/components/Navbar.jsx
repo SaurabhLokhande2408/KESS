@@ -25,9 +25,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="border-b border-white/[0.08] bg-[#07111F]/95 backdrop-blur-2xl">
-        <div className="mx-auto flex h-[82px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 w-full">
+        <div className="border-b border-white/[0.08] bg-[#07111F]/95 backdrop-blur-2xl">
+          <div className="mx-auto flex h-[82px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
 
           {/* Logo */}
           <Link
@@ -131,16 +132,16 @@ export default function Navbar() {
             </div>
           </button>
         </div>
-      </div>
+        </div>
 
-      {/* Mobile Navigation */}
-      <div
-        className={`overflow-hidden border-b border-[#C8A96B]/10 bg-[#07111F]/98 backdrop-blur-2xl transition-all duration-500 ease-in-out lg:hidden ${
-          isOpen
-            ? "max-h-[700px] opacity-100"
-            : "max-h-0 opacity-0"
-        }`}
-      >
+        {/* Mobile Navigation */}
+        <div
+          className={`overflow-hidden border-b border-[#C8A96B]/10 bg-[#07111F]/98 backdrop-blur-2xl transition-all duration-500 ease-in-out lg:hidden ${
+            isOpen
+              ? "max-h-[700px] opacity-100"
+              : "max-h-0 opacity-0"
+          }`}
+        >
         <nav className="px-5 py-7 sm:px-8">
 
           <div className="divide-y divide-white/[0.06]">
@@ -223,6 +224,9 @@ export default function Navbar() {
           </div>
         </nav>
       </div>
-    </header>
+      </header>
+
+      <div className="h-[82px]" />
+    </>
   );
 }
