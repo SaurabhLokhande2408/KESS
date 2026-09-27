@@ -38,7 +38,7 @@ export default function Navbar() {
             aria-label="KESS Home"
           >
             <Image
-              src="/images/logo/kess_logo.png"
+              src="/images/logo/kess_logo.webp"
               alt="KESS — Knight Eyes Security Services"
               width={52}
               height={52}

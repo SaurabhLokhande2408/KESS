@@ -12,7 +12,7 @@ export default function PageHero({
   description,
   primaryCta,
   secondaryCta,
-  image = "/images/images_used/hero_bg.png",
+  image = "/images/images_used/hero_bg.webp",
   imageAlt = "KESS security team",
 }) {
   const lines = titleLines || (title ? [title] : []);

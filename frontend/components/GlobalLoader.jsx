@@ -179,7 +179,7 @@ export default function GlobalLoader() {
           </svg>
 
           <Image
-            src="/images/logo/kess_logo.png"
+            src="/images/logo/kess_logo.webp"
             alt="KESS logo"
             width={112}
             height={112}

@@ -1,0 +1,411 @@
+# WEBSITE PERFORMANCE OPTIMIZATION RECOMMENDATIONS
+
+## 1. Executive Summary
+
+This is a Next.js 14 Pages Router site with eight routes, a shared app wrapper, statically imported JSON content, shared navigation/footer, and a FastAPI backend used only when contact or career forms are submitted. No analytics tags or client-side data fetches are present on page load. The two Google font families are configured with `next/font/google`, which self-hosts their generated font files in the Next build rather than making a browser request to Google Fonts on each visit.
+
+The strongest source-confirmed opportunities are resource-loading issues, not a need to remove content:
+
+- `Footer` embeds an eager, high-priority Google Maps iframe on every route.
+- The global loader prewarms several assets unrelated to the current route. The Services and Training route maps point to images those pages do not render. Warmup also requests original image URLs while `next/image` can request separately optimized URLs for the same content.
+- The Gallery page statically renders 23 images and explicitly marks every gallery image eager. Their original files total 51,094,196 bytes (about 51.1 MB); actual optimized transfer size is not measurable from source alone.
+- Services uses six raw `<img>` tags marked eager/high priority, with no `srcset`; the `sizes` attribute on those `<img>` tags cannot select responsive sources. Their original files total 10,690,435 bytes (about 10.7 MB).
+- Training uses three raw `<img>` elements for two unique large PNGs without lazy-loading or responsive source hints. The two unique source files total 5,063,189 bytes.
+- The Home hero and logo have smaller WebP alternatives already in `public`, but current components reference the larger PNG versions.
+
+No Lighthouse scores, CWV values, request counts, decoded memory, production cache headers, or device/network timings are claimed here. They require a production build/deployment and browser measurements.
+
+## 2. Performance Philosophy
+
+Preserve 100% of existing content, UI, layout, branding and functionality while reducing the amount of work required to display and operate the website.
+
+All recommendations below retain the current imagery, map, fonts, page content, animations, navigation, and interactions. Optimizations should change delivery and scheduling, not the visual result.
+
+## 3. Current Architecture
+
+- Frontend: Next.js 14.2.35, React 18.3.1, Pages Router. Routes are `index`, `about`, `services`, `training`, `gallery`, `clients`, `careers`, and `contact` under `frontend/pages`.
+- `frontend/pages/_app.js` imports global Tailwind CSS, configures Fraunces and Inter through `next/font/google`, and renders `GlobalLoader` around every page. `_document.js` sets the document shell and a PNG favicon.
+- Each route renders its own page markup and commonly imports `Navbar`, `Footer`, `SEO`, and `FloatingWhatsApp`. `siteData.json` supplies shared company, client, service, career, training, and contact content. There is no React context/store or general data-fetching layer.
+- The Home page additionally renders two `ClientMarquee` instances, `StatBar`, `WhyTrustKESS`, and `Differentiator`. Services and Training include substantial route-local markup and CSS animations. Gallery uses `getStaticProps` to enumerate every supported image in `public/images/images_company` at build time.
+- `next/image` is used for the shared logos, `PageHero`, and gallery. Services, Training, Clients, and the founder image in `Differentiator` use raw `<img>` elements. `next.config.js` retains the default Next image optimizer settings and permits Unsplash, though no current page/data source references an Unsplash image.
+- Backend: FastAPI with contact and career submission endpoints, CORS, in-memory rate limiting, and SMTP email delivery. The frontend makes `fetch` POST requests only after explicit form submission; there is no page-load API request.
+- No analytics, video assets, service worker, or repository deployment configuration for cache headers was found. The repository has no Vite/Webpack customization; Next handles page chunks and build output.
+
+## 4. Critical Performance Bottlenecks
+
+### 4.1 Global eager map embed
+
+Priority: P1 (high)
+Evidence: Confirmed source behavior; network cost needs measurement.
+
+File: `frontend/components/Footer.jsx`, `frontend/components/GoogleMap.jsx`
+Component: `Footer` -> `GoogleMap`
+Current behavior: `Footer` is rendered on every route. Its map iframe uses `loading="eager"` and `fetchPriority="high"` and points to Google Maps. The map is in the footer, after the page content.
+Problem: Every first page visit can initiate an external Google Maps request even though the map is far below the initial viewport. It competes with the current page's own text, fonts, and images, adds a third-party connection, and repeats this behavior across all eight routes. Exact request count and Google response cost require a waterfall.
+Recommended change: Preserve the same map and footer layout, but let the iframe load lazily near the viewport and do not assign it high fetch priority. If measurement still shows a cost, defer creating the iframe until it is near view while preserving its exact dimensions and map URL.
+Expected impact: Less third-party work during initial rendering and less contention on slow mobile networks; no change to map availability when the user reaches the footer.
+Risk: Low. Verify the map still loads reliably when scrolled into view and after client-side route navigation.
+UI/UX impact: None intended; same embedded map, dimensions, position, and interaction.
+Implementation difficulty: Low.
+Affects: Initial load: yes; page navigation: yes; mobile: yes; slow network: high benefit; CPU: possible reduction in third-party work; memory: likely reduction before footer is reached; bundle size: no.
+
+### 4.2 Global loader fetches unrelated and duplicate image URLs
+
+Priority: P1 (high)
+Evidence: Confirmed source behavior; the extent of contention requires a waterfall.
+
+File: `frontend/components/GlobalLoader.jsx`, `frontend/lib/routeCriticalAssets.js`, `frontend/components/PageHero.jsx`
+Component: `GlobalLoader`
+Current behavior: The initial loader covers the entire viewport and locks scrolling. On route readiness it waits for `warmImageSet` or a 2,000 ms timeout. Home's critical set is the hero plus all 17 client logos. The route map also assigns `hero_bg.png` to `/services` and `g_bg.png` to `/training`, although those pages do not render either file. On every route, `doBackgroundWarmup` schedules the Home hero, gallery hero, About hero, logo, and all client logos, using `requestIdleCallback` or a 150 ms timeout. `warmImage` creates native `Image` elements with raw public URLs. Elsewhere, `next/image` normally requests a transformed `/_next/image` URL.
+Problem: The Services and Training loader gates can wait for unrelated original images. Global warmup can consume bandwidth with several routes' assets before they are needed. Where the same image is also rendered through `next/image`, the raw warmup URL is distinct from the optimized URL and can cause a second representation to be downloaded. The Home gate also waits for every client logo, not only its hero. A 2-second timer is a configured upper bound for the initial critical-image gate, not a measured user delay.
+Recommended change: Keep the same loader appearance and route-transition behavior, but make route-critical lists match assets actually rendered above the fold on each route. Do not gate on below-fold client logos. Limit background warming to genuinely likely next-route assets, run it only when the browser is idle and the connection/data-saving state permits it, and warm the same optimized URL that the component will use (or avoid warming an image already handled by `next/image`). Keep a bounded fallback for unavailable assets.
+Expected impact: Fewer unnecessary requests and less loader waiting on slow connections; reduced contention for actual page imagery, especially on Home, Services, and Training.
+Risk: Medium. Loader timing is user-visible; preserve the current visual sequence and test initial load, successful/error route navigation, slow images, and route changes before/after the 2-second fallback.
+UI/UX impact: None intended. The loader design and animation remain; only the assets that gate or compete for loading change.
+Implementation difficulty: Medium.
+Affects: Initial load: yes; page navigation: yes; mobile: high; slow network: high; CPU: image decode savings; memory: image decode savings; bundle size: no.
+
+### 4.3 Gallery eagerly requests all gallery images
+
+Priority: P1 (high)
+Evidence: Confirmed `loading="eager"`; transformed transfer bytes and browser scheduling require measurement.
+
+File: `frontend/pages/gallery.js`, `frontend/public/images/images_company/`
+Component: `Gallery`
+Current behavior: `getStaticProps` includes all 23 supported images in `images_company`. Every grid `<Image>` is explicitly `loading="eager"`, with declared 1200x900 dimensions and a responsive `sizes` value. The 23 original files total 51,094,196 bytes. Next Image optimization can change the delivered format/size, so this source total is not the gallery's measured transfer size.
+Problem: The whole portfolio is scheduled when the gallery page renders, including cards well below the fold. On slow connections this can delay the first visible gallery images and consume bandwidth, image decode time, and memory sooner than needed.
+Recommended change: Preserve all cards and the lightbox. Use eager/high priority only for the first image or images genuinely visible in the initial viewport; use native/Next lazy loading for the rest, keeping the existing `sizes` behavior. Retain the explicit lightbox selection behavior and request its full-size image only when opened. Review the generated optimizer widths against the rendered card sizes.
+Expected impact: The page can become useful after loading its first visible content without waiting for the full portfolio; less initial network and decode work, especially on mobile.
+Risk: Low to medium. Verify near-viewport loading does not reveal empty spaces during normal scroll and that opening a lightbox still loads promptly. Do not reduce the gallery or remove any entries.
+UI/UX impact: None intended; all images and interactions remain, arriving as the user approaches them.
+Implementation difficulty: Low to medium.
+Affects: Initial load: high; page navigation: yes when entering Gallery; mobile: high; slow network: high; CPU: decode work deferred; memory: decoded images deferred; bundle size: no.
+
+### 4.4 Services eagerly loads six unoptimized source images
+
+Priority: P1 (high)
+Evidence: Confirmed raw `<img>`, eager/high priority attributes, and source asset sizes.
+
+File: `frontend/pages/services.js`, `frontend/public/images/images_company/`
+Component: `ServiceImage` rendered for six service rows
+Current behavior: All six service photos are raw `<img>` elements with `loading="eager"`, `fetchPriority="high"`, and a `sizes` attribute. Because these elements have no `srcset`, `sizes` does not select a smaller responsive source. The six originals total 10,690,435 bytes: `Security_guarding.jpeg` 220,972 bytes (1600x1200), `hosuekeeping.png` 1,972,741 bytes (1370x1148), `Screenshot 2026-09-18 184202.png` 307,204 bytes (543x320), `on_job_training.png` 2,929,296 bytes (1448x1086), `vip_protection.png` 2,146,949 bytes (1672x941), and `edacf068-cb92-4324-8d77-2af33de64519.png` 3,113,273 bytes (1448x1086). The page hero itself is text-led; these images appear in the subsequent service rows.
+Problem: Large original PNGs are requested at high priority even when their service row is far below the initial viewport, and raw `<img>` bypasses Next's built-in responsive image optimizer.
+Recommended change: Preserve every service photo and current row. Use Next Image or provide equivalent width-specific `srcset`/`sizes` variants; lazy-load rows below the viewport and reserve eager/high priority only for a service image shown immediately on screen. Keep the existing fixed-height image frame and `object-cover` crop. Convert oversized PNG/JPEG sources to visually equivalent WebP/AVIF or optimized JPEG where appropriate, after checking photographic detail and color.
+Expected impact: Smaller image responses at mobile display widths and fewer initial high-priority downloads; less decode and memory work.
+Risk: Low to medium. Confirm crop, sharpness, and frame dimensions remain unchanged at each breakpoint.
+UI/UX impact: None intended; same six photos, order, crop, and hover interactions.
+Implementation difficulty: Medium.
+Affects: Initial load: high; page navigation: high on Services; mobile: high; slow network: high; CPU: decode savings; memory: decode savings; bundle size: no.
+
+### 4.5 Home and Clients eagerly load client logos
+
+Priority: P1 on Home; P2 on Clients
+Evidence: Confirmed source behavior; actual network deduplication is browser-dependent.
+
+File: `frontend/components/ClientMarquee.jsx`, `frontend/pages/index.js`, `frontend/pages/clients.js`, `frontend/data/siteData.json`
+Component: `ClientMarquee`; Clients page logo grid
+Current behavior: The Home page renders `ClientMarquee` twice. Each marquee renders the 17 logos twice for its two animation tracks. Each `<Image>` is marked eager and `fetchPriority="high"`; the first four per track are also marked `priority`. The Clients route renders all 17 logos in raw `<img>` elements, also eager and high priority, in a section below its hero. Several source files are large, including `sadhana bank.jpg.jpeg` (602,258 bytes, 1000x786) and `Gateway towers.png` (325,257 bytes, 3000x3000).
+Problem: Below-fold client marks are assigned high request priority. On Home, repeated marquee tracks and two instances create many image elements and preload hints. Browsers commonly reuse identical URLs, so this does not prove 68 unique transfers; the actual request count and priority ordering must be inspected in a waterfall. The Clients route's raw `<img>` elements do not use Next responsive optimization.
+Recommended change: Keep both marquee sections, all logos, and the animation. Prioritize only the logo instances needed for the first visible marquee viewport; lazy-load remaining logos while preserving the seamless marquee appearance (test its duplicated track at the loop boundary). On Clients, use optimized responsive sources and lazy-load logos below the initial viewport. Avoid setting every logo to high priority.
+Expected impact: Fewer competing high-priority requests and lower image transfer/decode work on both routes.
+Risk: Medium for the marquee because its duplicate tracks support the animation; low for the static Clients grid. Test the animation and scrolling on mobile.
+UI/UX impact: None intended; no logo, section, or animation is removed.
+Implementation difficulty: Medium.
+Affects: Initial load: high; page navigation: yes; mobile: high; slow network: high; CPU: decode savings; memory: decode savings; bundle size: no.
+
+### 4.6 Large existing PNG/JPEG sources and already-present WebP variants
+
+Priority: P1 (high)
+Evidence: Confirmed source byte sizes; visual equivalence is a candidate pending cross-device QA.
+
+File: `frontend/components/PageHero.jsx`, `frontend/components/Navbar.jsx`, `frontend/components/GlobalLoader.jsx`, `frontend/pages/_document.js`, `frontend/public/images/images_used/`, `frontend/public/images/logo/`, `frontend/public/images/team.jpg`
+Component: Shared `PageHero`, Navbar, GlobalLoader
+Current behavior: Home and Contact pass `/images/images_used/hero_bg.png` to a priority `next/image` hero (1536x1024, 2,393,372 bytes). The About route uses `team.jpg` as a priority hero (2390x1760, 6,636,824 bytes). Navbar and GlobalLoader each use the 1024x1024 `kess_logo.png` (1,124,738 bytes); `_document.js` uses that PNG as the favicon. Public WebP alternatives already exist: `hero_bg.webp` is 181,796 bytes and `kess_logo.webp` is 165,662 bytes. The WebP files depict the same hero/logo subject when inspected, but are not currently referenced by these components. `PageHero` and the logo components already use `next/image`; they benefit from its optimizer, unlike raw `<img>` usages.
+Problem: The source repository retains large originals, and route warmup separately requests raw paths. The PNG source representations are much larger than the matching WebP candidates, and the 6.6 MB About source is especially large. Optimizer output and actual production transfer/processing costs are not measurable from source alone.
+Recommended change: Compare the existing WebP files with the PNGs at the actual hero/logo render sizes, including detail, transparency, and brand color. If they meet the site's visual standard, use them as the source for `next/image` and the favicon where supported; otherwise generate quality-controlled responsive variants. Keep the original large-resolution sources only if needed for an equivalent crop on wide screens. Preserve the same `sizes`, `priority`, crop, and dimensions, and ensure the loader warms the same optimized asset rather than the original.
+Expected impact: Potentially substantially smaller source and delivered image bytes, faster first-image delivery, and lower decode cost without changing the image content.
+Risk: Medium until visual and optimizer output comparisons are completed.
+UI/UX impact: None intended; exact same hero and logo appearance is a release condition.
+Implementation difficulty: Low to medium.
+Affects: Initial load: high; page navigation: high; mobile: high; slow network: high; CPU: decode/optimizer work may fall; memory: decoded pixel footprint depends on rendered dimensions; bundle size: no.
+
+### 4.7 Loader animation paint cost (measurement-gated)
+
+Priority: P2 (medium, only if profiling confirms cost)
+Evidence: Source shows per-frame filter and SVG stroke-dash changes; dropped frames are not measurable from source alone.
+
+File: `frontend/styles/globals.css`, `frontend/components/GlobalLoader.jsx`
+Component: Full-screen loader
+Current behavior: The ring continuously animates `filter: drop-shadow`, opacity, SVG `stroke-dasharray`, and transform; three dots animate transform, opacity, and box-shadow. The loader exists globally and is initially visible. `will-change` is applied to loader content/frame/ring.
+Problem: Transform/opacity can often stay on the compositor, but animated filters, stroke-dasharray, and shadows can require recurring paint work on constrained GPUs/CPUs. This is a plausible cost, not a demonstrated defect.
+Recommended change: Profile the initial loader on a low-end Android device and under CPU throttling. Only if the ring/dots cause paint time or dropped frames, reduce repeated paint work while preserving the same perceived ring, glow, pulse, timing, and reduced-motion behavior (for example, use static effect layers and keep motion on transform/opacity where the rendered result matches).
+Expected impact: Lower main-thread/raster work while the loader is visible, if the profile confirms the current animation is costly.
+Risk: Medium because the loader is branded and its motion is part of the experience; do not alter it without visual comparison and profiling evidence.
+UI/UX impact: Must remain visually and temporally equivalent.
+Implementation difficulty: Medium.
+Affects: Initial load: yes; page navigation: yes when fallback shows; mobile: high; slow network: indirect; CPU: potentially high; memory: possible layer trade-off; bundle size: no.
+
+### 4.8 Repeated image bytes in public assets
+
+Priority: P3 (low)
+Evidence: Confirmed SHA-256 identity.
+
+File: `frontend/public/images/images_used/g_bg.png`, `frontend/public/images/images_company/60200630-e9d4-4d99-adad-8f815024628b.png`
+Component: Gallery's build-time image list and Gallery `PageHero`
+Current behavior: Both paths contain the exact same 1448x1086 PNG, 2,276,486 bytes. Gallery automatically includes the `images_company` copy as a gallery item, while the other path is used as the Gallery hero.
+Problem: This duplicates about 2.28 MB in the public asset set and deployment source. Separate URLs may also create separate browser/optimizer cache entries if both are requested.
+Recommended change: If deployment artifact size matters, arrange for both uses to resolve to one shared public URL while retaining both visible appearances and the gallery entry. Do not simply remove the directory entry: Gallery discovers its content by scanning that directory. Confirm any path change preserves the gallery item and hero.
+Expected impact: Reduced stored/deployed source bytes and possibly shared caching; little or no first-visit improvement if the duplicate is not both requested.
+Risk: Medium for Gallery because its list is discovered from the directory; verify item count/order and both rendered uses.
+UI/UX impact: None intended; both appearances remain.
+Implementation difficulty: Medium.
+Affects: Initial load: only if both are requested; page navigation: Gallery only; mobile: same conditional effect; slow network: small conditional effect; CPU: no meaningful change; memory: no meaningful change; bundle size: no.
+
+### 4.9 Careers route setup and phone-number dependency (measure before tuning)
+
+Priority: P2 (medium, measurement-dependent)
+Evidence: Confirmed synchronous module initialization; CPU/bundle impact requires a production bundle/profile.
+
+File: `frontend/pages/careers.js`, `frontend/components/ContactForm.jsx`, `frontend/package.json`
+Component: Careers and Contact forms
+Current behavior: Both form routes import `libphonenumber-js`; Careers calls `getCountries`, gets each calling code and localized country name, constructs flag strings, and sorts the complete list at module evaluation. Contact uses `AsYouType` and phone validation as the user edits/submits. These imports are page/component-specific, not imported in `_app.js`.
+Problem: Careers performs a country-list mapping and locale sort on route initialization, and the dependency contributes to Careers/Contact JavaScript. The source does not establish the exact bundle bytes or whether this work is a measurable long task. The international country/calling-code choices and validation are functional requirements and must remain.
+Recommended change: Record production page-chunk sizes and profile Careers initialization on a low-end phone first. If initialization is material, move only derivable country-list construction to a later safe point or cache its result for that page; if dependency bytes are material, select the smallest metadata/API path that still supports the existing country list and validation. Keep all country options and validation behavior.
+Expected impact: Potentially reduced route parse/execute time and/or page chunk size, only if measurement confirms these are significant.
+Risk: Medium; international calling codes, sorting, selected country defaults, and validation must not regress.
+UI/UX impact: None intended; all choices and form behavior remain.
+Implementation difficulty: Medium.
+Affects: Initial load: Careers/Contact only; page navigation: these routes; mobile: potentially high; slow network: bundle-dependent; CPU: Careers initialization; memory: small/page-specific; bundle size: page-specific only.
+
+## 5. Initial Page Load
+
+The source-defined sequence is:
+
+1. The browser requests a Next.js route. Pages Router pages without `getServerSideProps` are eligible for pre-rendering; Gallery explicitly supplies build-time props through `getStaticProps`. Actual hosting mode and response headers are deployment-dependent.
+2. The server returns the document shell and route HTML. `_document.js` adds the favicon and document metadata. Each page renders its content and shared components into the route output.
+3. The browser loads Next runtime, the shared `_app` code, the route's page chunk, generated CSS, and page-specific chunks. Next normally splits page code; exact compressed chunk sizes and parse costs need a production build/bundle report.
+4. `_app.js` applies the global Tailwind CSS and the two `next/font` families and renders the global loader. `next/font` self-hosts fonts generated at build time; there is no source evidence of a browser-side Google Fonts stylesheet request. Exact number/size of requested font files needs a production network trace.
+5. `GlobalLoader` is server-rendered initially visible over the page and locks scrolling after hydration. On router readiness it begins warming route assets and hides once that set resolves or its 2-second fallback fires. It does not wait for `window.load`, all document images, or form/API work.
+6. Priority images include the Navbar logo and, where present, `PageHero` image. Home/Contact share the hero PNG; About uses `team.jpg`; Gallery uses `g_bg.png`. Next Image transforms these sources under normal optimizer operation. The loader's native prewarmer requests raw URLs separately.
+7. The shared Footer embeds Google Maps eagerly with high priority on every page. This is the only third-party content request found in the rendered shared component tree.
+8. Contact and Careers API calls occur only after user submission. The frontend awaits the FastAPI response; the API sends mail through SMTP. This can affect form-submission response time, but it is not on initial page load or route navigation.
+
+Likely LCP candidates are the PageHero image on Home/About/Contact/Gallery and the visible heading/content on text-led pages. The actual LCP element and duration are not measurable from source code alone. FCP, INP, CLS, TBT, TTI, image decode duration, request count, compressed transfer bytes, cache reuse, backend/SMTP latency, and main-thread long tasks also require runtime measurement. Not measurable from source code alone.
+
+## 6. Loader Performance
+
+- One loader exists: `frontend/components/GlobalLoader.jsx`, mounted in `_app.js` on all routes. There is no second page-specific loading overlay for navigation (form submission indicators are separate and user-triggered).
+- It begins with `isLoading=true`, renders a fixed black full-viewport shell with the logo, animated SVG ring, “LOADING” text and dots, and calls `useScrollLock(isLoading)`. The page is rendered underneath the overlay; the loader itself intercepts pointer interaction while shown.
+- After `router.isReady`, the loader warms the current route's configured critical images. It hides when they finish or after 2,000 ms. It does not wait for `window.load`, every image, or API calls.
+- On route start, it prewarms that route's listed assets and schedules a 2,000 ms fallback before showing the loader. If the route completes after the fallback appears, `gateLoaderForRoute` can then wait up to another 2,000 ms for configured images. If navigation completes before the fallback, it gates on those assets without showing the overlay first.
+- On route error, it clears timers and hides the overlay. The current Home route gate includes all client logos; Services and Training have mismatched image entries; global background warmup covers assets from multiple routes.
+- Recommendation: preserve this intended loader and its animation. Correct the asset sets, avoid gating on non-visible imagery, avoid raw/optimized duplicate downloads, and test the two-second route-fallback behavior under throttled network and failed-image conditions. Any adjustment to timing should be based on those tests, not an arbitrary shorter timer.
+
+## 7. Image Optimization
+
+Source sizes below are exact file sizes from the repository, not measured network transfer sizes. Pixel dimensions are recorded where Windows image metadata decoding succeeded. For `next/image` assets, optimizer output can differ by viewport/browser format; for raw `<img>` assets, the original public file is referenced directly unless a deployment layer rewrites it.
+
+| Path | Original size / dimensions | Current use | Recommendation | Priority |
+|---|---:|---|---|---|
+| `frontend/public/images/images_used/hero_bg.png` | 2,393,372 B; 1536x1024 | Home and Contact `PageHero`, priority Next Image; also route warmup | QA existing `hero_bg.webp` (181,796 B) for color/detail parity; then use it or create responsive variants; align warmup with optimized source | P1 |
+| `frontend/public/images/images_used/hero_bg.webp` | 181,796 B; WebP | Present but not referenced by page/component source | Candidate for the same hero subject; verify on mobile and wide screens before switching | P1 |
+| `frontend/public/images/team.jpg` | 6,636,824 B; 2390x1760 | About priority Next Image hero; raw URL also route-warmed | Keep photo; optimize source and responsive widths, avoid duplicate raw warmup | P1 |
+| `frontend/public/images/images_used/g_bg.png` | 2,276,486 B; 1448x1086 | Gallery priority Next Image hero; route warmup | Optimize source/variants; correct Training warmup reference; identical bytes also exist in Gallery folder | P1/P3 |
+| `frontend/public/images/images_company/60200630-e9d4-4d99-adad-8f815024628b.png` | 2,276,486 B; 1448x1086 | Automatically included as one of Gallery's 23 cards | Lazy-load as a below-fold card; it is byte-identical to `g_bg.png` | P1 |
+| `frontend/public/images/logo/kess_logo.png` | 1,124,738 B; 1024x1024 | Navbar and global loader Next Images, both priority; raw favicon | QA existing `kess_logo.webp` (165,662 B); retain crisp edges/transparency and provide appropriately sized favicon/logo outputs | P1 |
+| `frontend/public/images/logo/kess_logo.webp` | 165,662 B; WebP | Present but not referenced by current components | Candidate for logo source after detail/transparency QA | P1 |
+| `frontend/public/images/images_company/` (all 23 supported files) | 51,094,196 B aggregate | Gallery `getStaticProps`; all rendered grid images eager | Keep every photo; lazy-load below-fold entries and serve responsive optimized variants | P1 |
+| `frontend/public/images/images_company/193163c7-9dc3-4e83-9790-a605d5cb263b.png` | 2,397,688 B; 1447x1087 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/2ee9a02d-821c-41b1-adc0-1b1642db6426.png` | 2,458,189 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/3f03c074-c491-41ab-b4cb-27024ef55a23.png` | 2,174,715 B; 1086x1448 | Gallery card | Responsive output and lazy loading; portrait width variants | P2 |
+| `frontend/public/images/images_company/942e511a-ef60-4757-9c09-5d01ac50884d.png` | 2,153,055 B; 1868x842 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/a878380a-b5ce-411f-8bf7-bd7c7df19e7f.png` | 2,604,275 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/b021ba29-6b41-40d8-aef5-c261c350f13a.png` | 2,447,429 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/b2371c5c-dbf3-4ee2-b863-e9b698f79fa1.png` | 2,318,092 B; 955x1647 | Gallery card | Responsive output and lazy loading; portrait width variants | P2 |
+| `frontend/public/images/images_company/b589a616-5552-498b-b0ee-8c4920c5cacc.png` | 2,896,242 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/b6b7893d-59f4-4a11-b1eb-dd6d9efd6306.png` | 2,325,205 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/c1c2c3da-61a4-4805-912e-999eaf48a856.png` | 2,279,582 B; 1672x941 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/ChatGPT Image Sep 18, 2026, 06_47_29 PM.png` | 2,805,265 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/ChatGPT Image Sep 18, 2026, 06_51_44 PM.png` | 3,107,720 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/eb9431dd-733b-403e-8a75-b1023003da02.png` | 2,780,716 B; 1448x1086 | Gallery card | Responsive output and lazy loading | P2 |
+| `frontend/public/images/images_company/edacf068-cb92-4324-8d77-2af33de64519.png` | 3,113,273 B; 1448x1086 | Gallery card and Services row 6 raw `<img>` | Responsive optimized source on both uses; lazy-load Gallery/Services row | P1 |
+| `frontend/public/images/images_company/hosuekeeping.png` | 1,972,741 B; 1370x1148 | Services row 2 raw `<img>` | Responsive optimized image; defer until near viewport | P1 |
+| `frontend/public/images/images_company/on_job_training.png` | 2,929,296 B; 1448x1086 | Services row 4 and Training showcase raw `<img>` | Responsive optimized image; preserve both appearances | P1 |
+| `frontend/public/images/images_company/Screenshot 2026-09-18 184202.png` | 307,204 B; 543x320 | Services row 3 raw `<img>` | Supply responsive widths; defer with row | P2 |
+| `frontend/public/images/images_company/Screenshot 2026-09-18 184156.png` | 315,913 B; 552x327 | Gallery card | Lazy-load and size to card | P2 |
+| `frontend/public/images/images_company/Security_guarding.jpeg` | 220,972 B; 1600x1200 | Services row 1 raw `<img>` | Use responsive optimized output; defer with row | P2 |
+| `frontend/public/images/images_company/training_1.png` | 2,791,372 B; 1448x1086 | Training showcase raw `<img>` | Responsive optimized image and near-viewport loading | P1 |
+| `frontend/public/images/images_company/traninig_2.png` | 2,271,817 B; 1868x842 | Two Training showcase slots; same source path | Preserve both slots; responsive optimized output and near-viewport loading | P1 |
+| `frontend/public/images/images_company/vip_protection.png` | 2,146,949 B; 1672x941 | Services row 5 raw `<img>` | Responsive optimized image; defer until near viewport | P1 |
+| `frontend/public/images/founder-team/MrNamdevBhanudas Doke.png` | 90,816 B; 167x258 | Founder image in Home `Differentiator`, raw `<img>` | Add intrinsic dimensions/responsive handling if the shown size warrants it; current file is comparatively small | P3 |
+
+Other source inventory: `frontend/public/images/` contains 49 non-empty image files totaling 65,538,768 bytes, plus a zero-byte `.gitkeep`. This is repository/deployment asset volume, not a claim that all 65.5 MB download on every page. Three WebP files are present; the two named candidates above are currently unused by source components.
+
+## 8. JavaScript / Bundle Optimization
+
+- Per-route Pages Router splitting is already the main code-splitting mechanism. The eight pages are separate modules; avoid rewriting the app architecture.
+- `GlobalLoader`, Navbar, and Footer are shared and run/render on every route. The highest shared runtime/network cost found is the Footer's map iframe, not a large JavaScript dependency.
+- `gsap` is in `frontend/package.json`, but no frontend source imports it. It therefore does not appear necessary in the current browser dependency graph. Confirm no external script/build workflow uses it, then remove it from the manifest/lockfile in a later implementation phase if unused. Expected browser bundle reduction is likely none because it is not imported; the benefit is dependency/install footprint. Priority P3.
+- `libphonenumber-js` is used by the Contact and Careers forms, not globally. Keep its validation/country behavior; measure route chunks and Careers module initialization before considering a narrower import or deferred list construction.
+- `frontend/components/StatBar.jsx` updates four counters with `requestAnimationFrame` for two seconds after the section intersects. This is limited to Home and only runs when visible; no source evidence justifies removing the effect.
+- `IntersectionObserver` use is limited to reveal/visibility work in page components. Counts are not by themselves evidence of a performance defect. Profile low-end devices before consolidating observers.
+- `frontend/data/siteData.json` is imported as static data. There are no startup API requests or sequential data dependencies to optimize.
+- Exact route chunk sizes, hydration cost, code duplication after tree-shaking, and interaction latency are not measurable from source code alone; inspect a production build and browser performance trace.
+
+## 9. CSS Optimization
+
+- `frontend/styles/globals.css` is a compact global stylesheet (about 260 source lines) with one Tailwind import, design tokens, loader/reveal/marquee rules, reduced-motion handling, and focus styles. No large duplicate CSS imports, remote `@import`, or obviously oversized selector rules were found.
+- Tailwind v4/PostCSS generates the utility CSS; generated production CSS size and unused rule elimination must be checked in build output. Avoid manually deleting utilities based on source scans.
+- Potential paint-heavy recurring work is localized to loader glow/drop-shadow, loader stroke-dash animation, and animated dots. This is measurement-gated in section 4.7; do not remove branded motion based only on inspection.
+- Client and Training routes contain substantial route-local animation styles and decorative SVGs. Those styles are page-scoped rather than a separate external stylesheet. Profile frame/paint time on low-end devices before changing motion or artwork.
+- Navbar and modal overlays use backdrop blur. No source evidence proves that the current blur causes a user-visible issue; inspect GPU/raster traces before altering it.
+- No broad CSS minification recommendation is made: production optimization is a Next/Tailwind build responsibility and the source CSS is not evidently the dominant bottleneck.
+
+## 10. Mobile Optimization
+
+- Address eager external and below-fold images first: global Footer map, all Gallery images, Services rows, Training showcase, and below-fold Home/Clients logos.
+- Serve portrait/phone-width image variants rather than desktop originals; preserve the exact `object-cover` crop and fixed frames. `next/image` already provides an appropriate mechanism on PageHero/Gallery; raw image usage in Services, Training, and Clients needs equivalent responsive sources.
+- Avoid warming all client logos and other routes' hero images on a data-constrained or low-memory device. Preserve quick route behavior by keeping only the current visible hero/first-screen assets critical.
+- Profile the loader animations and the Careers country-list setup on low-end Android before changing them. Static source does not establish CPU/GPU impact.
+- Verify tap navigation and route transitions with the current full-screen loader after changing its asset gate. Keep reduced-motion support already present in global styles and route-local styles.
+- Mobile-specific LCP, memory pressure, decoded image count, and tap responsiveness are not measurable from source code alone.
+
+## 11. Slow Network Optimization
+
+Resource scheduling should preserve the same content while reducing competition:
+
+- Slow 3G: avoid the Google Maps iframe and offscreen gallery/service/training/client images until near view; request a suitably small hero/logo representation; do not let unrelated warmed assets gate the loader. First visible text and the actual route hero should get network priority.
+- Fast 3G: use responsive image widths and lazy loading for below-fold sections; restrict high priority to genuinely visible content. Keep the map deferred and preserve the existing route fallback for navigation.
+- Slow 4G: deliver WebP/AVIF or optimized JPEG where visual QA permits; avoid all-logo/all-gallery eager scheduling and raw-plus-optimized duplicate downloads. Ensure the first visible image is still promptly fetched.
+
+These are scheduling recommendations, not claims of measured download time. The current app has no initial JSON/API waterfall dependency; contact/career network requests begin only after form submission.
+
+## 12. Page-by-Page Recommendations
+
+### Home (`frontend/pages/index.js`)
+Page: `/`
+Initial resources: Global CSS/fonts, page bundle, prioritized Navbar logo and PageHero `hero_bg.png`, global loader, eager/high-priority shared Footer map.
+Heavy components: Two `ClientMarquee` instances, `StatBar`, `WhyTrustKESS`, and `Differentiator`. Counters and reveal observers activate on visibility; marquee animations run continuously.
+Heavy assets: 2.39 MB hero PNG; 17 client logos appear twice per marquee track and the marquee is rendered twice; founder PNG is about 91 KB. The loader also waits on hero plus all 17 original logo URLs.
+Unnecessary work: All marquee logos have eager/high priority; loader also globally warms assets for other routes. Browser coalescing of repeated identical URLs is not guaranteed by source.
+Recommended optimizations: Use the existing visually similar WebP hero after QA; prioritize only visible marquee logos; keep both marquees and their duplicate tracks but defer logos outside the initial viewport; correct the loader critical set and avoid raw/optimized duplicates. Defer the Footer map as above.
+Expected result: Less initial network contention and reduced first-view image load on Home, with content and animation preserved.
+
+### About (`frontend/pages/about.js`)
+Page: `/about`
+Initial resources: Shared app and components; `PageHero` uses priority `team.jpg`; Footer map is currently eager. Loader warms the raw team photo.
+Heavy components: Text-led leadership/compliance sections and shared Footer.
+Heavy assets: `team.jpg`, 2390x1760, 6,636,824 bytes; it is already rendered with Next Image but its raw source is also prewarmed.
+Unnecessary work: Raw source warmup overlaps a separately optimized Next Image request. `siteData.leadership` image fields are not rendered on this page; they do not create image requests.
+Recommended optimizations: Keep the team photo and hero. Optimize/resize the source for intended display widths and remove duplicate raw warmup; lazy-load the shared map.
+Expected result: Faster hero response on constrained networks and no unrelated image bytes competing with it.
+
+### Services (`frontend/pages/services.js`)
+Page: `/services`
+Initial resources: Text hero, route page JS/CSS, global loader, Navbar/Footer/map. It does not render `hero_bg.png`.
+Heavy components: Six full service rows, reveal wrappers, inline SVG icons, manpower content, and shared Footer.
+Heavy assets: Six raw service images total about 10.7 MB; four are large PNGs over 1.9 MB each.
+Unnecessary work: The route critical map prewarms the unused 2.39 MB `hero_bg.png`; all six raw images are marked eager/high priority and have no responsive `srcset`.
+Recommended optimizations: Remove the unused image from the loader's route-critical set; keep all service rows/images and defer/resize photos by viewport using Next Image or responsive equivalents; defer Footer map.
+Expected result: Faster first visible text and lower photo transfer/decode work when navigating to Services.
+
+### Training (`frontend/pages/training.js`)
+Page: `/training`
+Initial resources: Text/SVG hero, page bundle and styles, shared Footer/map. No `g_bg.png` hero is rendered.
+Heavy components: Long page, reveal/visibility observers, animated decorative SVGs, showcase, and result grid.
+Heavy assets: `training_1.png` (2,791,372 bytes) and `traninig_2.png` (2,271,817 bytes), with the second source used in two showcase slots. Three raw `<img>` elements have no explicit lazy-loading or responsive source hints.
+Unnecessary work: Route loader warms the unused `g_bg.png` (2,276,486 bytes); showcase images are encountered below the text sections but are not explicitly deferred.
+Recommended optimizations: Correct the route asset map; keep all three image placements; use responsive optimized output and near-viewport loading; retain and profile current decorative motion before changing it. Defer Footer map.
+Expected result: Fewer irrelevant downloads during page entry and less initial image decode/memory demand.
+
+### Gallery (`frontend/pages/gallery.js`)
+Page: `/gallery`
+Initial resources: Priority `g_bg.png` PageHero, page chunk, static image metadata from `getStaticProps`, shared Footer/map.
+Heavy components: 23-card gallery grid, IntersectionObserver reveal states, and interactive lightbox.
+Heavy assets: 23 source files total 51,094,196 bytes. Every grid `<Image>` is explicitly eager; each has `sizes`, so Next optimization can select variants, but eagerness still schedules all cards. `g_bg.png` is byte-identical to one gallery photo under another path.
+Unnecessary work: Below-fold photos are requested on route entry rather than as they approach view.
+Recommended optimizations: Keep all 23 cards and lightbox behavior; lazy-load below-fold images and reserve priority for the actual visible hero/first card. On lightbox open, request the selected larger image as needed. Evaluate the duplicate path as a storage/cache cleanup separately.
+Expected result: Gallery's first visible content becomes usable sooner; less network/decode/memory work during initial entry.
+
+### Clients (`frontend/pages/clients.js`)
+Page: `/clients`
+Initial resources: Text/SVG hero, page JS/CSS, shared Navbar/Footer/map.
+Heavy components: Animated hero SVGs and a 17-item client logo grid with visibility state.
+Heavy assets: Client logos are raw `<img>` elements and all are marked eager/high priority; examples include 602 KB 1000x786 Sadhana Bank JPEG and 325 KB 3000x3000 Gateway Towers PNG.
+Unnecessary work: Logo requests are scheduled at high priority even though the logo grid follows the hero. The IntersectionObserver sets reveal state but does not delay the image request.
+Recommended optimizations: Keep all 17 logos and animation; use responsive optimized variants and defer logos until near the grid viewport; lower priority for non-visible logos. Defer Footer map.
+Expected result: Better first-view prioritization and reduced logo transfer/decode work on mobile.
+
+### Careers (`frontend/pages/careers.js`)
+Page: `/careers`
+Initial resources: Text hero, page-specific JS, shared Navbar/Footer/map. No page image or API request is made on initial load.
+Heavy components: Long application form and country selector; Careers computes localized country labels/flags/calling codes and sorts countries at module evaluation.
+Heavy assets: None specific to Careers beyond shared logo/map/fonts.
+Unnecessary work: Potential page-specific phone library/country list initialization cost, not proven significant. Footer map is unrelated to the form and is eager.
+Recommended optimizations: Measure the Careers chunk and route initialization before touching the international phone support. Defer shared map. Preserve every form field and all supported countries.
+Expected result: Reduced global third-party work; possible page CPU/bundle benefit only if profiling justifies tuning.
+
+### Contact (`frontend/pages/contact.js`)
+Page: `/contact`
+Initial resources: Shared app, Contact PageHero with priority `hero_bg.png`, form component, Footer/map. No API request occurs until submit.
+Heavy components: Contact form phone formatting/validation and shared map iframe.
+Heavy assets: Shared 2.39 MB hero PNG source; existing 181.8 KB WebP candidate. No other route-specific image.
+Unnecessary work: The shared Footer map loads eagerly; route loader also warms raw hero while Next Image requests its optimized output.
+Recommended optimizations: QA/use the existing WebP or responsive variants; align loader warmup with the actual optimized hero; defer the map. Keep phone validation and form UX unchanged.
+Expected result: Reduced hero and third-party contention without delaying or changing form behavior.
+
+## 13. Dependency Optimization
+
+- `next` 14.2.35, `react` 18.3.1, and `react-dom` are core runtime dependencies; retain them.
+- `tailwindcss` and `@tailwindcss/postcss` are build-time styling tools; they are not imported as page runtime libraries. Check generated production CSS size rather than replacing them.
+- `libphonenumber-js` is used only by Contact/Careers phone behavior. Retain unless route-bundle/runtime profiling shows material cost and a replacement can preserve current country/format/validation behavior.
+- `gsap` is declared but no frontend source import was found. It is not currently evidenced as part of a client chunk. Confirm no out-of-tree build/deploy script needs it before removing it in a later change; likely install/deploy footprint benefit only.
+- `next/font/google` is a Next build feature, not a declared standalone runtime dependency. It self-hosts the requested Fraunces weights 500/600/700 and Inter weights 400/500/600. Keep the brand/typefaces; inspect the emitted font assets/preloads before considering any weight reduction.
+- `next.config.js` allows Unsplash, but the source pages do not use a remote Unsplash URL. This allowlist does not itself create an image request.
+- No analytics or third-party JavaScript SDK is referenced by the page/component source. Google Maps is embedded as an iframe, not imported as an npm bundle.
+
+## 14. Caching / Browser Optimization
+
+- No service worker, application cache, explicit cache headers, CDN config, proxy config, or deployment manifest was found. Production cache policy cannot be determined from this repository alone.
+- Verify the production host gives long-lived immutable caching to fingerprinted `/_next/static` build assets and sensible caching to Next Image optimizer output. Confirm HTML is revalidated appropriately on deploy.
+- Public asset URLs are stable names (for example `hero_bg.png`), not content-hashed. If public files are cached for a long time, use deployment/version-aware invalidation or versioned filenames so an updated image does not remain stale. Do not add a service worker solely by default; it would add lifecycle/cache invalidation complexity.
+- Verify Brotli/gzip for HTML, JS, CSS, and JSON at the actual host. Image compression is addressed by responsive encoding, not generic text compression.
+- Repeated image URLs may share browser/optimizer cache, but cache coalescing, cache TTL, CDN hit ratio, and repeat-visit savings are not measurable from source code alone.
+
+## 15. Recommended Implementation Order
+
+### Phase 1 — Safest/highest impact
+1. Defer the Footer Google Maps iframe while preserving its current dimensions and content.
+2. Correct loader critical-asset lists (`/services` and `/training` do not render their mapped images); stop using all Home client logos as loader gates.
+3. Lazy-load Gallery images below the initial viewport while retaining every card and lightbox behavior.
+4. Change Services and Training photos to responsive optimized output and near-viewport loading; retain existing crops and all placements.
+
+### Phase 2 — Reduce critical image bytes
+1. Visually QA and adopt the existing `hero_bg.webp` / `kess_logo.webp` candidates where they match the current image quality and transparency.
+2. Resize/encode the About `team.jpg` source and large gallery/service/training photographs for the real rendered widths.
+3. Make Home marquee and Clients grid logo priorities reflect actual visibility; preserve repeated marquee tracks and both marquee sections.
+
+### Phase 3 — Loader and route performance
+1. Ensure image warmup targets the same optimized output used by rendered components and does not fetch all routes' assets on every visit.
+2. Validate loader lifecycle and fallback on initial load, successful navigation, slow route load, image failure, and client-side back/forward navigation.
+3. Profile the loader's filter/SVG animation on low-end Android; tune only if the trace confirms recurring paint cost and visual comparison passes.
+
+### Phase 4 — Measurement-led cleanup
+1. Capture production page-chunk sizes and Careers/Contact CPU traces; only then consider phone-library/country-list changes.
+2. Confirm `gsap` is unused in build/deployment tooling before removing the dependency.
+3. Validate CDN cache/compression headers and repeat-visit behavior with the production host.
+4. Run throttled browser tests and Core Web Vitals after the above changes. Do not set target Lighthouse scores until a baseline has been measured.
+
+## 16. Things We MUST NOT Change
+
+- Keep every page, text block, image, logo, client name, gallery entry, service/training illustration, and form field.
+- Keep the visual layout, crops, responsive breakpoints, typography (Fraunces and Inter), colors, brand assets, and information hierarchy.
+- Keep the Navbar/footer contents, all routes and link behavior, WhatsApp access, contact/career submission flows, international country options, phone validation, and Gallery lightbox controls.
+- Keep both Home client marquees, their scrolling effect, reveal/counter interactions, and the branded loading experience. Any loader asset/timing change must preserve its intended visual sequence and navigation/error behavior.
+- Do not remove animations or redesign components as a substitute for optimizing asset encoding, request priority, lazy loading, caching, or avoidable work.
+
+## 17. Expected Result
+
+After implementation and validation, the first visible route content should compete with fewer unrelated third-party and below-fold requests; large images should be delivered at display-appropriate sizes/formats; the Gallery, Services, Training, and client grids should load content progressively without losing any entries; and the loader should wait only on assets relevant to the current route while retaining its existing appearance and fallback behavior. Repeat visits should benefit from verified host caching, and form/API behavior should remain unchanged.
+
+No exact Lighthouse score, LCP/FCP/INP/CLS/TBT/TTI improvement, request count, transfer total, or user-perceived time is predicted here. Those results depend on production optimizer output, hosting/CDN headers, browser scheduling/cache behavior, viewport, device CPU/RAM, and network conditions; measure them before and after implementation.

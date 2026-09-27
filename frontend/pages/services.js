@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -420,13 +421,14 @@ function ServiceImage({
         lg:h-[340px]
       "
     >
-      <img
-        src={image}
+      <Image
+        src={image.src}
         alt={title}
-        loading="eager"
-        fetchPriority="high"
+        width={image.width}
+        height={image.height}
+        loading="lazy"
         decoding="async"
-        sizes="(max-width: 640px) 100vw, 50vw"
+        sizes="(max-width: 1023px) 100vw, (max-width: 1280px) 50vw, 640px"
         className="
           absolute
           inset-0
@@ -507,12 +509,12 @@ export default function Services() {
   ======================================================= */
 
   const imageList = [
-    "/images/images_company/Security_guarding.jpeg",
-    "/images/images_company/hosuekeeping.png",
-    "/images/images_company/Screenshot 2026-09-18 184202.png",
-    "/images/images_company/on_job_training.png",
-    "/images/images_company/vip_protection.png",
-    "/images/images_company/edacf068-cb92-4324-8d77-2af33de64519.png",
+    { src: "/images/images_company/Security_guarding.jpeg", width: 1600, height: 1200 },
+    { src: "/images/images_company/hosuekeeping.png", width: 1370, height: 1148 },
+    { src: "/images/images_company/Screenshot 2026-09-18 184202.png", width: 543, height: 320 },
+    { src: "/images/images_company/on_job_training.png", width: 1448, height: 1086 },
+    { src: "/images/images_company/vip_protection.png", width: 1672, height: 941 },
+    { src: "/images/images_company/edacf068-cb92-4324-8d77-2af33de64519.png", width: 1448, height: 1086 },
   ];
 
   /* =======================================================

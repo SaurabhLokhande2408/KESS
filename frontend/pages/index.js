@@ -192,7 +192,7 @@ export default function Home() {
             label: "Services",
             href: "/services",
           }}
-          image="/images/images_used/hero_bg.png"
+          image="/images/images_used/hero_bg.webp"
           imageAlt="KESS security personnel standing in formation"
         />
 

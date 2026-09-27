@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,9 +12,9 @@ export default function Training() {
   const { training } = siteData;
 
   const showcaseImages = [
-    "/images/images_company/training_1.png",
-    "/images/images_company/traninig_2.png",
-    "/images/images_company/traninig_2.png",
+    { src: "/images/images_company/training_1.png", width: 1448, height: 1086 },
+    { src: "/images/images_company/traninig_2.png", width: 1868, height: 842 },
+    { src: "/images/images_company/traninig_2.png", width: 1868, height: 842 },
   ];
 
   const [visible, setVisible] = useState(false);
@@ -409,9 +410,13 @@ export default function Training() {
                   className="group relative overflow-hidden rounded-3xl border border-[#20241D]/15 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C6A348]/40"
                 >
                   <div className="relative h-[400px] w-full overflow-hidden sm:h-[460px]">
-                    <img
-                      src={image}
+                    <Image
+                      src={image.src}
                       alt={`KESS training session ${idx + 1}`}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1344px) calc((100vw - 8rem) / 3), 406px"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   </div>
